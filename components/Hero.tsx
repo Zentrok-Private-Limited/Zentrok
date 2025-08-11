@@ -73,8 +73,7 @@ export default function Hero() {
 
       {/* Subtext */}
       <p className="mt-4 sm:mt-6 text-sm sm:text-lg text-black/80 max-w-md sm:max-w-xl font-sans relative z-10">
-        From strategy to execution, we craft bold ideas that drive measurable
-        results. Let’s turn your vision into reality.
+        We turn your business into the gossip everyone shares online.
       </p>
 
       {/* CTA Buttons */}

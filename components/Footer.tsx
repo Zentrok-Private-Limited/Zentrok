@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
   FaFacebookF,
@@ -10,7 +10,27 @@ import {
 } from "react-icons/fa";
 import { Send } from "lucide-react";
 
+interface Dot {
+  top: string;
+  left: string;
+  animationDelay: string;
+  animationDuration: string;
+}
+
 const AnimatedFooter: React.FC = () => {
+  const [dots, setDots] = useState<Dot[]>([]);
+
+  useEffect(() => {
+    // Generate particles only on client side to avoid SSR mismatch
+    const newDots: Dot[] = Array.from({ length: 12 }).map(() => ({
+      top: `${Math.random() * 100}%`,
+      left: `${Math.random() * 100}%`,
+      animationDelay: `${Math.random() * 6}s`,
+      animationDuration: `${4 + Math.random() * 4}s`,
+    }));
+    setDots(newDots);
+  }, []);
+
   return (
     <footer className="relative overflow-hidden text-black">
       {/* Gradient Animated Background */}
@@ -18,15 +38,15 @@ const AnimatedFooter: React.FC = () => {
 
       {/* Floating Particles */}
       <div className="absolute inset-0 pointer-events-none">
-        {[...Array(12)].map((_, i) => (
+        {dots.map((dot, i) => (
           <span
             key={i}
             className="absolute w-2 h-2 bg-white rounded-full opacity-20 animate-float"
             style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 6}s`,
-              animationDuration: `${4 + Math.random() * 4}s`,
+              top: dot.top,
+              left: dot.left,
+              animationDelay: dot.animationDelay,
+              animationDuration: dot.animationDuration,
             }}
           />
         ))}
@@ -48,7 +68,7 @@ const AnimatedFooter: React.FC = () => {
             className="flex-1 px-4 py-3 rounded-full border border-black focus:outline-none focus:ring-2 focus:ring-[#E63946]"
           />
 
-          {/* Subscribe Button with Hero Animation */}
+          {/* Subscribe Button */}
           <motion.button
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.96 }}
@@ -63,7 +83,7 @@ const AnimatedFooter: React.FC = () => {
           </motion.button>
         </form>
 
-        {/* Social Icons with Pop Animation */}
+        {/* Social Icons */}
         <div className="flex space-x-4">
           {[
             { Icon: FaFacebookF, link: "#" },
