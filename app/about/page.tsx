@@ -4,6 +4,7 @@ import MissionValues from "@/components/MissionValues";
 import StatsAndProof from "@/components/StatsAndProof";
 import TeamGrid from "@/components/TeamGrid";
 import CTASection from "@/components/CTASection";
+import Footer from "@/components/Footer";
 
 export default function AboutPage() {
   return (
@@ -13,6 +14,7 @@ export default function AboutPage() {
       <StatsAndProof />
       <TeamGrid />
       <CTASection />
+      <Footer/>
     </main>
   );
 }

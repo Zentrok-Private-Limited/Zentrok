@@ -1,4 +1,3 @@
-// components/TeamGrid.tsx
 "use client";
 import { useState } from "react";
 
@@ -11,27 +10,33 @@ const team = [
 export default function TeamGrid() {
   const [open, setOpen] = useState<number | null>(null);
   return (
-    <section className="py-16">
-      <div className="max-w-6xl mx-auto px-6">
-        <h3 className="text-2xl font-bold mb-6">The Team</h3>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+    <section className="py-16 bg-amber-40">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h3 className="text-2xl font-bold mb-8 text-center sm:text-left">The Team</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {team.map((t, i) => (
             <button
               key={t.name}
+              type="button"
               onClick={() => setOpen(open === i ? null : i)}
-              className="text-left p-4 bg-white rounded-lg shadow hover:shadow-lg transition"
+              aria-expanded={open === i}
+              className="w-full bg-white rounded-lg shadow p-4 flex flex-col sm:flex-row items-center sm:items-start gap-4 hover:shadow-lg transition"
             >
-              <div className="flex items-center gap-4">
-                <img src={t.img} alt={t.name} className="w-12 h-12 rounded-full object-cover" />
-                <div>
-                  <div className="font-semibold">{t.name}</div>
-                  <div className="text-sm text-black/70">{t.role}</div>
-                </div>
-              </div>
+              <img
+                src={t.img}
+                alt={t.name}
+                className="w-16 h-16 rounded-full object-cover flex-shrink-0"
+              />
+              <div className="text-left flex-1">
+                <div className="font-semibold text-lg">{t.name}</div>
+                <div className="text-sm text-black/70">{t.role}</div>
 
-              {open === i && (
-                <div className="mt-4 text-sm text-black/80">{t.bio}</div>
-              )}
+                {open === i && (
+                  <p className="mt-3 text-sm text-black/80 transition-opacity duration-300">
+                    {t.bio}
+                  </p>
+                )}
+              </div>
             </button>
           ))}
         </div>
