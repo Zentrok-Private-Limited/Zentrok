@@ -1,7 +1,10 @@
+// next.config.ts
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    domains: ["cdn.vox-cdn.com"], // whitelist your image domain
+  },
 };
 
 export default nextConfig;
