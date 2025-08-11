@@ -1,21 +1,12 @@
 "use client";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import Image from "next/image";
+
 
 export default function AboutHero() {
   return (
     <section className="relative overflow-hidden text-black min-h-screen">
-      {/* Background image */}
-      <div className="absolute inset-0 -z-10">
-        <img
-          src="/about-hero-bg.jpg"  // your image in /public folder
-          alt="Background"
-          className="w-full h-full object-cover opacity-100"
-          loading="lazy"
-        />
-        {/* Overlay for contrast */}
-        <div className="absolute inset-0 bg-black/50" />
-      </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-32 relative z-10">
         <motion.div

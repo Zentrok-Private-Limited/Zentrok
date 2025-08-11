@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Image from "next/image";
 
 const team = [
   { name: "Himanshu", role: "Creative Director", img: "/team/himanshu.jpg", bio: "Brand nerd. Coffee addict." },
@@ -22,11 +23,16 @@ export default function TeamGrid() {
               aria-expanded={open === i}
               className="w-full bg-white rounded-lg shadow p-4 flex flex-col sm:flex-row items-center sm:items-start gap-4 hover:shadow-lg transition"
             >
-              <img
-                src={t.img}
-                alt={t.name}
-                className="w-16 h-16 rounded-full object-cover flex-shrink-0"
-              />
+              <div className="relative w-16 h-16 flex-shrink-0 rounded-full overflow-hidden">
+                <Image
+                  src={t.img}
+                  alt={t.name}
+                  fill
+                  style={{ objectFit: "cover" }}
+                  sizes="64px"
+                  priority={false}
+                />
+              </div>
               <div className="text-left flex-1">
                 <div className="font-semibold text-lg">{t.name}</div>
                 <div className="text-sm text-black/70">{t.role}</div>
