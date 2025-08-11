@@ -1,7 +1,17 @@
 "use client";
 
-import { Lightbulb, User, Target, PenTool, Star, Globe, Megaphone, LucideIcon, ArrowBigDown } from "lucide-react";
-import { motion } from "framer-motion";
+import {
+  Lightbulb,
+  User,
+  Target,
+  PenTool,
+  Star,
+  Globe,
+  Megaphone,
+  LucideIcon,
+  ArrowBigUp,
+} from "lucide-react";
+import { motion, Variants } from "framer-motion";
 
 // 1. Define the Service type for strict typing
 type Service = {
@@ -17,12 +27,12 @@ const services: Service[] = [
   { title: "Value Proposition", description: "Defining what makes your business irresistible.", icon: PenTool },
   { title: "Personality Traits", description: "Crafting a brand voice and soul customers remember.", icon: User },
   { title: "Verbal Identity", description: "Distinct communication style and messaging.", icon: Megaphone },
-  { title: "Naming", description: "Memorable and meaningful brand names and terms.", icon: Globe },
-  { title: "Naming", description: "Memorable and meaningful brand names and terms.", icon: ArrowBigDown },
+  { title: "Naming Strategy", description: "Memorable and meaningful brand names and terms.", icon: Globe },
+  { title: "Brand Symbolism", description: "Powerful symbols to reinforce your brand identity.", icon: ArrowBigUp },
 ];
 
-// 2. Framer-motion animation variants
-const container = {
+// 2. Framer-motion animation variants (typed)
+const container: Variants = {
   hidden: {},
   show: {
     transition: {
@@ -31,9 +41,9 @@ const container = {
   },
 };
 
-const item = {
+const item: Variants = {
   hidden: { opacity: 0, y: 40 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" }},
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
 };
 
 export default function ServicesSection() {
@@ -52,15 +62,20 @@ export default function ServicesSection() {
         >
           {services.map((service, idx) => (
             <motion.div
-              key={service.title}
+              key={idx}
               variants={item}
-              whileHover={{ scale: 1.04, boxShadow: "0 8px 32px rgba(0,0,0,0.09)" }}
+              whileHover={{
+                scale: 1.04,
+                boxShadow: "0 8px 32px rgba(0,0,0,0.09)",
+              }}
               className="group bg-white border border-gray-200 rounded-xl p-8 shadow-sm transition-all duration-300 flex flex-col items-center text-center"
             >
               <div className="mb-4 text-rojo">
                 <service.icon size={36} />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">{service.title}</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                {service.title}
+              </h3>
               <p className="text-gray-600">{service.description}</p>
             </motion.div>
           ))}
