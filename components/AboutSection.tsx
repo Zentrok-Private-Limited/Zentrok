@@ -73,7 +73,7 @@ export default function AboutSection() {
               <div className="rounded-md overflow-hidden shadow-xl"> {/* Optional: Add styling to the video container */}
                 <video
                   src={videoSrc} // Use videoSrc as the source for the video
-                  alt="illustration video" // Descriptive alt text for accessibility
+                  aria-label="illustration video" // Descriptive alt text for accessibility
                   width={400} // Set a width for your video
                   height={200} // Set a height for your video
                   loop // Optional: loop the video playback
