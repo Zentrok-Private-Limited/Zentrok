@@ -12,9 +12,9 @@ export default function MissionValues() {
     <section className="py-16 bg-white">
       <div className="max-w-5xl mx-auto px-6">
         <div className="text-center mb-10">
-          <h2 className="text-2xl sm:text-3xl font-bold">Our Philosophy</h2>
-          <p className="text-sm text-black/70 mt-2">
-            We don&apos;t do &apos;campaigns&apos; &mdash; we build momentum. Strategy, creative and delivery
+          <h2 className="text-5xl sm:text-5xl font-bold">Our Philosophy</h2>
+          <p className="text font-bold text-black/90 mt-5">
+            We don't do 'campaigns' we build momentum. Strategy, creative and delivery
             that hook culture and convert.
           </p>
         </div>

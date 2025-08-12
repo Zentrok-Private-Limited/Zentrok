@@ -1,14 +1,17 @@
 "use client";
+
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
-
+import { Send } from "lucide-react";
 
 export default function AboutHero() {
   return (
     <section className="relative overflow-hidden text-black min-h-screen">
-
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-32 relative z-10">
+      <div
+        className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-[calc(4rem+var(--navbar-height,60px))] pb-8 sm:pb-12 lg:pb-16 relative z-10"
+        style={{ "--navbar-height": "20px" } as React.CSSProperties} // adjust if navbar changes
+      >
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
@@ -31,17 +34,28 @@ export default function AboutHero() {
           </p>
 
           <div className="mt-8 flex flex-col sm:flex-row gap-4 items-center justify-center">
+            {/* Start a project button with same hover effect as navbar */}
             <Link
               href="/contact"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-rojo text-white px-5 py-3 rounded-full shadow-lg hover:shadow-xl transition duration-300"
+              className="w-full sm:w-auto flex items-center gap-2 bg-rojo text-white font-semibold px-5 py-3 rounded-full shadow hover:shadow-md transition-transform hover:-translate-y-0.5 group"
             >
-              Start a project
+              <span>Start a project</span>
+              <Send
+                size={16}
+                className="transition-transform duration-300 ease-in-out opacity-0 group-hover:opacity-100 group-hover:translate-x-1"
+              />
             </Link>
+
+            {/* Case studies button with same hover style */}
             <Link
               href="/case-studies"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 border border-white/40 text-white px-5 py-3 rounded-full hover:bg-white/10 transition duration-300"
+              className="w-full sm:w-auto flex items-center gap-2 border border-white/40 text-white font-semibold px-5 py-3 rounded-full hover:bg-white/10 transition-transform hover:-translate-y-0.5 group"
             >
-              See case studies
+              <span>See case studies</span>
+              <Send
+                size={16}
+                className="transition-transform duration-300 ease-in-out opacity-0 group-hover:opacity-100 group-hover:translate-x-1"
+              />
             </Link>
           </div>
         </motion.div>

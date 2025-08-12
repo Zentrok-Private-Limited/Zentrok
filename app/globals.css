@@ -7,7 +7,9 @@
    Tailwind Directives
 ============================= */
 @import "tailwindcss";
-
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 /* =============================
    Root Variables
 ============================= */

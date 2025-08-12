@@ -1,7 +1,7 @@
 // components/StatsAndProof.tsx
 export default function StatsAndProof() {
   // Replace logos with your clients in /public/logos/
-  const logos = ["/logos/client1.png","/logos/client2.png","/logos/client3.png"];
+
 
   return (
     <section className="py-12 bg-gray-50">
@@ -24,14 +24,6 @@ export default function StatsAndProof() {
                 <div className="text-sm text-black/70">Average conversion uplift</div>
               </div>
             </div>
-          </div>
-
-          <div className="flex items-center gap-6">
-            {logos.map((l) => (
-              <div key={l} className="w-28 h-12 flex items-center justify-center opacity-80">
-                <img src={l} alt="client" className="max-h-10 object-contain" />
-              </div>
-            ))}
           </div>
         </div>
       </div>
