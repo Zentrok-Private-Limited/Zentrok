@@ -65,7 +65,6 @@ export default function Navbar() {
               href={href}
               className="group relative flex flex-col items-center"
             >
-              {/* Icon above text on hover */}
               <Icon
                 className="absolute -top-6 opacity-0 group-hover:opacity-100 group-hover:-translate-y-1 transition-all duration-300 text-rojo"
                 size={16}
@@ -75,13 +74,13 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* Right: Let’s Work Button (with your original animation) */}
+        {/* Right: Let's Work Button */}
         <div className="hidden md:flex">
           <Link
             href="#contact"
             className="flex items-center gap-2 bg-white text-black font-semibold px-4 py-2 rounded-full shadow hover:shadow-md transition-transform hover:-translate-y-0.5 group"
           >
-            <span>Let’s Work</span>
+            <span>Let's Work</span>
             <Send
               size={16}
               className="transition-transform duration-300 ease-in-out opacity-0 group-hover:opacity-100 group-hover:translate-x-1"
@@ -123,7 +122,7 @@ export default function Navbar() {
                 className="flex items-center gap-2 bg-white text-black font-semibold px-4 py-2 rounded-full shadow hover:shadow-md transition-transform hover:-translate-y-0.5 group"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <span>Let’s Work</span>
+                <span>Let's Work</span>
                 <Send
                   size={16}
                   className="transition-transform duration-300 ease-in-out opacity-0 group-hover:opacity-100 group-hover:translate-x-1"

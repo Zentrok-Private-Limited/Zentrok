@@ -2,7 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import Footer from "@/components/Footer";
+
 const services = [
   {
     title: "Brand Strategy",
@@ -60,26 +62,26 @@ const services = [
   },
 ];
 
-// Testimonials data
+// Testimonials data — only filenames now
 const testimonials = [
   {
     name: "Priya Sharma",
     role: "CEO, BrightTech",
-    photo: "/testimonials/priya.jpg",
+    photo: "priya.jpg",
     feedback:
       "ZENTROK transformed our brand narrative and increased our engagement by 300%. These guys know what they’re doing!",
   },
   {
     name: "Rahul Verma",
     role: "Marketing Head, FreshFoods",
-    photo: "/testimonials/rahul.jpg",
+    photo: "rahul.jpg",
     feedback:
       "Creative, professional, and results-driven. Their digital marketing campaigns consistently deliver ROI.",
   },
   {
     name: "Sneha Gupta",
     role: "Founder, UrbanStyle",
-    photo: "/testimonials/sneha.jpg",
+    photo: "sneha.jpg",
     feedback:
       "Their attention to detail and execution made our product launch unforgettable. Highly recommend ZENTROK!",
   },
@@ -98,107 +100,111 @@ export default function Services() {
 
   return (
     <>
-    <main className="min-h-screen py-20 px-6 sm:px-12 lg:px-24">
-      {/* Hero */}
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="max-w-4xl mx-auto text-center mb-20"
-      >
-        <h2 className="text-rojo text-4xl sm:text-5xl font-extrabold mb-4">
-          Our Services
-        </h2>
-        <p className="text-black/70 max-w-xl mx-auto text-lg sm:text-xl">
-          We deliver strategy, creativity, and data-driven marketing that
-          propel your brand forward.
-        </p>
-      </motion.section>
-
-      {/* Services Grid */}
-      <section className="max-w-6xl  mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 mb-32">
-        {services.map(({ title, description, icon }, idx) => (
-          <motion.article
-            key={title}
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: idx * 0.2, duration: 0.6 }}
-            className="bg-white rounded-xl p-8 text-center hover:shadow-3xl cursor-pointer transition-shadow"
-          >
-            <div className="mb-6 flex justify-center">{icon}</div>
-            <h3 className="text-2xl font-bold mb-3 text-rojo">{title}</h3>
-            <p className="text-black/80">{description}</p>
-          </motion.article>
-        ))}
-      </section>
-
-      {/* Testimonials Carousel */}
-      <section className="max-w-4xl mx-auto mb-32 relative">
-        <h3 className="text-rojo text-4xl font-bold text-center mb-10">
-          What Our Clients Say
-        </h3>
-
-        <div className="overflow-hidden rounded-xl shadow-lg bg-white p-10 relative">
-          <AnimatePresence mode="wait">
-            {testimonials.map((testi, idx) =>
-              idx === currentTestimonial ? (
-                <motion.div
-                  key={testi.name}
-                  initial={{ opacity: 0, x: 50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -50 }}
-                  transition={{ duration: 0.5 }}
-                  className="text-center"
-                >
-                  <img
-                    src={testi.photo}
-                    alt={testi.name}
-                    className="mx-auto w-24 h-24 rounded-full object-cover mb-6 shadow-md"
-                    loading="lazy"
-                  />
-                  <p className="italic text-lg text-black/80 mb-6">“{testi.feedback}”</p>
-                  <p className="font-semibold text-rojo">{testi.name}</p>
-                  <p className="text-sm text-black/60">{testi.role}</p>
-                </motion.div>
-              ) : null
-            )}
-          </AnimatePresence>
-
-          {/* Controls */}
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-4">
-            {testimonials.map((_, idx) => (
-              <button
-                key={idx}
-                aria-label={`Show testimonial ${idx + 1}`}
-                className={`w-3 h-3 rounded-full ${
-                  idx === currentTestimonial ? "bg-rojo" : "bg-gray-300"
-                }`}
-                onClick={() => setCurrentTestimonial(idx)}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Call To Action */}
-      <section className="bg-rojo text-white rounded-xl max-w-4xl mx-auto p-12 text-center shadow-lg">
-        <h3 className="text-3xl font-extrabold mb-6">
-          Ready to transform your brand?
-        </h3>
-        <p className="mb-8 text-lg max-w-xl mx-auto">
-          Let's work together to create unforgettable campaigns that move your
-          business forward.
-        </p>
-        <a
-          href="/contact"
-          className="inline-block bg-white text-rojo font-bold px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition"
+      <main className="min-h-screen py-20 px-6 sm:px-12 lg:px-24">
+        {/* Hero */}
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="max-w-4xl mx-auto text-center mb-20"
         >
-          Get in Touch
-        </a>
-      </section>
-    </main>
-    <Footer />
+          <h2 className="text-rojo text-4xl sm:text-5xl font-extrabold mb-4">
+            Our Services
+          </h2>
+          <p className="text-black/70 max-w-xl mx-auto text-lg sm:text-xl">
+            We deliver strategy, creativity, and data-driven marketing that
+            propel your brand forward.
+          </p>
+        </motion.section>
+
+        {/* Services Grid */}
+        <section className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 mb-32">
+          {services.map(({ title, description, icon }, idx) => (
+            <motion.article
+              key={title}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.2, duration: 0.6 }}
+              className="bg-white rounded-xl p-8 text-center hover:shadow-3xl cursor-pointer transition-shadow"
+            >
+              <div className="mb-6 flex justify-center">{icon}</div>
+              <h3 className="text-2xl font-bold mb-3 text-rojo">{title}</h3>
+              <p className="text-black/80">{description}</p>
+            </motion.article>
+          ))}
+        </section>
+
+        {/* Testimonials Carousel */}
+        <section className="max-w-4xl mx-auto mb-32 relative">
+          <h3 className="text-rojo text-4xl font-bold text-center mb-10">
+            What Our Clients Say
+          </h3>
+
+          <div className="overflow-hidden rounded-xl shadow-lg bg-white p-10 relative">
+            <AnimatePresence mode="wait">
+              {testimonials.map((testi, idx) =>
+                idx === currentTestimonial ? (
+                  <motion.div
+                    key={testi.name}
+                    initial={{ opacity: 0, x: 50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -50 }}
+                    transition={{ duration: 0.5 }}
+                    className="text-center"
+                  >
+                    <Image
+                      src={`/testimonials/${testi.photo}`}
+                      alt={testi.name}
+                      width={96}
+                      height={96}
+                      className="mx-auto w-24 h-24 rounded-full object-cover mb-6 shadow-md"
+                      loading="lazy"
+                    />
+                    <p className="italic text-lg text-black/80 mb-6">
+                      “{testi.feedback}”
+                    </p>
+                    <p className="font-semibold text-rojo">{testi.name}</p>
+                    <p className="text-sm text-black/60">{testi.role}</p>
+                  </motion.div>
+                ) : null
+              )}
+            </AnimatePresence>
+
+            {/* Controls */}
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-4">
+              {testimonials.map((_, idx) => (
+                <button
+                  key={idx}
+                  aria-label={`Show testimonial ${idx + 1}`}
+                  className={`w-3 h-3 rounded-full ${
+                    idx === currentTestimonial ? "bg-rojo" : "bg-gray-300"
+                  }`}
+                  onClick={() => setCurrentTestimonial(idx)}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Call To Action */}
+        <section className="bg-rojo text-white rounded-xl max-w-4xl mx-auto p-12 text-center shadow-lg">
+          <h3 className="text-3xl font-extrabold mb-6">
+            Ready to transform your brand?
+          </h3>
+          <p className="mb-8 text-lg max-w-xl mx-auto">
+            Let's work together to create unforgettable campaigns that move
+            your business forward.
+          </p>
+          <a
+            href="/contact"
+            className="inline-block bg-white text-rojo font-bold px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition"
+          >
+            Get in Touch
+          </a>
+        </section>
+      </main>
+      <Footer />
     </>
   );
 }

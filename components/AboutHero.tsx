@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { Send } from "lucide-react";
 
 export default function AboutHero() {

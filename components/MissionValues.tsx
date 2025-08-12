@@ -3,8 +3,8 @@ import { motion } from "framer-motion";
 
 const values = [
   { title: "Strategy First", desc: "We obsess over the brief, not the trends." },
-  { title: "Bold Ideas", desc: "If it&rsquo;s safe, it&rsquo;s forgettable. We take calculated risks." },
-  { title: "Execution + Data", desc: "Creative with performance baked-in &mdash; CRO, scale &amp; analytics." },
+  { title: "Bold Ideas", desc: "If it’s safe, it’s forgettable. We take calculated risks." },
+  { title: "Execution + Data", desc: "Creative with performance baked-in — CRO, scale & analytics." },
 ];
 
 export default function MissionValues() {
