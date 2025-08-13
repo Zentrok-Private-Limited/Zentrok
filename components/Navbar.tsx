@@ -54,7 +54,7 @@ export default function Navbar() {
             height={40}
             className="rounded-md"
           />
-          <span className="text-2xl font-bold tracking-tight">ZENTROK</span>
+          <span className="text-2xl font-bold text-black tracking-tight">ZENTROK</span>
         </Link>
 
         {/* Center: Nav Links (desktop) */}
@@ -106,28 +106,18 @@ export default function Navbar() {
 
           {/* Mobile Dropdown */}
           {mobileMenuOpen && (
-            <div className="absolute right-0 top-full mt-2 bg-white shadow-md rounded-xl px-6 py-4 flex flex-col gap-4">
+            <div className="absolute right-0 top-full mt-2 text-black bg-white shadow-md rounded-xl px-6 py-4 flex flex-col gap-4">
               {navLinks.map(({ href, label }) => (
                 <Link
                   key={href}
                   href={href}
-                  className="hover:text-rojo"
+                  className="hover:text-black"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {label}
                 </Link>
               ))}
-              <Link
-                href="#contact"
-                className="flex items-center gap-2 bg-white text-black font-semibold px-4 py-2 rounded-full shadow hover:shadow-md transition-transform hover:-translate-y-0.5 group"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <span>Let's Work</span>
-                <Send
-                  size={16}
-                  className="transition-transform duration-300 ease-in-out opacity-0 group-hover:opacity-100 group-hover:translate-x-1"
-                />
-              </Link>
+              
             </div>
           )}
         </div>
