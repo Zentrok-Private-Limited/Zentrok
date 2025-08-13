@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const values = [
   { title: "Strategy First", desc: "We obsess over the brief, not the trends." },
-  { title: "Bold Ideas", desc: "If it’s safe, it’s forgettable. We take calculated risks." },
+  { title: "Bold Ideas", desc: "If it&apos;s safe, it&apos;s forgettable. We take calculated risks." },
   { title: "Execution + Data", desc: "Creative with performance baked-in — CRO, scale & analytics." },
 ];
 
@@ -14,7 +14,7 @@ export default function MissionValues() {
         <div className="text-center mb-10">
           <h2 className="text-5xl sm:text-5xl font-bold">Our Philosophy</h2>
           <p className="text font-bold text-black/90 mt-5">
-            We don't do 'campaigns' we build momentum. Strategy, creative and delivery
+            We don&apos;t do &apos;campaigns&apos; we build momentum. Strategy, creative and delivery
             that hook culture and convert.
           </p>
         </div>

@@ -7,22 +7,13 @@ import { ChevronLeft, Send, Home, Info, BookOpen, Phone, Briefcase } from "lucid
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [hoverMenu, setHoverMenu] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 10);
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
-
     window.addEventListener("scroll", handleScroll);
-    handleResize();
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleResize);
-    };
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const backgroundClass = isScrolled
@@ -80,7 +71,7 @@ export default function Navbar() {
             href="#contact"
             className="flex items-center gap-2 bg-white text-black font-semibold px-4 py-2 rounded-full shadow hover:shadow-md transition-transform hover:-translate-y-0.5 group"
           >
-            <span>Let's Work</span>
+            <span>Let&apos;s Work</span>
             <Send
               size={16}
               className="transition-transform duration-300 ease-in-out opacity-0 group-hover:opacity-100 group-hover:translate-x-1"
@@ -117,7 +108,6 @@ export default function Navbar() {
                   {label}
                 </Link>
               ))}
-              
             </div>
           )}
         </div>

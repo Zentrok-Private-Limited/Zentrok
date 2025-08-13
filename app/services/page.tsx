@@ -62,14 +62,13 @@ const services = [
   },
 ];
 
-// Testimonials data — only filenames now
 const testimonials = [
   {
     name: "Priya Sharma",
     role: "CEO, BrightTech",
     photo: "priya.jpg",
     feedback:
-      "ZENTROK transformed our brand narrative and increased our engagement by 300%. These guys know what they’re doing!",
+      "ZENTROK transformed our brand narrative and increased our engagement by 300%. These guys know what they&apos;re doing!",
   },
   {
     name: "Rahul Verma",
@@ -90,7 +89,6 @@ const testimonials = [
 export default function Services() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
-  // Auto cycle testimonials every 7 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
@@ -135,7 +133,7 @@ export default function Services() {
           ))}
         </section>
 
-        {/* Testimonials Carousel */}
+        {/* Testimonials */}
         <section className="max-w-4xl mx-auto mb-32 relative">
           <h3 className="text-rojo text-4xl font-bold text-center mb-10">
             What Our Clients Say
@@ -193,7 +191,7 @@ export default function Services() {
             Ready to transform your brand?
           </h3>
           <p className="mb-8 text-lg max-w-xl mx-auto">
-            Let's work together to create unforgettable campaigns that move
+            Let&apos;s work together to create unforgettable campaigns that move
             your business forward.
           </p>
           <a
