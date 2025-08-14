@@ -17,7 +17,10 @@ const AnimatedFooter: React.FC = () => {
   const foreground = `var(--foreground)`; // main text/icons
   const inputBg = theme === "dark" ? "var(--surface-1000)" : "var(--surface-1000)";
   
-  // Button logic: if dark theme → button bg is white → text black
+  // Footer background
+  const footerBg = theme === "dark" ? "var(--surface-900)" : "var(--surface-1000)";
+
+  // Button logic
   const buttonBg = theme === "dark" ? "#ffffff" : "#1a1a1a";
   const buttonText = theme === "dark" && buttonBg === "#ffffff" ? "#000000" : "#ffffff";
   const borderColor = foreground;
@@ -32,14 +35,11 @@ const AnimatedFooter: React.FC = () => {
   return (
     <footer
       className="w-full border-t"
-      style={{ borderColor, backgroundColor: "transparent" }}
+      style={{ borderColor, backgroundColor: footerBg }}
     >
       <div className="max-w-7xl mx-auto flex flex-col items-center text-center py-16 px-6 space-y-8">
         {/* Heading */}
-        <h2
-          className="text-3xl md:text-4xl font-bold max-w-xl"
-          style={{ color: foreground }}
-        >
+        <h2 className="text-3xl md:text-4xl font-bold max-w-xl" style={{ color: foreground }}>
           Want weekly{" "}
           <span className="font-semibold" style={{ color: foreground }}>
             marketing insights
