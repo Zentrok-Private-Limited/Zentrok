@@ -97,7 +97,7 @@ export default function Navbar() {
                 oppositeColor(navBgColor) === "white" ? "bg-white text-black" : "bg-black text-white"
               }`}
             >
-              <span className="relative z-10">Let's Work</span>
+              <span className="relative z-10">Let&apos;s Work</span>
               <Send
                 size={16}
                 className="absolute right-3 opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out z-10"
