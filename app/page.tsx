@@ -5,7 +5,6 @@ import Footer from "@/components/Footer";
 import CTASection from "@/components/CTASection";
 import MissionValues from "@/components/MissionValues";
 import StatsAndProof from "@/components/StatsAndProof";
-
 export default function Home() {
   return (
     <main>

@@ -9,13 +9,13 @@ import {
   Star,
   Globe,
   Megaphone,
-  LucideIcon,
   ArrowBigUp,
+  LucideIcon,
 } from "lucide-react";
 import { motion, Variants } from "framer-motion";
 import { useTheme } from "next-themes";
 
-// 1. Define the Service type for strict typing
+// Service type
 type Service = {
   title: string;
   description: string;
@@ -33,12 +33,10 @@ const services: Service[] = [
   { title: "Brand Symbolism", description: "Powerful symbols to reinforce your brand identity.", icon: ArrowBigUp },
 ];
 
-// 2. Framer-motion animation variants (typed)
+// Animation variants
 const container: Variants = {
   hidden: {},
-  show: {
-    transition: { staggerChildren: 0.15 },
-  },
+  show: { transition: { staggerChildren: 0.15 } },
 };
 
 const item: Variants = {
@@ -53,21 +51,9 @@ export default function ServicesSection() {
   useEffect(() => setMounted(true), []);
   if (!mounted) return null;
 
-  // Dynamic theme colors using CSS variables
-  const bgColor = "var(--surface-1000)";
-  const textColor = "var(--foreground)";
-  const descColor = theme === "dark" ? "#d4d4d4" : "#4b5563";
-  const iconColor = "#64ffda";
-
   return (
-    <section id="services" className="py-24" style={{ backgroundColor: "transparent" }}>
+    <section id="services" className="py-24 bg-transparent">
       <div className="max-w-7xl mx-auto px-6">
-        <h2
-          className="text-4xl font-bold text-center mb-12 tracking-tight"
-          style={{ color: textColor }}
-        >
-          Core Brand Services
-        </h2>
         <motion.div
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10"
           variants={container}
@@ -76,24 +62,40 @@ export default function ServicesSection() {
           viewport={{ once: true, amount: 0.15 }}
         >
           {services.map((service, idx) => (
-            <motion.div
+            <motion.a
               key={idx}
+              href="#"
               variants={item}
+              className="w-full p-8 rounded-xl border relative overflow-hidden group bg-[var(--surface-1000)] border-[var(--foreground)] transition-all duration-300"
               whileHover={{
-                scale: 1.04,
-                boxShadow: theme === "dark" ? "0 8px 32px rgba(255,255,255,0.09)" : "0 8px 32px rgba(0,0,0,0.09)",
+                scale: 1.02,
+                boxShadow:
+                  theme === "dark"
+                    ? "0 8px 32px rgba(255,255,255,0.09)"
+                    : "0 8px 32px rgba(0,0,0,0.09)",
               }}
-              className="group border rounded-xl p-8 shadow-sm transition-all duration-300 flex flex-col items-center text-center"
-              style={{ backgroundColor: bgColor, borderColor: textColor }}
             >
-              <div className="mb-4" style={{ color: iconColor }}>
+              {/* Hover gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-r from-violet-600 to-indigo-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+
+              {/* Big background icon */}
+              <service.icon
+                size={120}
+                className="absolute z-0 -top-16 -right-16 text-slate-200 opacity-30 group-hover:text-violet-400 group-hover:rotate-12 transition-all duration-300"
+              />
+
+              {/* Small foreground icon */}
+              <div className="relative z-10 mb-4 text-violet-600 group-hover:text-white transition-colors duration-300">
                 <service.icon size={36} />
               </div>
-              <h3 className="text-lg font-semibold mb-2" style={{ color: textColor }}>
+
+              <h3 className="relative z-10 text-lg font-semibold mb-2 text-[var(--foreground)] group-hover:text-white transition-colors duration-300">
                 {service.title}
               </h3>
-              <p style={{ color: descColor }}>{service.description}</p>
-            </motion.div>
+              <p className="relative z-10 text-gray-500 group-hover:text-violet-200 transition-colors duration-300">
+                {service.description}
+              </p>
+            </motion.a>
           ))}
         </motion.div>
       </div>
