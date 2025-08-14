@@ -1,23 +1,27 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, ReactNode } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import {
-  ChevronLeft,
-  Send,
-  Sun,
-  Moon,
-} from "lucide-react";
+import { ChevronLeft, Send, Sun, Moon } from "lucide-react";
+
+type Position = {
+  left: number;
+  width: number;
+  opacity: number;
+};
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(true);
-  const [position, setPosition] = useState({ left: 0, width: 0, opacity: 0 });
+  const [position, setPosition] = useState<Position>({
+    left: 0,
+    width: 0,
+    opacity: 0,
+  });
 
-  // Handle scroll shadow
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll);
@@ -25,7 +29,6 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Dark mode toggle
   useEffect(() => {
     document.documentElement.classList.toggle("dark", darkMode);
   }, [darkMode]);
@@ -45,8 +48,8 @@ export default function Navbar() {
     : "text-black";
 
   const buttonClass = darkMode
-    ? "bg-white text-black hover:bg-gray-200"
-    : "bg-gray-600 text-white hover:bg-gray-700";
+    ? "bg-white text-black"
+    : "bg-gray-600 text-white";
 
   const navLinks = [
     { href: "/home", label: "Home" },
@@ -75,7 +78,7 @@ export default function Navbar() {
           </span>
         </Link>
 
-        {/* Desktop Links with Slide Highlight */}
+        {/* Desktop Nav */}
         <div className="hidden md:block">
           <ul
             onMouseLeave={() => setPosition((pv) => ({ ...pv, opacity: 0 }))}
@@ -90,7 +93,7 @@ export default function Navbar() {
           </ul>
         </div>
 
-        {/* Right: Theme Toggle + Button */}
+        {/* Right Actions */}
         <div className="hidden md:flex items-center gap-3">
           {/* Theme Toggle */}
           <button
@@ -101,19 +104,28 @@ export default function Navbar() {
             {darkMode ? <Moon size={16} /> : <Sun size={16} />}
           </button>
 
-          {/* Let's Work */}
-          <Link
-            href="#contact"
-            className={`flex items-center gap-2 font-medium px-3 py-1.5 rounded-full shadow hover:shadow-md transition ${buttonClass}`}
-          >
-            <span>Let&apos;s Work</span>
-            <Send size={14} className="opacity-0 group-hover:opacity-100" />
-          </Link>
+          {/* Animated CTA Button */}
+          <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
+            <Link
+              href="/contact"
+              className={`
+                relative overflow-hidden flex items-center 
+                px-4 py-2 rounded-full font-semibold shadow-lg hover:shadow-xl 
+                group transition-all duration-300 pr-9 text-sm
+                ${buttonClass}
+              `}
+            >
+              <span className="relative z-10">Let&apos;s Work</span>
+              <Send
+                size={16}
+                className="absolute right-3 opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out z-10"
+              />
+            </Link>
+          </motion.div>
         </div>
 
         {/* Mobile Menu */}
         <div className="md:hidden flex items-center gap-2">
-          {/* Theme Toggle */}
           <button
             onClick={() => setDarkMode(!darkMode)}
             className={`p-1.5 rounded-full bg-gray-200 dark:bg-gray-700 ${navTextColor}`}
@@ -128,12 +140,16 @@ export default function Navbar() {
           >
             <ChevronLeft
               size={14}
-              className={`transition-transform ${mobileMenuOpen ? "rotate-0" : "-rotate-180"}`}
+              className={`transition-transform ${
+                mobileMenuOpen ? "rotate-0" : "-rotate-180"
+              }`}
             />
           </button>
 
           {mobileMenuOpen && (
-            <div className={`absolute right-4 top-full mt-2 ${navTextColor} bg-white dark:bg-gray-800 shadow-md rounded-xl px-4 py-3 flex flex-col gap-2`}>
+            <div
+              className={`absolute right-4 top-full mt-2 ${navTextColor} bg-white dark:bg-gray-800 shadow-md rounded-xl px-4 py-3 flex flex-col gap-2`}
+            >
               {navLinks.map(({ href, label }) => (
                 <Link
                   key={href}
@@ -144,12 +160,23 @@ export default function Navbar() {
                   {label}
                 </Link>
               ))}
-              <Link
-                href="#contact"
-                className={`mt-2 text-center font-medium px-3 py-1.5 rounded-full shadow ${buttonClass}`}
-              >
-                Let&apos;s Work
-              </Link>
+
+              {/* Animated Mobile CTA */}
+              <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
+                <Link
+                  href="#contact"
+                  className={`
+                    mt-2 text-center font-medium px-3 py-1.5 rounded-full shadow 
+                    group transition-all duration-300 pr-9 text-sm ${buttonClass}
+                  `}
+                >
+                  <span className="relative z-10">Let&apos;s Work</span>
+                  <Send
+                    size={16}
+                    className="absolute right-3 opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out z-10"
+                  />
+                </Link>
+              </motion.div>
             </div>
           )}
         </div>
@@ -158,8 +185,15 @@ export default function Navbar() {
   );
 }
 
-const NavTab = ({ href, children, setPosition }) => {
-  const ref = useRef(null);
+// --------------------- NavTab ---------------------
+type NavTabProps = {
+  href: string;
+  children: ReactNode;
+  setPosition: React.Dispatch<React.SetStateAction<Position>>;
+};
+
+const NavTab = ({ href, children, setPosition }: NavTabProps) => {
+  const ref = useRef<HTMLLIElement | null>(null);
 
   return (
     <li
@@ -185,8 +219,12 @@ const NavTab = ({ href, children, setPosition }) => {
   );
 };
 
+// --------------------- Cursor ---------------------
+type CursorProps = {
+  position: Position;
+};
 
-const Cursor = ({ position }) => {
+const Cursor = ({ position }: CursorProps) => {
   return (
     <motion.li
       animate={position}
