@@ -56,7 +56,6 @@ export default function Navbar() {
     { href: "/home", label: "HOME", icon: Home },
     { href: "/about", label: "ABOUT", icon: Info },
     { href: "/services", label: "SERVICES", icon: Briefcase },
-    { href: "/blog", label: "BLOG", icon: BookOpen },
     { href: "/contact", label: "CONTACT", icon: Phone },
   ];
 
