@@ -5,11 +5,16 @@ import CountUp from "react-countup";
 import { useTheme } from "next-themes";
 
 export default function StatsAndProof() {
-  const { mounted } = useTheme();
+  // Call useTheme() so theme context is hydrated (even if not destructured)
+  useTheme();
+
   const [isMounted, setIsMounted] = useState(false);
   const [trigger, setTrigger] = useState(false);
 
-  useEffect(() => setIsMounted(true), []);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   if (!isMounted) return null;
 
   const stats = [
@@ -53,7 +58,7 @@ export default function StatsAndProof() {
                       duration={1.5}
                       separator=","
                       suffix={stat.suffix}
-                      redraw={true}
+                      redraw
                     />
                   </div>
                   <div

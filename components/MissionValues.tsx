@@ -6,15 +6,20 @@ import { useEffect, useState } from "react";
 
 const values = [
   { title: "Strategy First", desc: "We obsess over the brief, not the trends." },
-  { title: "Bold Ideas", desc: "If it&apos;s safe, it&apos;s forgettable. We take calculated risks." },
+  { title: "Bold Ideas", desc: "If it's safe, it's forgettable. We take calculated risks." },
   { title: "Execution + Data", desc: "Creative with performance baked-in — CRO, scale & analytics." },
 ];
 
 export default function MissionValues() {
-  const { mounted } = useTheme(); // Only needed for SSR
+  // We still call useTheme to ensure theme context is available (SSR-safe)
+  useTheme();
+
   const [isMounted, setIsMounted] = useState(false);
 
-  useEffect(() => setIsMounted(true), []);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   if (!isMounted) return null;
 
   return (
@@ -32,7 +37,7 @@ export default function MissionValues() {
             className="font-bold mt-5 transition-colors duration-500"
             style={{ color: "var(--text-on-surface)" }}
           >
-            We don&apos;t do &apos;campaigns&apos; we build momentum. Strategy, creative and delivery
+            We don&apos;t do &apos;campaigns&apos; — we build momentum. Strategy, creative, and delivery
             that hook culture and convert.
           </p>
         </div>
@@ -48,16 +53,12 @@ export default function MissionValues() {
               className="p-6 border rounded-lg shadow-sm transition-colors duration-500"
               style={{
                 backgroundColor: "var(--bg-on-surface)",
-                borderColor: "rgba(0,0,0,0.1)", // keeps border subtle in light mode
+                borderColor: "rgba(0,0,0,0.1)",
                 color: "var(--text-on-surface)",
               }}
             >
-              <h3 className="text-lg font-semibold mb-2">
-                {v.title}
-              </h3>
-              <p className="text-sm">
-                {v.desc}
-              </p>
+              <h3 className="text-lg font-semibold mb-2">{v.title}</h3>
+              <p className="text-sm">{v.desc}</p>
             </motion.article>
           ))}
         </div>
