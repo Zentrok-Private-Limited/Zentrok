@@ -32,8 +32,8 @@ const cards = [
 
 export default function AboutSection() {
   return (
-    <section id="about" className="py-16 bg-background">
-      <div className="max-w-6xl mx-auto px-4 flex flex-col gap-8">
+    <section id="about" className="py-16 bg-transparent">
+      <div className="max-w-6xl mx-auto px-4 flex flex-col bg-background gap-8">
         {cards.map(({ color, heading, subtext, Icon, videoSrc }, i) => (
           <motion.div
             key={i}
