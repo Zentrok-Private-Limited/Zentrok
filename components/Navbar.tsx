@@ -82,7 +82,7 @@ export default function Navbar() {
         <div className="hidden md:block">
           <ul
             onMouseLeave={() => setPosition((pv) => ({ ...pv, opacity: 0 }))}
-            className="relative flex mt-5 w-fit rounded-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 p-0.5"
+            className="relative flex mt-5 w-fit rounded-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-black p-0.5"
           >
             {navLinks.map(({ href, label }) => (
               <NavTab key={href} href={href} setPosition={setPosition}>
