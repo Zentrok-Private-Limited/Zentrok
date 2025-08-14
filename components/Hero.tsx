@@ -1,28 +1,38 @@
 "use client";
-import Link from "next/link";
-import { motion } from "framer-motion";
-import {
-  Laptop,
-  BarChart3,
-  Smartphone,
-  Palette,
-  Megaphone,
-  Globe,
-  Send,
-  Eye,
-} from "lucide-react";
 
-const icons = [
-  { Component: Laptop, className: "top-20 left-8 text-rojo" },
-  { Component: BarChart3, className: "top-36 right-12 text-xanthous" },
-  { Component: Smartphone, className: "bottom-28 left-10 text-foreground" },
-  { Component: Palette, className: "bottom-16 right-12 text-rojo" },
-  { Component: Megaphone, className: "top-1/3 left-[45%] text-xanthous" },
-  { Component: Globe, className: "bottom-1/2 right-[15%] text-foreground" },
+import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
+import { Send, Eye } from "lucide-react";
+import { useState, useEffect } from "react";
+import { useTheme } from "next-themes";
+
+// Dark mode = bright/neon colors, Light mode = darker shades of the same color
+const rotatingWordsDark = [
+  { text: "grow digitally", color: "#14ff65" },
+  { text: "grow globally", color: "#F0B100" },
+  { text: "build network", color: "#64FFDA" },
+];
+const rotatingWordsLight = [
+  { text: "grow digitally", color: "#39FF14" },
+  { text: "grow globally", color: "#FF0000" },
+  { text: "build network", color: "#3fafa4" },
 ];
 
 export default function Hero() {
-  const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
+  const { theme, resolvedTheme } = useTheme();
+  const [index, setIndex] = useState(0);
+
+  const currentTheme = resolvedTheme || theme || "light";
+
+  const rotatingWords =
+    currentTheme === "light" ? rotatingWordsLight : rotatingWordsDark;
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % rotatingWords.length);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [rotatingWords.length]);
 
   return (
     <section
@@ -30,64 +40,80 @@ export default function Hero() {
         relative flex flex-col items-center text-center
         px-4 sm:px-6 
         pt-10 sm:pt-20 pb-12 sm:pb-20 
-        min-h-screen overflow-hidden perspective-1000
+        min-h-screen
         justify-center sm:justify-start
+        bg-grid
       "
     >
-      {/* Background Floating Icons */}
-      {icons.map(({ Component, className }, i) => (
-        <motion.div
-          key={i}
-          initial={{ opacity: 0, scale: 0.7, y: 20, rotateX: 15, rotateY: -15 }}
-          animate={{
-            opacity: 0.5,
-            scale: 1,
-            y: [0, -10, 0],
-            rotateX: [15, -15, 15],
-            rotateY: [-15, 15, -15],
-          }}
-          transition={{
-            duration: 6 + i * 0.5,
-            repeat: Infinity,
-            repeatType: "mirror",
-            ease: "easeInOut",
-          }}
-          className={`absolute ${className} transform-gpu`}
-        >
-          <Component
-            size={isMobile ? 50 : 80}
-            strokeWidth={1.2}
-          />
-        </motion.div>
-      ))}
-
       {/* Tagline */}
-      <p className="text-rojo font-sans font-semibold tracking-wide uppercase mb-3 sm:mb-4 relative z-10 text-xs sm:text-sm md:text-base">
+      <p className="font-sans font-semibold tracking-wide uppercase mb-3 sm:mb-4 relative z-10 text-xs sm:text-sm md:text-base ">
         Creative Digital Marketing Agency
       </p>
 
-      {/* Heading */}
-      <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-black tracking-tight font-sans leading-tight max-w-xl sm:max-w-none relative z-10">
-        We help brands <span className="text-rojo">grow digitally</span>
+      {/* Heading with rotating word */}
+      <h1
+        className="
+          text-2xl xs:text-3xl sm:text-5xl md:text-6xl 
+          font-bold text-foreground tracking-tight font-sans 
+          leading-tight max-w-xs xs:max-w-md sm:max-w-none 
+          relative z-10 flex flex-wrap justify-center items-center gap-2
+        "
+        style={{ color: "var(--text-on-surface)" }}
+      >
+        We help brands
+        <AnimatePresence mode="wait">
+          <motion.span
+            key={index}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
+            style={{ color: rotatingWords[index].color }}
+          >
+            {rotatingWords[index].text}
+          </motion.span>
+        </AnimatePresence>
       </h1>
 
       {/* Subtext */}
-      <p className="mt-4 sm:mt-6 text-sm sm:text-lg text-black/80 max-w-md sm:max-w-xl font-sans relative z-10">
+      <p
+        className="
+          mt-4 sm:mt-6 text-xs xs:text-sm sm:text-lg 
+          max-w-xs xs:max-w-sm sm:max-w-xl 
+          font-sans relative z-10
+        "
+        style={{ color: "var(--text-on-surface)" }}
+      >
         We turn your business into the gossip everyone shares online.
       </p>
 
       {/* CTA Buttons */}
-      <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4 relative z-10 w-full sm:w-auto justify-center">
+      <div
+        className="
+          mt-6 xs:mt-8 sm:mt-10 
+          flex flex-col sm:flex-row gap-3 sm:gap-4 
+          relative z-10 w-full sm:w-auto justify-center
+        "
+      >
         {/* Get Started */}
         <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
           <Link
             href="/contact"
-            className="relative overflow-hidden flex items-center px-5 sm:px-6 py-2.5 sm:py-3 rounded-full bg-rojo text-white font-semibold shadow-lg hover:shadow-xl group transition-all duration-300 pr-9 sm:pr-10 text-sm sm:text-base"
+            className={`
+              relative overflow-hidden flex items-center 
+              px-4 xs:px-5 sm:px-6 py-2 xs:py-2.5 sm:py-3 
+              rounded-full bg-emerald 
+              font-semibold shadow-lg hover:shadow-xl 
+              group transition-all duration-300 
+              pr-8 xs:pr-9 sm:pr-10 
+              text-xs xs:text-sm sm:text-base
+              ${currentTheme === "light" ? "text-on-surface" : "text-white"}
+            `}
           >
             <span className="relative z-10">Get Started</span>
             <Send
               size={18}
-              className="absolute right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out z-10"
+              className="absolute right-3 xs:right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out z-10"
             />
           </Link>
         </motion.div>
@@ -96,12 +122,21 @@ export default function Hero() {
         <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
           <Link
             href="/work"
-            className="relative overflow-hidden flex items-center px-5 sm:px-6 py-2.5 sm:py-3 rounded-full border border-black text-black font-semibold group transition-all duration-300 pr-9 sm:pr-10 text-sm sm:text-base"
+            className="
+              relative overflow-hidden flex items-center 
+              px-4 xs:px-5 sm:px-6 py-2 xs:py-2.5 sm:py-3 
+              rounded-full border border-current 
+              font-semibold group 
+              transition-all duration-300 
+              pr-8 xs:pr-9 sm:pr-10 
+              text-xs xs:text-sm sm:text-base 
+              hover:hover:text-emerald
+            "
           >
             <span className="relative z-10">View Our Work</span>
             <Eye
               size={18}
-              className="absolute right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out z-10"
+              className="absolute right-3 xs:right-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300 ease-in-out z-10"
             />
           </Link>
         </motion.div>

@@ -1,38 +1,30 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Send, Users, Lightbulb, LucideIcon } from "lucide-react";
+import { Send, Users, Lightbulb } from "lucide-react";
 
-type Card = {
-  color: string;
-  heading: string;
-  subtext: string;
-  Icon: LucideIcon;
-  videoSrc: string;
-};
-
-const cards: Card[] = [
+const cards = [
   {
-    color: "#CC121C",
-    heading: "Looking to become the next big name everyone’s talking about?",
+    color: "#cc128B",
+    heading: "Become the next big name everyone’s talking about",
     subtext:
-      "It's the core of your company's identity. It guides all business decisions, ensuring a consistent and impactful presence in the market.",
+      "Your brand is your story. We ensure every step resonates with impact and clarity.",
     Icon: Send,
     videoSrc: "/video.mp4",
   },
   {
     color: "#7E3FF2",
-    heading: "Fear of missing out on the chance to do your life’s greatest work?",
+    heading: "Don't miss the chance to do your life’s greatest work",
     subtext:
-      "It's the core of your company's identity. It guides all business decisions, ensuring a consistent and impactful presence in the market.",
+      "From strategy to execution, we make every move count in creating your legacy.",
     Icon: Users,
     videoSrc: "/video2.mp4",
   },
   {
     color: "#238BC3",
-    heading: "Excited about the wonderful world of digital storytelling?",
+    heading: "Excited about digital storytelling?",
     subtext:
-      "It's the core of your company's identity. It guides all business decisions, ensuring a consistent and impactful presence in the market.",
+      "We craft immersive narratives that make your audience feel, remember, and share.",
     Icon: Lightbulb,
     videoSrc: "/video3.mp4",
   },
@@ -40,45 +32,46 @@ const cards: Card[] = [
 
 export default function AboutSection() {
   return (
-    <section id="about" className="p-0 m-0 bg-background overflow-hidden">
-      <div className="flex flex-col">
+    <section id="about" className="py-16 bg-background">
+      <div className="max-w-6xl mx-auto px-4 flex flex-col gap-8">
         {cards.map(({ color, heading, subtext, Icon, videoSrc }, i) => (
           <motion.div
-            key={heading}
-            style={{ backgroundColor: color }}
-            className="relative p-10 text-white shadow-xl w-full border-b border-white/10 flex flex-col md:flex-row justify-between items-start gap-6"
-            initial={{ y: i === 0 ? 0 : 400, opacity: i === 0 ? 1 : 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{
-              type: "spring",
-              stiffness: 100,
-              damping: 20,
-              delay: i * 0.2,
-            }}
-            viewport={{ once: true, amount: 0.8 }}
+            key={i}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: i * 0.15, duration: 0.6 }}
+            className="flex flex-col md:flex-row items-center gap-6 p-6 md:p-8 rounded-xl shadow-md border border-white/10 bg-surface-1000 hover:shadow-xl transition-shadow duration-300"
           >
-            {/* Text Content */}
-            <div className="flex-1 pr-4">
-              <h2 className="text-3xl md:text-5xl font-heading font-semibold leading-snug mb-4">
+            {/* Text */}
+            <div className="flex-1 space-y-3 md:pr-4">
+              <h2
+                className="text-2xl md:text-3xl font-sans font-extrabold tracking-tight leading-snug"
+                style={{ color }}
+              >
                 {heading}
               </h2>
-              <p className="text-lg opacity-80">{subtext}</p>
+              <p className="text-sm md:text-base text-foreground opacity-80 leading-relaxed">
+                {subtext}
+              </p>
             </div>
 
-            {/* Icon & Video */}
-            <div className="flex flex-col items-end justify-between h-full">
-              <div className="opacity-70 mb-4">
-                <Icon size={50} strokeWidth={1.5} />
-              </div>
-              <div className="rounded-md overflow-hidden shadow-xl w-full max-w-md">
+            {/* Icon + Video */}
+            <div className="flex flex-col items-center md:items-end gap-3">
+              <motion.div
+                className="p-2 rounded-full bg-white/10 flex items-center justify-center"
+                whileHover={{ scale: 1.08 }}
+                transition={{ type: "spring", stiffness: 150 }}
+              >
+                <Icon size={36} strokeWidth={1.5} />
+              </motion.div>
+              <div className="w-full max-w-sm rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
                 <video
                   src={videoSrc}
-                  aria-label={`Video for ${heading}`}
                   loop
                   muted
-                  playsInline
                   autoPlay
-                  controls
+                  playsInline
                   className="w-full h-auto object-cover"
                 />
               </div>

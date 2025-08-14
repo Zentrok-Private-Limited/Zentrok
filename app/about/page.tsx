@@ -8,7 +8,7 @@ import Footer from "@/components/Footer";
 
 export default function AboutPage() {
   return (
-    <main className="bg-[#ffdd00] text-black">
+    <main className="">
       <AboutHero />
       <MissionValues />
       <StatsAndProof />

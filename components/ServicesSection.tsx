@@ -1,5 +1,6 @@
 "use client";
 
+import React, { useEffect, useState } from "react";
 import {
   Lightbulb,
   User,
@@ -12,6 +13,7 @@ import {
   ArrowBigUp,
 } from "lucide-react";
 import { motion, Variants } from "framer-motion";
+import { useTheme } from "next-themes";
 
 // 1. Define the Service type for strict typing
 type Service = {
@@ -35,9 +37,7 @@ const services: Service[] = [
 const container: Variants = {
   hidden: {},
   show: {
-    transition: {
-      staggerChildren: 0.15,
-    },
+    transition: { staggerChildren: 0.15 },
   },
 };
 
@@ -47,10 +47,25 @@ const item: Variants = {
 };
 
 export default function ServicesSection() {
+  const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
+
+  // Dynamic theme colors using CSS variables
+  const bgColor = "var(--surface-1000)";
+  const textColor = "var(--foreground)";
+  const descColor = theme === "dark" ? "#d4d4d4" : "#4b5563";
+  const iconColor = "#64ffda";
+
   return (
-    <section id="services" className="py-24">
+    <section id="services" className="py-24" style={{ backgroundColor: "transparent" }}>
       <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-4xl font-bold text-center mb-12 tracking-tight text-black">
+        <h2
+          className="text-4xl font-bold text-center mb-12 tracking-tight"
+          style={{ color: textColor }}
+        >
           Core Brand Services
         </h2>
         <motion.div
@@ -66,17 +81,18 @@ export default function ServicesSection() {
               variants={item}
               whileHover={{
                 scale: 1.04,
-                boxShadow: "0 8px 32px rgba(0,0,0,0.09)",
+                boxShadow: theme === "dark" ? "0 8px 32px rgba(255,255,255,0.09)" : "0 8px 32px rgba(0,0,0,0.09)",
               }}
-              className="group bg-white border border-gray-200 rounded-xl p-8 shadow-sm transition-all duration-300 flex flex-col items-center text-center"
+              className="group border rounded-xl p-8 shadow-sm transition-all duration-300 flex flex-col items-center text-center"
+              style={{ backgroundColor: bgColor, borderColor: textColor }}
             >
-              <div className="mb-4 text-rojo">
+              <div className="mb-4" style={{ color: iconColor }}>
                 <service.icon size={36} />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              <h3 className="text-lg font-semibold mb-2" style={{ color: textColor }}>
                 {service.title}
               </h3>
-              <p className="text-gray-600">{service.description}</p>
+              <p style={{ color: descColor }}>{service.description}</p>
             </motion.div>
           ))}
         </motion.div>

@@ -1,7 +1,7 @@
 /* =============================
-   Google Fonts
+   Google Fonts (Premium)
 ============================= */
-@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Oswald:wght@200..700&family=Playwrite+HU:wght@100..400&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Serif+Display:ital,wght@0,400;1,400&display=swap');
 
 /* =============================
    Tailwind Directives
@@ -10,94 +10,122 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 /* =============================
-   Root Variables
+   Root Variables (Light Mode)
 ============================= */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --rojo: #E4281F;        /* Red */
-  --neon-green: #39FF14; /* Cream */
-  --xanthous: #FFBE54;    /* Yellow/Orange */
+  --background: #fafafa;
+  --foreground: #1a1a1a;
+
+  /* Premium Accents */
+  --emerald: #2ecc71;
+  --ruby: #c0392b;
+  --amber: #f39c12;
+
+  --grid-size: 22px;
+  --grid-line: rgba(0, 0, 0, 0.03);
+  --grid-major: rgba(0, 0, 0, 0.06);
+
+  /* Surfaces */
+  --surface-1000: #ffffff;
+  --surface-900: #f5f5f5;
+
+  /* Typography */
+  --font-sans: 'Inter', Arial, sans-serif;
+  --font-heading: 'DM Serif Display', serif;
+  --font-display: 'DM Serif Display', serif;
+
+  --text-on-surface: var(--foreground);
+  --bg-on-surface: var(--surface-1000);
 }
 
 /* =============================
-   Tailwind Theme Inline (v4)
+   Dark Mode Variables (Premium)
+============================= */
+html.dark {
+  --background: #121212; /* Rich charcoal */
+  --foreground: #e5e5e5;
+
+  /* Muted jewel tones for accents */
+  --emerald: #27ae60; /* Deep emerald */
+  --ruby: #a93226;    /* Muted ruby */
+  --amber: #d68910;   /* Warm amber */
+
+  /* Softer grid lines */
+  --grid-line: rgba(255, 255, 255, 0.03);
+  --grid-major: rgba(255, 255, 255, 0.06);
+
+  /* Layered surfaces */
+  --surface-1000: #1A1A1A;
+  --surface-900: #181818;
+
+  --text-on-surface: var(--foreground);
+  --bg-on-surface: var(--surface-1000);
+}
+
+/* =============================
+   Tailwind Theme Variables
 ============================= */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-
-  /* Custom Color Palette */
-  --color-rojo: var(--rojo);
-  --color-dutch-white: var(--dutch-white);
-  --color-xanthous: var(--xanthous);
-  --color-neon-green: var(--neon-green);
-
-
-  /* Fonts */
-  --font-sans: Nunito, Ubuntu, Arial, sans-serif;
-  --font-heading: Oswald, sans-serif;
-  --font-display: "Playwrite HU", cursive;
-  --font-mono: var(--font-geist-mono);
-}
-
-/* =============================
-   Dark Mode
-============================= */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-emerald: var(--emerald);
+  --color-ruby: var(--ruby);
+  --color-amber: var(--amber);
+  --font-sans: var(--font-sans);
+  --font-heading: var(--font-heading);
+  --font-display: var(--font-display);
 }
 
 /* =============================
    Base Styles
 ============================= */
-
 body {
-     background-color: #ffdd00;
+  background-color: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
-}
-/* Hide scrollbar */
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-@keyframes gradient-slow {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+  transition: background-color 0.3s ease, color 0.3s ease;
+
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to right, var(--grid-major) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-major) 1px, transparent 1px);
+  background-size:
+    var(--grid-size) var(--grid-size),
+    var(--grid-size) var(--grid-size),
+    calc(var(--grid-size) * 5) calc(var(--grid-size) * 5),
+    calc(var(--grid-size) * 5) calc(var(--grid-size) * 5);
+  background-attachment: fixed;
 }
 
-@keyframes float {
-  0% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
+/* =============================
+   Buttons (Premium Look)
+============================= */
+button, .btn {
+  font-weight: 500;
+  border-radius: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
-.animate-gradient-slow {
-  background-size: 200% 200%;
-  animation: gradient-slow 8s ease infinite;
+.btn-primary {
+  background-color: var(--emerald);
+  color: #fff;
+}
+.btn-primary:hover {
+  background-color: #219150;
+  transform: translateY(-1px);
 }
 
-.animate-float {
-  animation: float 6s ease-in-out infinite;
+.btn-secondary {
+  background-color: transparent;
+  border: 1px solid var(--ruby);
+  color: var(--ruby);
+}
+.btn-secondary:hover {
+  background-color: var(--ruby);
+  color: #fff;
+  transform: translateY(-1px);
 }

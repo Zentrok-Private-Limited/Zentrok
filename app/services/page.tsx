@@ -3,6 +3,9 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
+import { Send } from "lucide-react";
+import { useTheme } from "next-themes";
 import Footer from "@/components/Footer";
 
 const services = [
@@ -11,7 +14,7 @@ const services = [
     description: "Crafting unique brand identities that resonate and inspire.",
     icon: (
       <svg
-        className="w-12 h-12 text-rojo"
+        className="w-12 h-12"
         fill="none"
         stroke="currentColor"
         strokeWidth={2}
@@ -28,7 +31,7 @@ const services = [
     description: "Data-driven campaigns to scale your reach and engagement.",
     icon: (
       <svg
-        className="w-12 h-12 text-rojo"
+        className="w-12 h-12"
         fill="none"
         stroke="currentColor"
         strokeWidth={2}
@@ -47,7 +50,7 @@ const services = [
     description: "Producing compelling content that moves hearts and minds.",
     icon: (
       <svg
-        className="w-12 h-12 text-rojo"
+        className="w-12 h-12"
         fill="none"
         stroke="currentColor"
         strokeWidth={2}
@@ -68,7 +71,7 @@ const testimonials = [
     role: "CEO, BrightTech",
     photo: "priya.jpg",
     feedback:
-      "ZENTROK transformed our brand narrative and increased our engagement by 300%. These guys know what they&apos;re doing!",
+      "ZENTROK transformed our brand narrative and increased our engagement by 300%. These guys know what they're doing!",
   },
   {
     name: "Rahul Verma",
@@ -87,8 +90,11 @@ const testimonials = [
 ];
 
 export default function Services() {
+  const { theme } = useTheme();
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [mounted, setMounted] = useState(false);
 
+  useEffect(() => setMounted(true), []);
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
@@ -96,9 +102,19 @@ export default function Services() {
     return () => clearInterval(interval);
   }, []);
 
+  if (!mounted) return null;
+
+  const textColor = theme === "dark" ? "text-white" : "text-[var(--foreground)]";
+  const surfaceColor = theme === "dark" ? "bg-[var(--surface-900)]" : "bg-[var(--surface-1000)]";
+  const subTextColor = theme === "dark" ? "text-white/80" : "text-[var(--text-on-surface)]/80";
+
   return (
     <>
-      <main className="min-h-screen py-20 px-6 sm:px-12 lg:px-24">
+      <main
+        className={`min-h-screen py-20 px-6 sm:px-12 lg:px-24 ${textColor} ${
+          theme === "dark" ? "bg-[var(--background-dark)]" : "bg-[var(--background)]"
+        }`}
+      >
         {/* Hero */}
         <motion.section
           initial={{ opacity: 0, y: 20 }}
@@ -106,12 +122,9 @@ export default function Services() {
           transition={{ duration: 0.6 }}
           className="max-w-4xl mx-auto text-center mb-20"
         >
-          <h2 className="text-rojo text-4xl sm:text-5xl font-extrabold mb-4">
-            Our Services
-          </h2>
-          <p className="text-black/70 max-w-xl mx-auto text-lg sm:text-xl">
-            We deliver strategy, creativity, and data-driven marketing that
-            propel your brand forward.
+          <h2 className="text-4xl sm:text-5xl font-extrabold mb-4">Our Services</h2>
+          <p className={`max-w-xl mx-auto text-lg sm:text-xl ${subTextColor}`}>
+            We deliver strategy, creativity, and data-driven marketing that propel your brand forward.
           </p>
         </motion.section>
 
@@ -124,22 +137,22 @@ export default function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.2, duration: 0.6 }}
-              className="bg-white rounded-xl p-8 text-center hover:shadow-3xl cursor-pointer transition-shadow"
+              className={`${surfaceColor} rounded-xl p-8 text-center hover:shadow-xl cursor-pointer transition-shadow`}
             >
-              <div className="mb-6 flex justify-center">{icon}</div>
-              <h3 className="text-2xl font-bold mb-3 text-rojo">{title}</h3>
-              <p className="text-black/80">{description}</p>
+              <div className="mb-6 flex justify-center text-emerald">{icon}</div>
+              <h3 className={`text-2xl font-bold mb-3 ${textColor}`}>{title}</h3>
+              <p className={subTextColor}>{description}</p>
             </motion.article>
           ))}
         </section>
 
         {/* Testimonials */}
         <section className="max-w-4xl mx-auto mb-32 relative">
-          <h3 className="text-rojo text-4xl font-bold text-center mb-10">
+          <h3 className={`text-4xl font-bold text-center mb-10 ${textColor}`}>
             What Our Clients Say
           </h3>
 
-          <div className="overflow-hidden rounded-xl shadow-lg bg-white p-10 relative">
+          <div className={`${surfaceColor} overflow-hidden rounded-xl shadow-lg p-10 relative`}>
             <AnimatePresence mode="wait">
               {testimonials.map((testi, idx) =>
                 idx === currentTestimonial ? (
@@ -159,24 +172,25 @@ export default function Services() {
                       className="mx-auto w-24 h-24 rounded-full object-cover mb-6 shadow-md"
                       loading="lazy"
                     />
-                    <p className="italic text-lg text-black/80 mb-6">
+                    <p className={`italic text-lg mb-6 ${subTextColor}`}>
                       “{testi.feedback}”
                     </p>
-                    <p className="font-semibold text-rojo">{testi.name}</p>
-                    <p className="text-sm text-black/60">{testi.role}</p>
+                    <p className={`font-semibold ${textColor}`}>{testi.name}</p>
+                    <p className={`text-sm mb-3 ${subTextColor}`}>{testi.role}</p>
                   </motion.div>
                 ) : null
               )}
             </AnimatePresence>
 
-            {/* Controls */}
             <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-4">
               {testimonials.map((_, idx) => (
                 <button
                   key={idx}
                   aria-label={`Show testimonial ${idx + 1}`}
                   className={`w-3 h-3 rounded-full ${
-                    idx === currentTestimonial ? "bg-rojo" : "bg-gray-300"
+                    idx === currentTestimonial
+                      ? "bg-[var(--ruby)]"
+                      : "bg-[var(--text-on-surface)]/30"
                   }`}
                   onClick={() => setCurrentTestimonial(idx)}
                 />
@@ -186,20 +200,38 @@ export default function Services() {
         </section>
 
         {/* Call To Action */}
-        <section className="bg-rojo text-white rounded-xl max-w-4xl mx-auto p-12 text-center shadow-lg">
+        <section
+          className={`rounded-xl max-w-4xl mx-auto p-12 text-center shadow-lg ${
+            theme === "dark" ? "bg-[#222] text-white" : "bg-[#1a1a1a] text-white"
+          }`}
+        >
           <h3 className="text-3xl font-extrabold mb-6">
             Ready to transform your brand?
           </h3>
-          <p className="mb-8 text-lg max-w-xl mx-auto">
-            Let&apos;s work together to create unforgettable campaigns that move
-            your business forward.
+          <p className="mb-8 text-lg max-w-xl mx-auto text-white/80">
+            Let&apos;s work together to create unforgettable campaigns that move your business forward.
           </p>
-          <a
-            href="/contact"
-            className="inline-block bg-white text-rojo font-bold px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition"
+
+          <motion.div
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.96 }}
+            className="inline-block"
           >
-            Get in Touch
-          </a>
+            <Link
+              href="/contact"
+              className={`group relative overflow-hidden flex items-center px-6 py-3 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300 pr-10 ${
+                theme === "dark"
+                  ? "bg-white text-[#1a1a1a]"
+                  : "bg-[var(--ruby)] text-white"
+              }`}
+            >
+              <span className="relative z-10">Get in Touch</span>
+              <Send
+                size={18}
+                className="absolute right-3 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 ease-in-out z-10"
+              />
+            </Link>
+          </motion.div>
         </section>
       </main>
       <Footer />

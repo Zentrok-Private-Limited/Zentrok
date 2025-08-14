@@ -1,148 +1,74 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { X, ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
-export default function CTASection() {
-  const [openForm, setOpenForm] = useState<null | "work" | "brand">(null);
+export default function PremiumCTA() {
+  const { resolvedTheme, theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    document.body.style.overflow = openForm ? "hidden" : "";
-  }, [openForm]);
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
 
-  const Card = ({
-    title,
-    subtitle,
-    bgColor,
-    textColor,
-    onClick,
-  }: {
-    title: string;
-    subtitle: string;
-    bgColor: string;
-    textColor: string;
-    onClick: () => void;
-  }) => (
-    <div
-      onClick={onClick}
-      className={`group rounded-lg p-8 flex flex-col justify-end cursor-pointer transition-colors duration-300 ${bgColor} ${textColor}`}
-    >
-      <p className="text-sm opacity-80 mb-2">{subtitle}</p>
-      <div className="flex items-center gap-2">
-        <ArrowRight
-          size={28}
-          className="transform transition-transform duration-300 group-hover:translate-x-1"
-        />
-        <span className="relative text-4xl font-bold">
-          {title}
-          <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-current group-hover:w-full transition-all duration-300"></span>
-        </span>
-      </div>
-    </div>
-  );
+  const currentTheme = resolvedTheme || theme || "light";
+
+  // Theme-aware colors using global CSS variables
+  const bg = "var(--surface-1000)";
+  const overlay = currentTheme === "dark" ? "rgba(0,0,0,0.3)" : "rgba(0,0,0,0.1)";
+  const headingColor = "var(--foreground)";
+  const subTextColor = "var(--text-on-surface)";
+  const buttonBg = "var(--emerald)";
+  const buttonText = "#ffffff";
 
   return (
-    <>
-      {/* CTA Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-8 bg-yellow-100 min-h-[60vh]">
-        <Card
-          title="Let’s work"
-          subtitle="Start your project with us"
-          bgColor="bg-black"
-          textColor="text-white"
-          onClick={() => setOpenForm("work")}
-        />
-        <Card
-          title="Brand Masterplan"
-          subtitle="Craft your winning strategy"
-          bgColor="bg-purple-300"
-          textColor="text-black"
-          onClick={() => setOpenForm("brand")}
-        />
-      </div>
+    <section
+      className="relative flex items-center justify-center min-h-[60vh] px-6"
+      style={{ backgroundColor: bg }}
+    >
+      {/* Overlay */}
+      <div className="absolute inset-0" style={{ backgroundColor: overlay }}></div>
 
-      {/* Side Panel */}
-      <AnimatePresence>
-        {openForm && (
-          <>
-            {/* Overlay */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.5 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="fixed inset-0 bg-black z-40"
-              onClick={() => setOpenForm(null)}
+      {/* Content */}
+      <div className="relative z-10 max-w-2xl text-center">
+        <motion.h2
+          className="font-sans font-bold text-3xl md:text-4xl mb-4"
+          style={{ color: headingColor }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          Transform Your Business Today
+        </motion.h2>
+
+        <motion.p
+          className="text-sm md:text-lg mb-6 font-sans"
+          style={{ color: subTextColor }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+        >
+          Join thousands of successful entrepreneurs who trust our platform to grow their businesses.
+        </motion.p>
+
+        {/* Premium CTA Button */}
+        <Link href="/contact" passHref>
+          <motion.a
+            className="inline-flex items-center justify-center font-semibold py-3 px-6 rounded-full shadow-md relative overflow-hidden group"
+            style={{ backgroundColor: buttonBg, color: buttonText }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <span className="relative z-10 mr-5">Get Started</span>
+            <ArrowRight
+              size={20}
+              className="absolute right-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300 ease-in-out"
             />
-
-            {/* Sidebar */}
-            <motion.div
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "tween", duration: 0.3 }}
-              className="fixed top-0 right-0 w-full md:w-96 h-full bg-white z-50 shadow-xl flex flex-col p-8 text-black"
-            >
-              {/* Header */}
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold">
-                  {openForm === "work" ? "Start a Project" : "Get Your Brand Plan"}
-                </h2>
-                <button onClick={() => setOpenForm(null)}>
-                  <X size={24} />
-                </button>
-              </div>
-
-              {/* Form */}
-              <form className="space-y-4 flex-grow overflow-auto">
-                <div>
-                  <label className="block text-sm font-medium">Name</label>
-                  <input
-                    type="text"
-                    placeholder="Your Name"
-                    className="w-full border px-3 py-2 rounded-md focus:outline-none focus:border-yellow-500"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium">Email</label>
-                  <input
-                    type="email"
-                    placeholder="Your Email"
-                    className="w-full border px-3 py-2 rounded-md focus:outline-none focus:border-yellow-500"
-                  />
-                </div>
-                {openForm === "work" && (
-                  <div>
-                    <label className="block text-sm font-medium">Budget Range</label>
-                    <select className="w-full border px-3 py-2 rounded-md focus:outline-none focus:border-yellow-500">
-                      <option>Under 10k</option>
-                      <option>10k–20k</option>
-                      <option>20k–50k</option>
-                      <option>50k–100k</option>
-                      <option>100k+</option>
-                    </select>
-                  </div>
-                )}
-                <div>
-                  <label className="block text-sm font-medium">Message</label>
-                  <textarea
-                    rows={4}
-                    placeholder="Tell us about your project…"
-                    className="w-full border px-3 py-2 rounded-md focus:outline-none focus:border-yellow-500"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="w-full bg-yellow-500 text-black py-3 font-semibold rounded-md hover:brightness-110 transition"
-                >
-                  Send Message
-                </button>
-              </form>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
-    </>
+          </motion.a>
+        </Link>
+      </div>
+    </section>
   );
 }
