@@ -33,6 +33,16 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // ✅ System theme detection for mobile
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    const applyTheme = () => setDarkMode(mq.matches);
+    applyTheme();
+
+    mq.addEventListener("change", applyTheme);
+    return () => mq.removeEventListener("change", applyTheme);
+  }, []);
+
   useEffect(() => {
     document.documentElement.classList.toggle("dark", darkMode);
   }, [darkMode]);
@@ -72,7 +82,7 @@ export default function Navbar() {
           </ul>
         </div>
 
-        {/* Right Actions */}
+        {/* Right Actions (Desktop only toggle) */}
         <div className="hidden md:flex items-center gap-3">
           <SliderToggle selected={darkMode ? "dark" : "light"} setSelected={(mode) => setDarkMode(mode === "dark")} />
           <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
@@ -89,39 +99,45 @@ export default function Navbar() {
           </motion.div>
         </div>
 
-        {/* Mobile Menu */}
-        <div className="md:hidden flex items-center gap-2">
-          <SliderToggle selected={darkMode ? "dark" : "light"} setSelected={(mode) => setDarkMode(mode === "dark")} />
-          <button
-            type="button"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-full shadow font-medium bg-[var(--foreground)] text-[var(--background)]"
-          >
-            <ChevronLeft size={14} className={`transition-transform ${mobileMenuOpen ? "rotate-0" : "-rotate-180"}`} />
-          </button>
+        {/* Mobile Menu (no theme toggle here) */}
+{/* Mobile Menu (no theme toggle here) */}
+<div className="md:hidden flex items-center -ml-2">
+  <button
+    type="button"
+    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+    className="flex items-center gap-2 px-3 py-1.5 rounded-full shadow font-medium bg-[var(--foreground)] text-[var(--background)]"
+  >
+    <ChevronLeft
+      size={14}
+      className={`transition-transform ${mobileMenuOpen ? "rotate-0" : "-rotate-180"}`}
+    />
+  </button>
 
-          {mobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              className="absolute right-4 top-full mt-2 shadow-md rounded-xl px-4 py-3 flex flex-col gap-3 w-48 bg-[var(--background)] text-[var(--foreground)]"
-            >
-              {navLinks.map(({ href, label }) => (
-                <Link
-                  key={href}
-                  href={href}
-                  className={`px-3 py-2 rounded-md font-medium transition-colors duration-200 ${
-                    pathname === href ? "bg-[var(--foreground)] text-[var(--background)]" : "hover:bg-gray-200 dark:hover:bg-gray-700"
-                  }`}
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {label}
-                </Link>
-              ))}
-            </motion.div>
-          )}
-        </div>
+  {mobileMenuOpen && (
+    <motion.div
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -10 }}
+      className="absolute right-4 top-full mt-2 shadow-md rounded-xl px-4 py-3 flex flex-col gap-3 w-48 bg-[var(--background)] text-[var(--foreground)]"
+    >
+      {navLinks.map(({ href, label }) => (
+        <Link
+          key={href}
+          href={href}
+          className={`px-3 py-2 rounded-md font-medium transition-colors duration-200 ${
+            pathname === href
+              ? "bg-[var(--foreground)] text-[var(--background)]"
+              : "hover:bg-gray-200 dark:hover:bg-gray-700"
+          }`}
+          onClick={() => setMobileMenuOpen(false)}
+        >
+          {label}
+        </Link>
+      ))}
+    </motion.div>
+  )}
+</div>
+
       </div>
     </nav>
   );
@@ -159,7 +175,9 @@ const NavTab = ({ href, children, setHoverPos, setActivePos, isActive }: NavTabP
       <Link
         href={href}
         className={`relative z-10 transition-colors duration-200 ${
-          isActive ? "text-[var(--background)]" : "text-[var(--foreground)] group-hover:text-[var(--background)]"
+          isActive
+            ? "text-[var(--background)]"
+            : "text-[var(--foreground)] group-hover:text-[var(--background)]"
         }`}
       >
         {children}
