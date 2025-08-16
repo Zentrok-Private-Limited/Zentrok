@@ -1,12 +1,121 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Mail, MapPin, Phone, Facebook, Twitter, Instagram, Linkedin, Send } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Mail,
+  MapPin,
+  Phone,
+  Facebook,
+  Twitter,
+  Instagram,
+  Linkedin,
+  Send,
+} from "lucide-react";
+import { FiX } from "react-icons/fi";
 import Footer from "@/components/Footer";
 
+/* ------------------- NOTIFICATION SYSTEM ------------------- */
+const NOTIFICATION_TTL = 5000;
+
+const Notification = ({ text, id, removeNotif, type }: any) => {
+  const bgColors: any = {
+    success: "bg-green-600",
+    error: "bg-red-600",
+    info: "bg-indigo-600",
+  };
+
+  const icons: any = {
+    success: "✔",
+    error: "✖",
+    info: "!",
+  };
+
+  useEffect(() => {
+    const timeoutRef = setTimeout(() => {
+      removeNotif(id);
+    }, NOTIFICATION_TTL);
+    return () => clearTimeout(timeoutRef);
+  }, [id, removeNotif]);
+
+  return (
+    <motion.div
+      layout
+      initial={{ y: 40, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      exit={{ y: 40, opacity: 0 }}
+      transition={{ duration: 0.35, ease: "easeOut" }}
+      className={`p-4 flex items-center rounded-lg gap-3 text-sm font-semibold shadow-lg text-white ${bgColors[type]} pointer-events-auto`}
+    >
+      {/* Icon */}
+      <div className="w-7 h-7 rounded-full border border-white flex items-center justify-center text-xs">
+        {icons[type]}
+      </div>
+
+      {/* Text */}
+      <span className="flex-1">{text}</span>
+
+      {/* Close */}
+      <button onClick={() => removeNotif(id)} className="ml-2">
+        <FiX />
+      </button>
+    </motion.div>
+  );
+};
+
+const NotificationsContainer = ({ notifications, removeNotif }: any) => (
+  <div className="flex flex-col gap-2 w-80 fixed bottom-4 right-4 z-50 pointer-events-none">
+    <AnimatePresence>
+      {notifications.map((n: any) => (
+        <Notification key={n.id} {...n} removeNotif={removeNotif} />
+      ))}
+    </AnimatePresence>
+  </div>
+);
+/* ------------------------------------------------------------ */
+
 export default function ContactPage() {
+  const [notifications, setNotifications] = useState<any[]>([]);
+
+  const addNotification = (text: string, type: "success" | "error" | "info") => {
+    setNotifications((pv) => [{ id: Math.random(), text, type }, ...pv]);
+  };
+
+  const removeNotif = (id: number) => {
+    setNotifications((pv) => pv.filter((n) => n.id !== id));
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    try {
+      await fetch(
+        "https://docs.google.com/forms/d/e/1FAIpQLSf5uAzuvIYHfaHGnG36ug7V42vDV2q7s2iaZnmrXJf-QtOovA/formResponse",
+        {
+          method: "POST",
+          body: formData,
+          mode: "no-cors", // required for Google Forms
+        }
+      );
+
+      form.reset();
+      addNotification("Thank you! Your message has been sent.", "success");
+    } catch (err) {
+      addNotification("Oops! Something went wrong. Try again.", "error");
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col transition-colors duration-300 text-[var(--foreground)]">
+      {/* Notifications */}
+      <NotificationsContainer
+        notifications={notifications}
+        removeNotif={removeNotif}
+      />
+
       {/* Main Section */}
       <main className="flex-1 container mx-auto px-6 lg:px-20 grid grid-cols-1 md:grid-cols-2 gap-12 py-12">
         {/* Left Section - Form */}
@@ -17,28 +126,41 @@ export default function ContactPage() {
           className="bg-[var(--surface-1000)] p-8 rounded-2xl shadow-lg"
         >
           <h2 className="text-2xl font-semibold mb-6">Send us a Message</h2>
-          <form className="space-y-5">
+
+          <form onSubmit={handleSubmit} className="space-y-5">
+            {/* Name */}
             <input
               type="text"
+              name="entry.903468581"
               placeholder="Your Name"
               required
-              className="p-3 border rounded-lg w-full bg-[var(--surface-900)] border-gray-300 dark:border-gray-600 focus:outline-none focus:border-[#00BFFF] text-sm sm:text-base"
+              className="p-3 border rounded-lg w-full bg-[var(--surface-900)] border-gray-300 dark:border-gray-600 focus:outline-none focus:border-[#00BFFF]"
             />
+
+            {/* Email */}
             <input
               type="email"
+              name="entry.1939218338"
               placeholder="Your Email"
               required
-              className="p-3 border rounded-lg w-full bg-[var(--surface-900)] border-gray-300 dark:border-gray-600 focus:outline-none focus:border-[#00BFFF] text-sm sm:text-base"
+              className="p-3 border rounded-lg w-full bg-[var(--surface-900)] border-gray-300 dark:border-gray-600 focus:outline-none focus:border-[#00BFFF]"
             />
+
+            {/* Message */}
             <textarea
+              name="entry.1161574739"
               placeholder="Your Message"
               rows={5}
               required
-              className="p-3 border rounded-lg w-full bg-[var(--surface-900)] border-gray-300 dark:border-gray-600 focus:outline-none focus:border-[#00BFFF] text-sm sm:text-base"
+              className="p-3 border rounded-lg w-full bg-[var(--surface-900)] border-gray-300 dark:border-gray-600 focus:outline-none focus:border-[#00BFFF]"
             ></textarea>
 
-            {/* Animated Button like in Services Page */}
-            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }} className="inline-block">
+            {/* Animated Button */}
+            <motion.div
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
+              className="inline-block"
+            >
               <button
                 type="submit"
                 className="group relative overflow-hidden flex items-center px-6 py-3 rounded-full bg-[#00BFFF] text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 pr-10"
@@ -60,11 +182,11 @@ export default function ContactPage() {
           transition={{ duration: 0.6 }}
           className="flex flex-col space-y-8 relative"
         >
-          {/* Heading */}
           <div className="absolute -top-12 mt-20 right-0">
             <h1 className="text-3xl sm:text-4xl font-bold">Contact Us</h1>
             <p className="mt-2 opacity-80">
-              We&apos;d love to hear from you! Reach out using the form or details below.
+              We&apos;d love to hear from you! Reach out using the form or
+              details below.
             </p>
           </div>
 
@@ -73,7 +195,7 @@ export default function ContactPage() {
               <Mail className="text-[#00BFFF] w-6 h-6" />
               <div>
                 <h3 className="font-semibold">Email</h3>
-                <p className="opacity-80">support@example.com</p>
+                <p className="opacity-80">support@zentrok.com</p>
               </div>
             </div>
 
@@ -81,7 +203,7 @@ export default function ContactPage() {
               <Phone className="text-[#00BFFF] w-6 h-6" />
               <div>
                 <h3 className="font-semibold">Phone</h3>
-                <p className="opacity-80">+1 (555) 123-4567</p>
+                <p className="opacity-80">+91 98765 43210</p>
               </div>
             </div>
 
@@ -89,7 +211,7 @@ export default function ContactPage() {
               <MapPin className="text-[#00BFFF] w-6 h-6" />
               <div>
                 <h3 className="font-semibold">Address</h3>
-                <p className="opacity-80">123 Main Street, City, Country</p>
+                <p className="opacity-80">Noida, Uttar Pradesh, India</p>
               </div>
             </div>
 
@@ -109,7 +231,7 @@ export default function ContactPage() {
         </motion.div>
       </main>
 
-      {/* Location Map Section */}
+      {/* Location Map */}
       <section className="w-full max-w-6xl mx-auto px-6 lg:px-20 pb-12">
         <h2 className="text-2xl font-semibold mb-4">Our Location</h2>
         <div className="rounded-xl overflow-hidden shadow-lg">
@@ -123,7 +245,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Original Footer */}
+      {/* Footer */}
       <Footer />
     </div>
   );
