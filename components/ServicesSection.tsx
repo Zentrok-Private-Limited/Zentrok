@@ -2,14 +2,14 @@
 
 import React, { useEffect, useState } from "react";
 import {
-  Lightbulb,
-  User,
+  BarChart3,
+  Share2,
   Target,
   PenTool,
-  Star,
+  Search,
   Globe,
   Megaphone,
-  ArrowBigUp,
+  TrendingUp,
   LucideIcon,
 } from "lucide-react";
 import { motion, Variants } from "framer-motion";
@@ -23,14 +23,46 @@ type Service = {
 };
 
 const services: Service[] = [
-  { title: "Research & Insights", description: "In-depth investigations to fuel strategic decisions.", icon: Lightbulb },
-  { title: "Unique Ways", description: "Creative approaches to set your business apart.", icon: Star },
-  { title: "Purpose, Mission, Vision", description: "Clear organizational direction at every level.", icon: Target },
-  { title: "Value Proposition", description: "Defining what makes your business irresistible.", icon: PenTool },
-  { title: "Personality Traits", description: "Crafting a brand voice and soul customers remember.", icon: User },
-  { title: "Verbal Identity", description: "Distinct communication style and messaging.", icon: Megaphone },
-  { title: "Naming Strategy", description: "Memorable and meaningful brand names and terms.", icon: Globe },
-  { title: "Brand Symbolism", description: "Powerful symbols to reinforce your brand identity.", icon: ArrowBigUp },
+  {
+    title: "SEO Optimization",
+    description: "Rank higher, get discovered, and drive organic traffic.",
+    icon: Search,
+  },
+  {
+    title: "Social Media Marketing",
+    description: "Engage audiences and build loyal communities online.",
+    icon: Share2,
+  },
+  {
+    title: "Paid Ads & Campaigns",
+    description: "Maximize ROI with laser-focused ad targeting.",
+    icon: Target,
+  },
+  {
+    title: "Content Creation",
+    description: "Craft compelling visuals and copy that convert.",
+    icon: PenTool,
+  },
+  {
+    title: "Brand Strategy",
+    description: "Build a memorable identity that customers trust.",
+    icon: Globe,
+  },
+  {
+    title: "Influencer Marketing",
+    description: "Leverage voices that amplify your brand impact.",
+    icon: Megaphone,
+  },
+  {
+    title: "Analytics & Insights",
+    description: "Data-driven reports to track and boost performance.",
+    icon: BarChart3,
+  },
+  {
+    title: "Growth Hacking",
+    description: "Smart strategies to accelerate brand success fast.",
+    icon: TrendingUp,
+  },
 ];
 
 // Animation variants
@@ -61,42 +93,45 @@ export default function ServicesSection() {
           whileInView="show"
           viewport={{ once: true, amount: 0.15 }}
         >
-          {services.map((service, idx) => (
-            <motion.a
-              key={idx}
-              href="#"
-              variants={item}
-              className="w-full p-8 rounded-xl border relative overflow-hidden group bg-[var(--surface-1000)] border-[var(--foreground)] transition-all duration-300"
-              whileHover={{
-                scale: 1.02,
-                boxShadow:
-                  theme === "dark"
-                    ? "0 8px 32px rgba(255,255,255,0.09)"
-                    : "0 8px 32px rgba(0,0,0,0.09)",
-              }}
-            >
-              {/* Hover gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-r from-violet-600 to-indigo-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+          {services.map((service, idx) => {
+            const Icon = service.icon; // ✅ Fix for Next.js + TS
+            return (
+              <motion.a
+                key={idx}
+                href="#"
+                variants={item}
+                className="w-full p-8 rounded-xl border relative overflow-hidden group bg-[var(--surface-1000)] border-[var(--foreground)] transition-all duration-300"
+                whileHover={{
+                  scale: 1.02,
+                  boxShadow:
+                    theme === "dark"
+                      ? "0 8px 32px rgba(255,255,255,0.09)"
+                      : "0 8px 32px rgba(0,0,0,0.09)",
+                }}
+              >
+                {/* Hover gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-r from-violet-600 to-indigo-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
 
-              {/* Big background icon */}
-              <service.icon
-                size={120}
-                className="absolute z-0 -top-16 -right-16 text-slate-200 opacity-30 group-hover:text-violet-400 group-hover:rotate-12 transition-all duration-300"
-              />
+                {/* Big background icon */}
+                <Icon
+                  size={120}
+                  className="absolute z-0 -top-16 -right-16 text-slate-200 opacity-30 group-hover:text-violet-400 group-hover:rotate-12 transition-all duration-300"
+                />
 
-              {/* Small foreground icon */}
-              <div className="relative z-10 mb-4 text-violet-600 group-hover:text-white transition-colors duration-300">
-                <service.icon size={36} />
-              </div>
+                {/* Small foreground icon */}
+                <div className="relative z-10 mb-4 text-violet-600 group-hover:text-white transition-colors duration-300">
+                  <Icon size={36} />
+                </div>
 
-              <h3 className="relative z-10 text-lg font-semibold mb-2 text-[var(--foreground)] group-hover:text-white transition-colors duration-300">
-                {service.title}
-              </h3>
-              <p className="relative z-10 text-gray-500 group-hover:text-violet-200 transition-colors duration-300">
-                {service.description}
-              </p>
-            </motion.a>
-          ))}
+                <h3 className="relative z-10 text-lg font-semibold mb-2 text-[var(--foreground)] group-hover:text-white transition-colors duration-300">
+                  {service.title}
+                </h3>
+                <p className="relative z-10 text-gray-500 group-hover:text-violet-200 transition-colors duration-300">
+                  {service.description}
+                </p>
+              </motion.a>
+            );
+          })}
         </motion.div>
       </div>
     </section>
