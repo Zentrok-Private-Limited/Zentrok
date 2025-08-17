@@ -97,25 +97,27 @@ export default function Hero() {
       >
         {/* Get Started */}
         <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
-          <Link
-            href="/contact"
-            className={`
-              relative overflow-hidden flex items-center 
-              px-4 xs:px-5 sm:px-6 py-2 xs:py-2.5 sm:py-3 
-              rounded-full bg-emerald 
-              font-semibold shadow-lg hover:shadow-xl 
-              group transition-all duration-300 
-              pr-8 xs:pr-9 sm:pr-10 
-              text-xs xs:text-sm sm:text-base
-              ${currentTheme === "light" ? "text-on-surface" : "text-white"}
-            `}
-          >
-            <span className="relative z-10">Get Started</span>
-            <Send
-              size={18}
-              className="absolute right-3 xs:right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out z-10"
-            />
-          </Link>
+<Link
+  href="/contact"
+  className={`
+    relative overflow-hidden flex items-center 
+    px-4 xs:px-5 sm:px-6 py-2 xs:py-2.5 sm:py-3 
+    rounded-full 
+     border border-current   /* added border here */
+    font-semibold shadow-lg hover:shadow-xl 
+    group transition-all duration-300 
+    pr-8 xs:pr-9 sm:pr-10 
+    text-xs xs:text-sm sm:text-base
+    ${currentTheme === "light" ? "text-on-surface" : "text-white"}
+  `}
+>
+  <span className="relative z-10">Get Started</span>
+  <Send
+    size={18}
+    className="absolute right-3 xs:right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out z-10"
+  />
+</Link>
+
         </motion.div>
 
         {/* View Our Work */}

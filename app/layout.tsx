@@ -16,7 +16,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <Navbar />
         <main className="pt-20">{children}</main>
-        
+        <div className="aurora">
+  <span></span>
+</div>
+
       </body>
     </html>
   );

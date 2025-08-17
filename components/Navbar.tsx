@@ -81,7 +81,7 @@ export default function Navbar() {
             <Cursor position={hoverPos.opacity ? hoverPos : activePos} />
           </ul>
         </div>
-
+       
         {/* Right Actions (Desktop only toggle) */}
         <div className="hidden md:flex items-center gap-3">
           <SliderToggle selected={darkMode ? "dark" : "light"} setSelected={(mode) => setDarkMode(mode === "dark")} />
