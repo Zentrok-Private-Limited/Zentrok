@@ -15,17 +15,40 @@ import {
 import { FiX } from "react-icons/fi";
 import Footer from "@/components/Footer";
 
+/* ------------------- TYPES ------------------- */
+type NotificationType = "success" | "error" | "info";
+
+interface NotificationItem {
+  id: number;
+  text: string;
+  type: NotificationType;
+}
+
+interface NotificationProps extends NotificationItem {
+  removeNotif: (id: number) => void;
+}
+
+interface NotificationsContainerProps {
+  notifications: NotificationItem[];
+  removeNotif: (id: number) => void;
+}
+
 /* ------------------- NOTIFICATION SYSTEM ------------------- */
 const NOTIFICATION_TTL = 5000;
 
-const Notification = ({ text, id, removeNotif, type }: any) => {
-  const bgColors: any = {
+const Notification: React.FC<NotificationProps> = ({
+  text,
+  id,
+  removeNotif,
+  type,
+}) => {
+  const bgColors: Record<NotificationType, string> = {
     success: "bg-green-600",
     error: "bg-red-600",
     info: "bg-indigo-600",
   };
 
-  const icons: any = {
+  const icons: Record<NotificationType, string> = {
     success: "✔",
     error: "✖",
     info: "!",
@@ -63,10 +86,13 @@ const Notification = ({ text, id, removeNotif, type }: any) => {
   );
 };
 
-const NotificationsContainer = ({ notifications, removeNotif }: any) => (
+const NotificationsContainer: React.FC<NotificationsContainerProps> = ({
+  notifications,
+  removeNotif,
+}) => (
   <div className="flex flex-col gap-2 w-80 fixed bottom-4 right-4 z-50 pointer-events-none">
     <AnimatePresence>
-      {notifications.map((n: any) => (
+      {notifications.map((n) => (
         <Notification key={n.id} {...n} removeNotif={removeNotif} />
       ))}
     </AnimatePresence>
@@ -75,10 +101,10 @@ const NotificationsContainer = ({ notifications, removeNotif }: any) => (
 /* ------------------------------------------------------------ */
 
 export default function ContactPage() {
-  const [notifications, setNotifications] = useState<any[]>([]);
+  const [notifications, setNotifications] = useState<NotificationItem[]>([]);
 
-  const addNotification = (text: string, type: "success" | "error" | "info") => {
-    setNotifications((pv) => [{ id: Math.random(), text, type }, ...pv]);
+  const addNotification = (text: string, type: NotificationType) => {
+    setNotifications((pv) => [{ id: Date.now(), text, type }, ...pv]);
   };
 
   const removeNotif = (id: number) => {
@@ -103,7 +129,7 @@ export default function ContactPage() {
 
       form.reset();
       addNotification("Thank you! Your message has been sent.", "success");
-    } catch (err) {
+    } catch {
       addNotification("Oops! Something went wrong. Try again.", "error");
     }
   };
