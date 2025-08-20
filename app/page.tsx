@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import CTASection from "@/components/CTASection";
 import MissionValues from "@/components/MissionValues";
 import StatsAndProof from "@/components/StatsAndProof";
+import Testimonials from "@/components/Testimonials";
 export default function Home() {
   return (
     <main>
@@ -13,6 +14,7 @@ export default function Home() {
       < MissionValues />
       <StatsAndProof />
       <AboutSection />
+      <Testimonials />
       <CTASection />
       <Footer />
     </main>
