@@ -98,8 +98,8 @@ const NotificationsContainer: React.FC<NotificationsContainerProps> = ({
     </AnimatePresence>
   </div>
 );
-/* ------------------------------------------------------------ */
 
+/* ------------------- CONTACT PAGE ------------------- */
 export default function ContactPage() {
   const [notifications, setNotifications] = useState<NotificationItem[]>([]);
 
@@ -115,21 +115,27 @@ export default function ContactPage() {
     e.preventDefault();
 
     const form = e.currentTarget;
-    const formData = new FormData(form);
+    const formData = {
+      name: form.name.value,
+      email: form.email.value,
+      message: form.message.value,
+    };
 
     try {
-      await fetch(
-        "https://docs.google.com/forms/d/e/1FAIpQLSf5uAzuvIYHfaHGnG36ug7V42vDV2q7s2iaZnmrXJf-QtOovA/formResponse",
-        {
-          method: "POST",
-          body: formData,
-          mode: "no-cors", // required for Google Forms
-        }
-      );
+      const res = await fetch("http://localhost:5000/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
-      form.reset();
-      addNotification("Thank you! Your message has been sent.", "success");
-    } catch {
+      if (res.ok) {
+        form.reset();
+        addNotification("Thank you! Your message has been sent.", "success");
+      } else {
+        addNotification("Oops! Something went wrong. Try again.", "error");
+      }
+    } catch (err) {
+      console.error(err);
       addNotification("Oops! Something went wrong. Try again.", "error");
     }
   };
@@ -157,7 +163,7 @@ export default function ContactPage() {
             {/* Name */}
             <input
               type="text"
-              name="entry.903468581"
+              name="name"
               placeholder="Your Name"
               required
               className="p-3 border rounded-lg w-full bg-[var(--surface-900)] border-gray-300 dark:border-gray-600 focus:outline-none focus:border-[#00BFFF]"
@@ -166,7 +172,7 @@ export default function ContactPage() {
             {/* Email */}
             <input
               type="email"
-              name="entry.1939218338"
+              name="email"
               placeholder="Your Email"
               required
               className="p-3 border rounded-lg w-full bg-[var(--surface-900)] border-gray-300 dark:border-gray-600 focus:outline-none focus:border-[#00BFFF]"
@@ -174,7 +180,7 @@ export default function ContactPage() {
 
             {/* Message */}
             <textarea
-              name="entry.1161574739"
+              name="message"
               placeholder="Your Message"
               rows={5}
               required
