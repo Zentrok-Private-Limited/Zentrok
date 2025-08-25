@@ -17,7 +17,7 @@ const rotatingWordsDark = [
 ];
 const rotatingWordsLight = [
   { text: "grow digitally", color: "#39FF14" },
-  { text: "grow globally", color: "#FF0000" },
+  { text: "grow globally", color: "#ff007f" },
   { text: "build network", color: "#3fafa4" },
 ];
 

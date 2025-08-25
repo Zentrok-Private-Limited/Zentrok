@@ -5,7 +5,7 @@ import { Send, Users, Lightbulb } from "lucide-react";
 
 const cards = [
   {
-    color: "#cc128B",
+    color: "#ff007f",
     heading: "Become the next big name everyone’s talking about",
     subtext:
       "Your brand is your story. We ensure every step resonates with impact and clarity.",
@@ -13,7 +13,7 @@ const cards = [
     videoSrc: "/video.mp4",
   },
   {
-    color: "#7E3FF2",
+    color: "#39FF14",
     heading: "Don't miss the chance to do your life’s greatest work",
     subtext:
       "From strategy to execution, we make every move count in creating your legacy.",
@@ -21,7 +21,7 @@ const cards = [
     videoSrc: "/video2.mp4",
   },
   {
-    color: "#238BC3",
+    color: "#00e6d0",
     heading: "Excited about digital storytelling?",
     subtext:
       "We craft immersive narratives that make your audience feel, remember, and share.",

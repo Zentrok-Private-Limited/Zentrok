@@ -13,14 +13,9 @@ const AnimatedFooter: React.FC = () => {
   useEffect(() => setMounted(true), []);
   if (!mounted) return null;
 
-  // Colors based on theme
-  const foreground = `var(--foreground)`; // main text/icons
-  const inputBg = theme === "dark" ? "var(--surface-1000)" : "var(--surface-1000)";
-  
-  // Footer background
-  const footerBg = theme === "dark" ? "var(--surface-900)" : "var(--surface-1000)";
+  const foreground = `var(--foreground)`; 
+  const inputBg = "rgba(0,0,0,0.6)"; // semi-transparent for better readability
 
-  // Button logic
   const buttonBg = theme === "dark" ? "#ffffff" : "#1a1a1a";
   const buttonText = theme === "dark" && buttonBg === "#ffffff" ? "#000000" : "#ffffff";
   const borderColor = foreground;
@@ -33,12 +28,24 @@ const AnimatedFooter: React.FC = () => {
   ];
 
   return (
-    <footer
-      className="w-full border-t"
-      style={{ borderColor, backgroundColor: footerBg }}
-    >
-      <div className="max-w-7xl mx-auto flex flex-col items-center text-center py-16 px-6 space-y-8">
-        {/* Heading */}
+    <footer className="relative w-full border-t overflow-hidden" style={{ borderColor }}>
+      {/* Video Background */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover z-0"
+      >
+        <source src="/footer-bg.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
+      {/* Optional dark overlay for readability */}
+      <div className="absolute inset-0 bg-black/50 z-0" />
+
+      {/* Footer Content */}
+      <div className="relative z-10 max-w-7xl mx-auto flex flex-col items-center text-center py-16 px-6 space-y-8">
         <h2 className="text-3xl md:text-4xl font-bold max-w-xl" style={{ color: foreground }}>
           Want weekly{" "}
           <span className="font-semibold" style={{ color: foreground }}>
@@ -100,7 +107,6 @@ const AnimatedFooter: React.FC = () => {
           ))}
         </div>
 
-        {/* Copyright */}
         <p className="text-sm opacity-70" style={{ color: foreground }}>
           © {new Date().getFullYear()} Zentrok. All rights reserved.
         </p>

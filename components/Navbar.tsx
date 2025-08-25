@@ -56,10 +56,30 @@ export default function Navbar() {
     <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${navBgClass}`}>
       <div className="max-w-screen-xl mx-auto flex justify-between items-center px-6 py-3">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
-          <Image src="/zentrok.svg" alt="ZENTROK Logo" width={32} height={32} className="rounded-md" />
-          <span className="text-xl mr-35 font-bold tracking-tight text-[var(--foreground)]">ZENTROK</span>
-        </Link>
+<Link href="/" className="flex items-center gap-2">
+  <Image 
+    src="/logo-icon.svg" 
+    alt="ZENTROK Logo" 
+    width={40} 
+    height={40} 
+    className="rounded-md" 
+  />
+  
+  {/* Wrapper for ZENTROK + Pvt. Ltd. */}
+  <div className="flex flex-col leading-none relative">
+    <span 
+      className="text-xl font-bold tracking-tight text-[var(--foreground)]"
+      style={{ fontFamily: "'Seven Swordsmen BB', sans-serif" }}
+    >
+      ZENTROK
+    </span>
+    <span className="absolute right-0 text-[10px] mt-6 font-medium text-[var(--foreground)]" style={{ fontFamily: "'Seven Swordsmen BB', sans-serif" }}>
+      Pvt. Ltd.
+    </span>
+  </div>
+</Link>
+
+
 
         {/* Desktop Nav */}
         <div className="hidden md:block">
