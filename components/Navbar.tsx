@@ -56,7 +56,7 @@ export default function Navbar() {
     <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${navBgClass}`}>
       <div className="max-w-screen-xl mx-auto flex justify-between items-center px-6 py-3">
         {/* Logo */}
-<Link href="/" className="flex items-center gap-0">
+<Link href="/" className="flex pb-3 items-center gap-0">
   <Image 
     src="/logo-icon.svg" 
     alt="ZENTROK Logo" 
