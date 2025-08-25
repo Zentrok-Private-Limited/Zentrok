@@ -68,13 +68,13 @@ export default function Navbar() {
   {/* Wrapper for ZENTROK + Pvt. Ltd. */}
   <div className="flex flex-col leading-none relative">
     <span 
-      className="text-xl font-extrabold tracking-tight text-[var(--foreground)]"
+      className="text-xl font-extrabold tracking-widest text-[var(--foreground)]"
       style={{ fontFamily: "'Seven Swordsmen BB', sans-serif" }}
     >
       ZENTROK
     </span>
-    <span className="absolute right-0 text-[10px] mt-5 font-medium text-[var(--foreground)]" style={{ fontFamily: "'Seven Swordsmen BB', sans-serif" }}>
-      Pvt. Ltd.
+    <span className="absolute right-0 text-[10px] mt-6 font-medium text-[var(--foreground)]" style={{ fontFamily: "'Seven Swordsmen BB', sans-serif" }}>
+         Pvt.Ltd.
     </span>
   </div>
 </Link>

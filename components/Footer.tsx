@@ -2,22 +2,51 @@
 
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from "react-icons/fa";
+import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaSun, FaMoon } from "react-icons/fa";
 import { Send } from "lucide-react";
-import { useTheme } from "next-themes";
 
 const AnimatedFooter: React.FC = () => {
-  const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [theme, setTheme] = useState<"light" | "dark">("light");
 
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    setMounted(true);
+    // Check for saved theme preference or use system preference
+    const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
+    const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    
+    if (savedTheme) {
+      setTheme(savedTheme);
+    } else if (systemPrefersDark) {
+      setTheme("dark");
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+    
+    // Update the HTML class and localStorage when theme changes
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+    
+    localStorage.setItem("theme", theme);
+  }, [theme, mounted]);
+
+  const toggleTheme = () => {
+    setTheme(theme === "light" ? "dark" : "light");
+  };
+
   if (!mounted) return null;
 
-  const foreground = `var(--foreground)`; 
-  const inputBg = "rgba(0,0,0,0.6)"; // semi-transparent for better readability
+  const foreground = `var(--foreground)`;
+  const background = `var(--background)`;
+  const inputBg = theme === "dark" ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.06)";
 
   const buttonBg = theme === "dark" ? "#ffffff" : "#1a1a1a";
-  const buttonText = theme === "dark" && buttonBg === "#ffffff" ? "#000000" : "#ffffff";
+  const buttonText = theme === "dark" ? "#000000" : "#ffffff";
   const borderColor = foreground;
 
   const socialIcons = [
@@ -28,21 +57,43 @@ const AnimatedFooter: React.FC = () => {
   ];
 
   return (
-    <footer className="relative w-full border-t overflow-hidden" style={{ borderColor }}>
+    <footer 
+      className="relative w-full border-t overflow-hidden" 
+      style={{ 
+        borderColor,
+        backgroundColor: background
+      }}
+    >
+      {/* Theme Toggle Button */}
+      <motion.button
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        onClick={toggleTheme}
+        className="absolute top-6 right-6 z-20 p-3 rounded-full border"
+        style={{
+          borderColor,
+          color: foreground,
+          backgroundColor: background
+        }}
+        aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
+      >
+        {theme === "light" ? <FaMoon size={18} /> : <FaSun size={18} />}
+      </motion.button>
+
       {/* Video Background */}
       <video
         autoPlay
         loop
         muted
         playsInline
-        className="absolute inset-0 w-full h-full object-cover z-0"
+        className="absolute inset-0 w-full h-full object-cover z-0 opacity-30"
       >
         <source src="/footer-bg.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
-      {/* Optional dark overlay for readability */}
-      <div className="absolute inset-0 bg-black/50 z-0" />
+      {/* Optional overlay for readability */}
+      <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-background/50 z-0" />
 
       {/* Footer Content */}
       <div className="relative z-10 max-w-7xl mx-auto flex flex-col items-center text-center py-16 px-6 space-y-8">
@@ -100,6 +151,7 @@ const AnimatedFooter: React.FC = () => {
               style={{
                 borderColor,
                 color: foreground,
+                backgroundColor: inputBg
               }}
             >
               <Icon size={18} />
