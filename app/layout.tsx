@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "Zentrok",
   description: "Creative Digital Marketing Agency",
    icons: {
-    icon: "/zentrok.svg", // path from public folder
+    icon: "/logo-icon.svg", // path from public folder
   },
 };
 
