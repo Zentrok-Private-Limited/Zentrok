@@ -74,10 +74,8 @@ const Notification: React.FC<NotificationProps> = ({
       <div className="w-7 h-7 rounded-full border border-white flex items-center justify-center text-xs">
         {icons[type]}
       </div>
-
       {/* Text */}
       <span className="flex-1">{text}</span>
-
       {/* Close */}
       <button onClick={() => removeNotif(id)} className="ml-2">
         <FiX />
@@ -102,6 +100,8 @@ const NotificationsContainer: React.FC<NotificationsContainerProps> = ({
 
 export default function ContactPage() {
   const [notifications, setNotifications] = useState<NotificationItem[]>([]);
+  // State to handle submission loading UX
+  const [isLoading, setIsLoading] = useState(false);
 
   const addNotification = (text: string, type: NotificationType) => {
     setNotifications((pv) => [{ id: Date.now(), text, type }, ...pv]);
@@ -111,28 +111,51 @@ export default function ContactPage() {
     setNotifications((pv) => pv.filter((n) => n.id !== id));
   };
 
+  // 2. Updated handleSubmit function to call your API
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
 
     const form = e.currentTarget;
     const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+    // This is the data that will be sent to your backend
+    const payload = {
+      name: data.name,
+      email: data.email, // We send the sender's email to the backend
+      summary: data.message,
+    };
 
     try {
-      await fetch(
-        "https://docs.google.com/forms/d/e/1FAIpQLSf5uAzuvIYHfaHGnG36ug7V42vDV2q7s2iaZnmrXJf-QtOovA/formResponse",
+      const response = await fetch(
+        "https://z-backend-neon.vercel.app/api/subscribe/send",
         {
           method: "POST",
-          body: formData,
-          mode: "no-cors", // required for Google Forms
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
         }
       );
 
-      form.reset();
-      addNotification("Thank you! Your message has been sent.", "success");
-    } catch {
-      addNotification("Oops! Something went wrong. Try again.", "error");
+      if (response.ok) {
+        form.reset();
+        addNotification("Thank you! Your message has been sent.", "success");
+      } else {
+        // Handle server errors (e.g., 500 Internal Server Error)
+        const errorData = await response.json();
+        addNotification(errorData.message || "Oops! Server error. Try again.", "error");
+      }
+    } catch (error) {
+      // Handle network errors
+      console.error("Submission Error:", error);
+      addNotification("Oops! Something went wrong. Check your connection.", "error");
+    } finally {
+      setIsLoading(false);
     }
   };
+
 
   return (
     <div className="min-h-screen flex flex-col transition-colors duration-300 text-[var(--foreground)]">
@@ -154,47 +177,50 @@ export default function ContactPage() {
           <h2 className="text-2xl font-semibold mb-6">Send us a Message</h2>
 
           <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Name */}
+            {/* 1. Changed name attributes for easier handling */}
             <input
               type="text"
-              name="entry.903468581"
+              name="name" // CHANGED
               placeholder="Your Name"
               required
               className="p-3 border rounded-lg w-full bg-[var(--surface-900)] border-gray-300 dark:border-gray-600 focus:outline-none focus:border-[#00BFFF]"
             />
 
-            {/* Email */}
             <input
               type="email"
-              name="entry.1939218338"
+              name="email" // CHANGED
               placeholder="Your Email"
               required
               className="p-3 border rounded-lg w-full bg-[var(--surface-900)] border-gray-300 dark:border-gray-600 focus:outline-none focus:border-[#00BFFF]"
             />
 
-            {/* Message */}
             <textarea
-              name="entry.1161574739"
+              name="message" // CHANGED
               placeholder="Your Message"
               rows={5}
               required
               className="p-3 border rounded-lg w-full bg-[var(--surface-900)] border-gray-300 dark:border-gray-600 focus:outline-none focus:border-[#00BFFF]"
             ></textarea>
 
-            {/* Animated Button */}
+            {/* 3. Added loading state to the button */}
             <motion.div
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.96 }}
+              whileHover={{ scale: isLoading ? 1 : 1.04 }}
+              whileTap={{ scale: isLoading ? 1 : 0.96 }}
               className="inline-block"
             >
               <button
                 type="submit"
-                className="group relative overflow-hidden flex items-center px-6 py-3 rounded-full bg-[#00BFFF] text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 pr-10"
+                disabled={isLoading}
+                className="group relative overflow-hidden flex items-center px-6 py-3 rounded-full bg-[#00BFFF] text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 pr-10 disabled:bg-gray-500 disabled:cursor-not-allowed"
               >
-                <span className="relative z-10 mr-4">Send Message</span>
+                <span className="relative z-10 mr-4">
+                  {isLoading ? "Sending..." : "Send Message"}
+                </span>
                 <Send
                   size={18}
-                  className="absolute right-3 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 ease-in-out z-10"
+                  className={`absolute right-3 z-10 transition-all duration-300 ease-in-out ${
+                    isLoading ? "opacity-0" : "opacity-0 group-hover:opacity-100 group-hover:translate-x-0 translate-x-2"
+                  }`}
                 />
               </button>
             </motion.div>
@@ -211,7 +237,7 @@ export default function ContactPage() {
           <div className="absolute -top-12 mt-20 right-0">
             <h1 className="text-3xl sm:text-4xl font-bold">Contact Us</h1>
             <p className="mt-2 opacity-80">
-              We&apos;d love to hear from you! Reach out using the form or
+              We'd love to hear from you! Reach out using the form or
               details below.
             </p>
           </div>
@@ -262,7 +288,7 @@ export default function ContactPage() {
         <h2 className="text-2xl font-semibold mb-4">Our Location</h2>
         <div className="rounded-xl overflow-hidden shadow-lg">
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3502.2050728280515!2d77.36404817550047!3d28.623615275669607!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce544da5a9ebf%3A0x4024cbbabd66b412!2sKLJ%20Noida%20One!5e0!3m2!1sen!2sin!4v1755156818225!5m2!1sen!2sin"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3503.532359489725!2d77.32014131507724!3d28.58380298243642!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce4589d3d2b2b%3A0x7d7e7dc3a8a356c!2sNoida%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1620139268840!5m2!1sen!2sin"
             width="100%"
             height="400"
             loading="lazy"
@@ -270,9 +296,6 @@ export default function ContactPage() {
           ></iframe>
         </div>
       </section>
-
-      {/* Footer */}
-      <Footer />
     </div>
   );
 }

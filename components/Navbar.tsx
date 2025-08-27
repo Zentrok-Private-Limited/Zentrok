@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { ChevronLeft, Send } from "lucide-react";
 import { FiMoon, FiSun } from "react-icons/fi";
 import { usePathname } from "next/navigation";
+import UpperNavbar from "./UpperNavbar";
 
 type Position = { left: number; width: number; opacity: number };
 
@@ -54,6 +55,7 @@ export default function Navbar() {
 
   return (
     <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${navBgClass}`}>
+      <UpperNavbar/>
       <div className="max-w-screen-xl mx-auto flex justify-between items-center px-6 py-3">
         {/* Logo */}
 <Link href="/" className="flex pb-3 items-center gap-0">

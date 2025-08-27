@@ -2,51 +2,59 @@
 
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaSun, FaMoon } from "react-icons/fa";
+import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 import { Send } from "lucide-react";
+import { useTheme } from "next-themes";
 
 const AnimatedFooter: React.FC = () => {
+  const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+  
+  // 1. Add state for the email input and submission status
+  const [email, setEmail] = useState("");
+  type Status = "idle" | "loading" | "success" | "error";
+  const [status, setStatus] = useState<Status>("idle");
 
-  useEffect(() => {
-    setMounted(true);
-    // Check for saved theme preference or use system preference
-    const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
-    const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    
-    if (savedTheme) {
-      setTheme(savedTheme);
-    } else if (systemPrefersDark) {
-      setTheme("dark");
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!mounted) return;
-    
-    // Update the HTML class and localStorage when theme changes
-    if (theme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-    
-    localStorage.setItem("theme", theme);
-  }, [theme, mounted]);
-
-  const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light");
-  };
-
+  useEffect(() => setMounted(true), []);
   if (!mounted) return null;
+  
+  // 2. Create the form submission handler
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!email) return; // Prevent submission if email is empty
+    
+    setStatus("loading");
 
+    try {
+      const response = await fetch("http://localhost:8000/api/subscribe/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (response.ok) {
+        setStatus("success");
+        setEmail(""); // Clear input on success
+      } else {
+        setStatus("error");
+      }
+    } catch (error) {
+      console.error("Subscription error:", error);
+      setStatus("error");
+    }
+
+    // Reset the button status after 3 seconds so the user can try again
+    setTimeout(() => setStatus("idle"), 3000);
+  };
+  
+  // --- Style & UI Logic (mostly unchanged) ---
   const foreground = `var(--foreground)`;
-  const background = `var(--background)`;
-  const inputBg = theme === "dark" ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.06)";
-
+  const inputBg = theme === "dark" ? "var(--surface-1000)" : "var(--surface-1000)";
+  const footerBg = theme === "dark" ? "var(--surface-900)" : "var(--surface-1000)";
   const buttonBg = theme === "dark" ? "#ffffff" : "#1a1a1a";
-  const buttonText = theme === "dark" ? "#000000" : "#ffffff";
+  const buttonText = theme === "dark" && buttonBg === "#ffffff" ? "#000000" : "#ffffff";
   const borderColor = foreground;
 
   const socialIcons = [
@@ -55,48 +63,27 @@ const AnimatedFooter: React.FC = () => {
     { Icon: FaInstagram, link: "#" },
     { Icon: FaLinkedinIn, link: "#" },
   ];
+  
+  // 3. Dynamic button text based on submission status
+  const getButtonText = () => {
+    switch (status) {
+      case "loading":
+        return "Subscribing...";
+      case "success":
+        return "Subscribed! 🎉";
+      case "error":
+        return "Try Again";
+      default:
+        return "Subscribe";
+    }
+  };
 
   return (
-    <footer 
-      className="relative w-full border-t overflow-hidden" 
-      style={{ 
-        borderColor,
-        backgroundColor: background
-      }}
+    <footer
+      className="w-full border-t"
+      style={{ borderColor, backgroundColor: footerBg }}
     >
-      {/* Theme Toggle Button */}
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        onClick={toggleTheme}
-        className="absolute top-6 right-6 z-20 p-3 rounded-full border"
-        style={{
-          borderColor,
-          color: foreground,
-          backgroundColor: background
-        }}
-        aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
-      >
-        {theme === "light" ? <FaMoon size={18} /> : <FaSun size={18} />}
-      </motion.button>
-
-      {/* Video Background */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover z-0 opacity-30"
-      >
-        <source src="/footer-bg.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-
-      {/* Optional overlay for readability */}
-      <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-background/50 z-0" />
-
-      {/* Footer Content */}
-      <div className="relative z-10 max-w-7xl mx-auto flex flex-col items-center text-center py-16 px-6 space-y-8">
+      <div className="max-w-7xl mx-auto flex flex-col items-center text-center py-16 px-6 space-y-8">
         <h2 className="text-3xl md:text-4xl font-bold max-w-xl" style={{ color: foreground }}>
           Want weekly{" "}
           <span className="font-semibold" style={{ color: foreground }}>
@@ -105,11 +92,18 @@ const AnimatedFooter: React.FC = () => {
           delivered straight to your inbox?
         </h2>
 
-        {/* CTA Form */}
-        <form className="flex flex-col sm:flex-row items-center gap-4 w-full max-w-md">
+        {/* --- FORM UPDATES --- */}
+        <form 
+          onSubmit={handleSubmit} // Added onSubmit handler
+          className="flex flex-col sm:flex-row items-center gap-4 w-full max-w-md"
+        >
           <input
             type="email"
+            name="email"     // Added name attribute
             placeholder="Enter your email"
+            value={email}   // Controlled component
+            onChange={(e) => setEmail(e.target.value)} // Update state on change
+            required
             className="flex-1 px-4 py-3 rounded-full border focus:outline-none"
             style={{
               backgroundColor: inputBg,
@@ -119,17 +113,18 @@ const AnimatedFooter: React.FC = () => {
           />
 
           <motion.button
-            whileHover={{ scale: 1.04 }}
-            whileTap={{ scale: 0.96 }}
+            whileHover={{ scale: status === 'loading' ? 1 : 1.04 }}
+            whileTap={{ scale: status === 'loading' ? 1 : 0.96 }}
             type="submit"
-            className="relative overflow-hidden flex items-center px-6 py-3 rounded-full font-semibold shadow-lg hover:shadow-xl group transition-all duration-300 pr-10"
+            disabled={status === 'loading'} // Disable button while loading
+            className="relative overflow-hidden flex items-center px-6 py-3 rounded-full font-semibold shadow-lg hover:shadow-xl group transition-all duration-300 pr-10 disabled:bg-gray-500 disabled:cursor-not-allowed"
             style={{
               backgroundColor: buttonBg,
               color: buttonText,
             }}
           >
             <span className="relative mr-5 z-10" style={{ color: buttonText }}>
-              Subscribe
+              {getButtonText()} {/* Use dynamic button text */}
             </span>
             <Send
               size={18}
@@ -139,7 +134,6 @@ const AnimatedFooter: React.FC = () => {
           </motion.button>
         </form>
 
-        {/* Social Icons */}
         <div className="flex space-x-4">
           {socialIcons.map(({ Icon, link }, idx) => (
             <motion.a
@@ -148,11 +142,7 @@ const AnimatedFooter: React.FC = () => {
               whileTap={{ scale: 0.95 }}
               href={link}
               className="p-3 rounded-full border transition-colors duration-300"
-              style={{
-                borderColor,
-                color: foreground,
-                backgroundColor: inputBg
-              }}
+              style={{ borderColor, color: foreground }}
             >
               <Icon size={18} />
             </motion.a>
