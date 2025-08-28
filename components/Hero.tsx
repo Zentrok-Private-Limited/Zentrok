@@ -15,12 +15,19 @@ import { useTheme } from "next-themes";
 // Aurora gradient colors (cycling core glow)
 const COLORS_TOP = ["#FFD700", "#FFC107", "#FFEB3B", "#FFB300"];
 
+// Rotating words for light mode
 const rotatingWordsLight = [
   { text: "grow digitally", color: "#ED2D02" },
   { text: "grow globally", color: "#ED6402" },
   { text: "build network", color: "#BDA808" },
 ];
 
+// Rotating words for dark mode
+const rotatingWordsDark = [
+  { text: "innovate", color: "#4ADE80" },
+  { text: "scale", color: "#60A5FA" },
+  { text: "stand out", color: "#F472B6" },
+];
 
 const MotionLink = motion(Link);
 
@@ -31,7 +38,7 @@ export default function Hero() {
 
   const currentTheme = resolvedTheme || theme || "light";
   const rotatingWords =
-    currentTheme === "Dark" ? rotatingWordsLight : rotatingWordsDark;
+    currentTheme === "dark" ? rotatingWordsDark : rotatingWordsLight;
 
   // Aurora gradient motion value
   const color = useMotionValue(COLORS_TOP[0]);
