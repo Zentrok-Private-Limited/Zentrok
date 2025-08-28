@@ -3,27 +3,37 @@ import { useState } from "react";
 import Image from "next/image";
 
 const team = [
-  { name: "Himanshu", role: "Creative Director", img: "/team/himanshu.jpg", bio: "Brand nerd. Coffee addict." },
-  { name: "Gaurav", role: "Growth Lead", img: "/team/gaurav.jpg", bio: "Performance & data freak." },
+  { name: "Himanshu", role: "Creative Director", img: "/name1.avif", bio: "Brand nerd. Coffee addict." },
+  { name: "Gaurav", role: "Growth Lead", img: "/name2.jpg", bio: "Performance & data freak." },
+    { name: "Himanshu", role: "Creative Director", img: "/name1.avif", bio: "Brand nerd. Coffee addict." },
+  { name: "Gaurav", role: "Growth Lead", img: "/name2.jpg", bio: "Performance & data freak." },
+  
   // add more...
 ];
 
 export default function TeamGrid() {
   const [open, setOpen] = useState<number | null>(null);
+
   return (
-    <section className="py-16 bg-amber-40">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h3 className="text-2xl font-bold mb-8 text-center sm:text-left">The Team</h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <section className="py-16 text-[var(--foreground)] transition-colors duration-500 flex justify-center">
+      <div className="max-w-6xl w-full px-4 sm:px-6 lg:px-8 text-center">
+        <h1 className="text-4xl font-bold mb-8 text-[var(--sun)]">
+          The Team
+        </h1>
+
+        <div className="grid justify-center grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {team.map((t, i) => (
             <button
               key={t.name}
               type="button"
               onClick={() => setOpen(open === i ? null : i)}
               aria-expanded={open === i}
-              className="w-full bg-white rounded-lg shadow p-4 flex flex-col sm:flex-row items-center sm:items-start gap-4 hover:shadow-lg transition"
+              className="w-full rounded-lg shadow p-4 flex flex-col items-center gap-4 
+                         bg-[var(--surface-1000)] border border-[var(--honey)] 
+                         hover:shadow-lg hover:border-[var(--amber)] transition"
             >
-              <div className="relative w-16 h-16 flex-shrink-0 rounded-full overflow-hidden">
+              {/* Avatar */}
+              <div className="relative w-16 h-16 flex-shrink-0 rounded-full overflow-hidden border-2 border-[var(--honey)]">
                 <Image
                   src={t.img}
                   alt={t.name}
@@ -33,12 +43,14 @@ export default function TeamGrid() {
                   priority={false}
                 />
               </div>
-              <div className="text-left flex-1">
-                <div className="font-semibold text-lg">{t.name}</div>
-                <div className="text-sm text-black/70">{t.role}</div>
+
+              {/* Text */}
+              <div className="text-center">
+                <div className="font-semibold text-lg text-[var(--foreground)]">{t.name}</div>
+                <div className="text-sm text-[var(--amber)]">{t.role}</div>
 
                 {open === i && (
-                  <p className="mt-3 text-sm text-black/80 transition-opacity duration-300">
+                  <p className="mt-3 text-sm text-[var(--foreground)]/80 transition-opacity duration-300">
                     {t.bio}
                   </p>
                 )}

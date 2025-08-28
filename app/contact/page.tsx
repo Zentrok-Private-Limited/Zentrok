@@ -42,9 +42,9 @@ const Notification: React.FC<NotificationProps> = ({
   type,
 }) => {
   const bgColors: Record<NotificationType, string> = {
-    success: "bg-green-600",
-    error: "bg-red-600",
-    info: "bg-indigo-600",
+    success: "bg-[var(--sun)] text-[var(--foreground)]",
+    error: "bg-red-600 text-white",
+    info: "bg-[var(--amber)] text-[var(--foreground)]",
   };
 
   const icons: Record<NotificationType, string> = {
@@ -67,15 +67,12 @@ const Notification: React.FC<NotificationProps> = ({
       animate={{ y: 0, opacity: 1 }}
       exit={{ y: 40, opacity: 0 }}
       transition={{ duration: 0.35, ease: "easeOut" }}
-      className={`p-4 flex items-center rounded-lg gap-3 text-sm font-semibold shadow-lg text-white ${bgColors[type]} pointer-events-auto`}
+      className={`p-4 flex items-center rounded-lg gap-3 text-sm font-semibold shadow-lg pointer-events-auto ${bgColors[type]}`}
     >
-      {/* Icon */}
-      <div className="w-7 h-7 rounded-full border border-white flex items-center justify-center text-xs">
+      <div className="w-7 h-7 rounded-full border border-current flex items-center justify-center text-xs">
         {icons[type]}
       </div>
-      {/* Text */}
       <span className="flex-1">{text}</span>
-      {/* Close */}
       <button onClick={() => removeNotif(id)} className="ml-2">
         <FiX />
       </button>
@@ -99,7 +96,6 @@ const NotificationsContainer: React.FC<NotificationsContainerProps> = ({
 
 export default function ContactPage() {
   const [notifications, setNotifications] = useState<NotificationItem[]>([]);
-  // State to handle submission loading UX
   const [isLoading, setIsLoading] = useState(false);
 
   const addNotification = (text: string, type: NotificationType) => {
@@ -110,7 +106,6 @@ export default function ContactPage() {
     setNotifications((pv) => pv.filter((n) => n.id !== id));
   };
 
-  // 2. Updated handleSubmit function to call your API
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
@@ -119,10 +114,9 @@ export default function ContactPage() {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
 
-    // This is the data that will be sent to your backend
     const payload = {
       name: data.name,
-      email: data.email, // We send the sender's email to the backend
+      email: data.email,
       summary: data.message,
     };
 
@@ -131,9 +125,7 @@ export default function ContactPage() {
         "https://z-backend-neon.vercel.app/api/subscribe/send",
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
         }
       );
@@ -142,12 +134,10 @@ export default function ContactPage() {
         form.reset();
         addNotification("Thank you! Your message has been sent.", "success");
       } else {
-        // Handle server errors (e.g., 500 Internal Server Error)
         const errorData = await response.json();
-        addNotification(errorData.message || "Oops! Server error. Try again.", "error");
+        addNotification(errorData.message || "Oops! Server error.", "error");
       }
     } catch (error) {
-      // Handle network errors
       console.error("Submission Error:", error);
       addNotification("Oops! Something went wrong. Check your connection.", "error");
     } finally {
@@ -155,18 +145,14 @@ export default function ContactPage() {
     }
   };
 
-
   return (
-    <div className="min-h-screen flex flex-col transition-colors duration-300 text-[var(--foreground)]">
+    <div className="min-h-screen flex flex-col text-[var(--foreground)] bg-[var(--background)]">
       {/* Notifications */}
-      <NotificationsContainer
-        notifications={notifications}
-        removeNotif={removeNotif}
-      />
+      <NotificationsContainer notifications={notifications} removeNotif={removeNotif} />
 
       {/* Main Section */}
       <main className="flex-1 container mx-auto px-6 lg:px-20 grid grid-cols-1 md:grid-cols-2 gap-12 py-12">
-        {/* Left Section - Form */}
+        {/* Left - Form */}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
@@ -176,45 +162,35 @@ export default function ContactPage() {
           <h2 className="text-2xl font-semibold mb-6">Send us a Message</h2>
 
           <form onSubmit={handleSubmit} className="space-y-5">
-            {/* 1. Changed name attributes for easier handling */}
             <input
               type="text"
-              name="name" // CHANGED
+              name="name"
               placeholder="Your Name"
               required
-              className="p-3 border rounded-lg w-full bg-[var(--surface-900)] border-gray-300 dark:border-gray-600 focus:outline-none focus:border-[#00BFFF]"
+              className="p-3 border rounded-lg w-full bg-[var(--surface-900)] border-[var(--honey)] focus:outline-none focus:border-[var(--sun)]"
             />
-
             <input
               type="email"
-              name="email" // CHANGED
+              name="email"
               placeholder="Your Email"
               required
-              className="p-3 border rounded-lg w-full bg-[var(--surface-900)] border-gray-300 dark:border-gray-600 focus:outline-none focus:border-[#00BFFF]"
+              className="p-3 border rounded-lg w-full bg-[var(--surface-900)] border-[var(--honey)] focus:outline-none focus:border-[var(--sun)]"
             />
-
             <textarea
-              name="message" // CHANGED
+              name="message"
               placeholder="Your Message"
               rows={5}
               required
-              className="p-3 border rounded-lg w-full bg-[var(--surface-900)] border-gray-300 dark:border-gray-600 focus:outline-none focus:border-[#00BFFF]"
+              className="p-3 border rounded-lg w-full bg-[var(--surface-900)] border-[var(--honey)] focus:outline-none focus:border-[var(--sun)]"
             ></textarea>
 
-            {/* 3. Added loading state to the button */}
-            <motion.div
-              whileHover={{ scale: isLoading ? 1 : 1.04 }}
-              whileTap={{ scale: isLoading ? 1 : 0.96 }}
-              className="inline-block"
-            >
+            <motion.div whileHover={{ scale: isLoading ? 1 : 1.04 }} whileTap={{ scale: isLoading ? 1 : 0.96 }}>
               <button
                 type="submit"
                 disabled={isLoading}
-                className="group relative overflow-hidden flex items-center px-6 py-3 rounded-full bg-[#00BFFF] text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 pr-10 disabled:bg-gray-500 disabled:cursor-not-allowed"
+                className="group relative overflow-hidden flex items-center px-6 py-3 rounded-full bg-[var(--sun)] text-[var(--foreground)] font-semibold shadow-lg hover:bg-[var(--amber)] hover:text-white transition-all duration-300 pr-10 disabled:bg-gray-500 disabled:cursor-not-allowed"
               >
-                <span className="relative z-10 mr-4">
-                  {isLoading ? "Sending..." : "Send Message"}
-                </span>
+                <span className="relative z-10 mr-4">{isLoading ? "Sending..." : "Send Message"}</span>
                 <Send
                   size={18}
                   className={`absolute right-3 z-10 transition-all duration-300 ease-in-out ${
@@ -226,7 +202,7 @@ export default function ContactPage() {
           </form>
         </motion.div>
 
-        {/* Right Section - Contact Info */}
+        {/* Right - Info */}
         <motion.div
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
@@ -234,16 +210,13 @@ export default function ContactPage() {
           className="flex flex-col space-y-8 relative"
         >
           <div className="absolute -top-12 mt-20 right-0">
-            <h1 className="text-3xl sm:text-4xl font-bold">Contact Us</h1>
-            <p className="mt-2 opacity-80">
-              We&apos;d love to hear from you! Reach out using the form or
-              details below.
-            </p>
+            <h1 className="text-3xl sm:text-4xl font-bold ">Contact Us</h1>
+            <p className="mt-2 opacity-80">We’d love to hear from you! Reach out using the form or details below.</p>
           </div>
 
           <div className="pt-16 mt-20">
             <div className="flex items-start space-x-4">
-              <Mail className="text-[#00BFFF] w-6 h-6" />
+              <Mail className="text-[var(--sun)] w-6 h-6" />
               <div>
                 <h3 className="font-semibold">Email</h3>
                 <p className="opacity-80">support@zentrok.com</p>
@@ -251,7 +224,7 @@ export default function ContactPage() {
             </div>
 
             <div className="flex items-start space-x-4 mt-6">
-              <Phone className="text-[#00BFFF] w-6 h-6" />
+              <Phone className="text-[var(--sun)] w-6 h-6" />
               <div>
                 <h3 className="font-semibold">Phone</h3>
                 <p className="opacity-80">+91 98765 43210</p>
@@ -259,7 +232,7 @@ export default function ContactPage() {
             </div>
 
             <div className="flex items-start space-x-4 mt-6">
-              <MapPin className="text-[#00BFFF] w-6 h-6" />
+              <MapPin className="text-[var(--sun)] w-6 h-6" />
               <div>
                 <h3 className="font-semibold">Address</h3>
                 <p className="opacity-80">Noida, Uttar Pradesh, India</p>
@@ -272,7 +245,7 @@ export default function ContactPage() {
                 <a
                   key={i}
                   href="#"
-                  className="opacity-80 hover:text-[#00BFFF] transition"
+                  className="opacity-80 hover:text-[var(--amber)] transition"
                 >
                   <Icon className="w-6 h-6" />
                 </a>
@@ -282,9 +255,9 @@ export default function ContactPage() {
         </motion.div>
       </main>
 
-      {/* Location Map */}
+      {/* Map */}
       <section className="w-full max-w-6xl mx-auto px-6 lg:px-20 pb-12">
-        <h2 className="text-2xl font-semibold mb-4">Our Location</h2>
+        <h2 className="text-2xl font-semibold mb-4 ">Our Location</h2>
         <div className="rounded-xl overflow-hidden shadow-lg">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3503.532359489725!2d77.32014131507724!3d28.58380298243642!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce4589d3d2b2b%3A0x7d7e7dc3a8a356c!2sNoida%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1620139268840!5m2!1sen!2sin"

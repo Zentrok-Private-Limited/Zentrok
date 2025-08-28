@@ -6,24 +6,17 @@ export default function Testimonials() {
   const testimonials = [
     {
       quote:
-        "Advika Clinic completely changed my life! After months of pain, their physiotherapists guided me with patience and care. I can finally move freely again.",
-      name: "Priya Sharma",
-      role: "Software Engineer",
-      image: "/person-1.webp",
+        "They designed a professional and user-friendly website for my clinic, making it easier for patients to connect and book appointments. Very impressed",
+      name: "Nitin Sharama",
+      role: "Physiotherapy Clinic Owner",
+      image: "/name1.avif",
     },
     {
       quote:
-        "Their attention to detail and personal approach is unmatched. I felt supported every step of the way during my recovery journey.",
-      name: "Rishika Verma",
-      role: "Athlete",
-      image: "/person-2.jpeg",
-    },
-    {
-      quote:
-        "The team not only treated my injury but also taught me exercises to prevent it from happening again. Truly holistic care.",
-      name: "Anjali Mehta",
-      role: "Teacher",
-      image: "/person-3.webp",
+        "Working with Zentrok was wonderful. They helped me build a strong online presence, and I have seen more inquiries and visibility since partnering with them.",
+      name: "Mamta",
+      role: "Astrologer & Tarot Reader",
+      image: "/name2.jpg",
     },
   ];
 
@@ -41,7 +34,7 @@ export default function Testimonials() {
     <section className="py-20 relative overflow-hidden transition-colors">
       <div className="max-w-4xl mx-auto px-6 text-center">
         {/* Heading */}
-        <h2 className="text-4xl md:text-6xl font-bold text-[var(--foreground)] mb-12">
+        <h2 className="text-4xl md:text-6xl font-bold text-[var(--sun)] mb-12">
           What our clients say
         </h2>
 
@@ -52,7 +45,7 @@ export default function Testimonials() {
           </p>
 
           <div className="flex items-center justify-center gap-4">
-            <div className="w-16 h-16 relative rounded-full overflow-hidden border border-[var(--grid-major)]">
+            <div className="w-16 h-16 relative rounded-full overflow-hidden border border-[var(--amber)]">
               <Image
                 src={testimonials[current].image}
                 alt={testimonials[current].name}
@@ -75,13 +68,13 @@ export default function Testimonials() {
         <div className="flex justify-center gap-6 mt-10">
           <button
             onClick={prevTestimonial}
-            className="w-10 h-10 flex items-center justify-center rounded-full border border-[var(--grid-major)] text-[var(--foreground)] hover:bg-[var(--emerald)] hover:text-white transition font-bold"
+            className="w-10 h-10 flex items-center justify-center rounded-full border border-[var(--grid-major)] text-[var(--foreground)] hover:bg-[var(--honey)] hover:text-[var(--background)] transition font-bold"
           >
             ←
           </button>
           <button
             onClick={nextTestimonial}
-            className="w-10 h-10 flex items-center justify-center rounded-full border border-[var(--grid-major)] text-[var(--foreground)] hover:bg-[var(--emerald)] hover:text-white transition font-bold"
+            className="w-10 h-10 flex items-center justify-center rounded-full border border-[var(--grid-major)] text-[var(--foreground)] hover:bg-[var(--honey)] hover:text-[var(--background)] transition font-bold"
           >
             →
           </button>

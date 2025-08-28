@@ -80,9 +80,6 @@ export default function Navbar() {
     </span>
   </div>
 </Link>
-
-
-
         {/* Desktop Nav */}
         <div className="hidden md:block">
           <ul

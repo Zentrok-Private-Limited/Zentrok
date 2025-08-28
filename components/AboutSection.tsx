@@ -1,40 +1,45 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Send, Users, Lightbulb } from "lucide-react";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 const cards = [
   {
-    color: "#ff007f",
+    color: "var(--sun)", // golden yellow
     heading: "Become the next big name everyone’s talking about",
     subtext:
       "Your brand is your story. We ensure every step resonates with impact and clarity.",
-    Icon: Send,
     videoSrc: "/video.mp4",
   },
   {
-    color: "#39FF14",
+    color: "var(--amber)", // strong amber
     heading: "Don't miss the chance to do your life’s greatest work",
     subtext:
       "From strategy to execution, we make every move count in creating your legacy.",
-    Icon: Users,
     videoSrc: "/video2.mp4",
   },
   {
-    color: "#00e6d0",
+    color: "var(--honey)", // honey yellow
     heading: "Excited about digital storytelling?",
     subtext:
       "We craft immersive narratives that make your audience feel, remember, and share.",
-    Icon: Lightbulb,
     videoSrc: "/video3.mp4",
   },
 ];
 
 export default function AboutSection() {
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  // Prevent hydration mismatch
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
+
   return (
     <section id="about" className="py-16 bg-transparent">
       <div className="max-w-6xl mx-auto px-4 flex flex-col bg-background gap-8">
-        {cards.map(({ color, heading, subtext, Icon, videoSrc }, i) => (
+        {cards.map(({ color, heading, subtext, videoSrc }, i) => (
           <motion.div
             key={i}
             initial={{ opacity: 0, y: 20 }}
@@ -56,25 +61,16 @@ export default function AboutSection() {
               </p>
             </div>
 
-            {/* Icon + Video */}
-            <div className="flex flex-col items-center md:items-end gap-3">
-              <motion.div
-                className="p-2 rounded-full bg-white/10 flex items-center justify-center"
-                whileHover={{ scale: 1.08 }}
-                transition={{ type: "spring", stiffness: 150 }}
-              >
-                <Icon size={36} strokeWidth={1.5} />
-              </motion.div>
-              <div className="w-full max-w-sm rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
-                <video
-                  src={videoSrc}
-                  loop
-                  muted
-                  autoPlay
-                  playsInline
-                  className="w-full h-auto object-cover"
-                />
-              </div>
+            {/* Video */}
+            <div className="w-full max-w-sm rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
+              <video
+                src={videoSrc}
+                loop
+                muted
+                autoPlay
+                playsInline
+                className="w-full h-auto object-cover"
+              />
             </div>
           </motion.div>
         ))}

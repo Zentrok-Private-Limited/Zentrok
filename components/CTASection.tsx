@@ -15,15 +15,16 @@ export default function PremiumCTA() {
 
   const currentTheme = resolvedTheme || theme || "light";
 
-  // Theme-aware colors
+  // Theme-aware colors from CSS variables
   const bg = "var(--surface-1000)";
   const overlay =
     currentTheme === "dark" ? "rgba(0,0,0,0.3)" : "rgba(0,0,0,0.1)";
-  const headingColor = "var(--foreground)";
-  const subTextColor = "var(--text-on-surface)";
-  const buttonBg = "var(--emerald)";
-  const buttonBorder = "var(--foreground)";
-  const buttonText = "var(--foreground)"; // adapts with theme
+  const headingColor = "var(--sun)"; // yellow heading
+  const subTextColor = "var(--foreground)"; // normal text
+  const buttonBorder = "var(--honey)";
+  const buttonText = "var(--honey)";
+  const buttonHoverBg = "var(--honey)";
+  const buttonHoverText = "var(--foreground)";
 
   return (
     <section
@@ -64,12 +65,14 @@ export default function PremiumCTA() {
           <motion.a
             className="inline-flex items-center justify-center font-semibold py-3 px-6 rounded-full shadow-md relative overflow-hidden group transition-all duration-300"
             style={{
-              backgroundColor: "transparent", // border-only style
+              backgroundColor: "transparent",
               border: `1px solid ${buttonBorder}`,
               color: buttonText,
             }}
             whileHover={{
               scale: 1.04,
+              backgroundColor: buttonHoverBg,
+              color: "#000000",
             }}
             whileTap={{ scale: 0.95 }}
           >

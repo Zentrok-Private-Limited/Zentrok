@@ -11,15 +11,11 @@ const values = [
 ];
 
 export default function MissionValues() {
-  // We still call useTheme to ensure theme context is available (SSR-safe)
+  // Hydrate theme context (Next Themes)
   useTheme();
 
   const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
+  useEffect(() => setIsMounted(true), []);
   if (!isMounted) return null;
 
   return (
@@ -27,18 +23,12 @@ export default function MissionValues() {
       <div className="max-w-5xl mx-auto px-6">
         {/* Heading */}
         <div className="text-center mb-10">
-          <h2
-            className="text-5xl sm:text-5xl font-bold transition-colors duration-500"
-            style={{ color: "var(--text-on-surface)" }}
-          >
+          <h2 className="text-5xl sm:text-5xl font-bold text-[var(--sun)]">
             Our Philosophy
           </h2>
-          <p
-            className="font-bold mt-5 transition-colors duration-500"
-            style={{ color: "var(--text-on-surface)" }}
-          >
-            We don&apos;t do &apos;campaigns&apos; — we build momentum. Strategy, creative, and delivery
-            that hook culture and convert.
+          <p className="font-medium mt-5 text-[var(--amber)]">
+            We don&apos;t do &apos;campaigns&apos; — we build momentum. Strategy, creative, and
+            delivery that hook culture and convert.
           </p>
         </div>
 
@@ -50,15 +40,14 @@ export default function MissionValues() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.12 }}
-              className="p-6 border rounded-lg shadow-sm transition-colors duration-500"
-              style={{
-                backgroundColor: "var(--bg-on-surface)",
-                borderColor: "rgba(0,0,0,0.1)",
-                color: "var(--text-on-surface)",
-              }}
+              className="p-6 rounded-2xl shadow-md border border-[var(--grid-major)] bg-[var(--surface-1000)] backdrop-blur-sm transition-all duration-500 hover:scale-[1.02]"
             >
-              <h3 className="text-lg font-semibold mb-2">{v.title}</h3>
-              <p className="text-sm">{v.desc}</p>
+              <h3 className="text-lg font-semibold mb-2 text-[var(--sun)]">
+                {v.title}
+              </h3>
+              <p className="text-sm text-[var(--foreground)] opacity-80">
+                {v.desc}
+              </p>
             </motion.article>
           ))}
         </div>

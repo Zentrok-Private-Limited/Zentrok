@@ -13,16 +13,16 @@
 @tailwind utilities;
 
 /* =============================
-   Root Variables (Light Mode)
+   Root Variables (Light Mode - Warm Yellow)
 ============================= */
 :root {
-  --background: #fafafa;
-  --foreground: #1a1a1a;
+  --background: #fffdf6;   /* warm pale cream */
+  --foreground: #1e1a0d;   /* soft dark brown */
 
-  /* Premium Accents */
-  --emerald: #2ecc71;
-  --ruby: #c0392b;
-  --amber: #f39c12;
+  /* Warm Yellow Accents */
+  --sun: #ffcc33;   /* golden yellow */
+  --amber: #f4b400; /* strong amber */
+  --honey: #ffd166; /* honey yellow */
 
   --grid-size: 22px;
   --grid-line: rgba(0, 0, 0, 0.03);
@@ -30,7 +30,7 @@
 
   /* Surfaces */
   --surface-1000: #ffffff;
-  --surface-900: #f5f5f5;
+  --surface-900: #fff8e6;
 
   /* Typography */
   --font-sans: 'Inter', Arial, sans-serif;
@@ -42,24 +42,24 @@
 }
 
 /* =============================
-   Dark Mode Variables (Premium)
+   Dark Mode Variables (Warm Yellow)
 ============================= */
 html.dark {
-  --background: #121212; /* Rich charcoal */
-  --foreground: #e5e5e5;
+  --background: #1a1408;   /* deep espresso brown */
+  --foreground: #f9f4e6;   /* warm soft cream */
 
-  /* Muted jewel tones for accents */
-  --emerald: #27ae60; /* Deep emerald */
-  --ruby: #a93226;    /* Muted ruby */
-  --amber: #d68910;   /* Warm amber */
+  /* Muted yellow accents */
+  --sun: #e6b800;   /* golden amber */
+  --amber: #d4a017; /* darker amber */
+  --honey: #ffcd4d; /* warm yellow glow */
 
   /* Softer grid lines */
-  --grid-line: rgba(255, 255, 255, 0.03);
-  --grid-major: rgba(255, 255, 255, 0.06);
+  --grid-line: rgba(255, 245, 200, 0.04);
+  --grid-major: rgba(255, 245, 200, 0.07);
 
   /* Layered surfaces */
-  --surface-1000: #1A1A1A;
-  --surface-900: #181818;
+  --surface-1000: #241a0c;
+  --surface-900: #1d1408;
 
   --text-on-surface: var(--foreground);
   --bg-on-surface: var(--surface-1000);
@@ -71,9 +71,9 @@ html.dark {
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-emerald: var(--emerald);
-  --color-ruby: var(--ruby);
+  --color-sun: var(--sun);
   --color-amber: var(--amber);
+  --color-honey: var(--honey);
   --font-sans: var(--font-sans);
   --font-heading: var(--font-heading);
   --font-display: var(--font-display);
@@ -105,25 +105,24 @@ body {
 }
 
 /* =============================
-   Aurora Effect (Full-Width Semi Circle)
+   Aurora Effect (Yellow Glow)
 ============================= */
 body::before {
   content: "";
   position: absolute;
-  top: -200px; /* push it up so curve appears at top */
+  top: -200px;
   left: 0;
   width: 100%;
   height: 400px;
-  border-radius: 0 0 30% 30% / 0 0 80% 100%; /* bottom semi-circle curve */
+  border-radius: 0 0 30% 30% / 0 0 80% 100%;
   background: radial-gradient(
     ellipse at 100% 100%,
-    rgba(52, 152, 219, 0.35),   /* Soft Sky Blue */
-    rgba(41, 128, 185, 0.25),   /* Deep Ocean Blue */
-    rgba(25, 181, 254, 0.2),    /* Bright Aurora Blue */
-
-    transparent 20%
+    rgba(255, 220, 100, 0.4),  /* warm yellow */
+    rgba(255, 200, 60, 0.35),  /* amber yellow */
+    rgba(255, 240, 150, 0.25), /* soft cream gold */
+    transparent 70%
   );
-  filter: blur(80px);
+  filter: blur(90px);
   z-index: 0;
   pointer-events: none;
 }
@@ -132,15 +131,15 @@ body::before {
 html.dark body::before {
   background: radial-gradient(
     ellipse at 50% 100%,
-rgba(255, 215, 0, 0.4),   /* Golden Yellow */
-rgba(255, 193, 7, 0.35),  /* Amber Yellow */
-rgba(255, 235, 59, 0.25), /* Bright Soft Yellow */
+    rgba(230, 180, 50, 0.45),  /* deep amber */
+    rgba(255, 210, 80, 0.35),  /* golden glow */
+    rgba(255, 240, 170, 0.25), /* soft yellow */
     transparent 80%
   );
 }
 
 /* =============================
-   Buttons (Premium Look)
+   Buttons (Warm Yellow Look)
 ============================= */
 button, .btn {
   font-weight: 500;
@@ -150,21 +149,22 @@ button, .btn {
 }
 
 .btn-primary {
-  background-color: var(--emerald);
-  color: #fff;
+  background-color: var(--sun);
+  color: #1e1a0d;
 }
 .btn-primary:hover {
-  background-color: #219150;
+  background-color: var(--amber); /* richer amber */
+  color: #fff;
   transform: translateY(-1px);
 }
 
 .btn-secondary {
   background-color: transparent;
-  border: 1px solid var(--ruby);
-  color: var(--ruby);
+  border: 1px solid var(--honey);
+  color: var(--honey);
 }
 .btn-secondary:hover {
-  background-color: var(--ruby);
-  color: #fff;
+  background-color: var(--honey);
+  color: #1e1a0d;
   transform: translateY(-1px);
 }

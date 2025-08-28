@@ -13,7 +13,6 @@ import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 
 // Aurora gradient colors (cycling core glow)
-const COLORS_TOP = ["#FFD700", "#FFC107", "#FFEB3B", "#FFB300"];
 
 // Rotating words for light mode
 const rotatingWordsLight = [
@@ -40,9 +39,6 @@ export default function Hero() {
   const rotatingWords =
     currentTheme === "dark" ? rotatingWordsDark : rotatingWordsLight;
 
-  // Aurora gradient motion value
-  const color = useMotionValue(COLORS_TOP[0]);
-
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -53,18 +49,6 @@ export default function Hero() {
     }, 2000);
     return () => clearInterval(interval);
   }, [rotatingWords.length]);
-
-  useEffect(() => {
-    animate(color, COLORS_TOP, {
-      ease: "easeInOut",
-      duration: 5,
-      repeat: Infinity,
-      repeatType: "mirror",
-    });
-  }, [color]);
-
-  // Create background image for the aurora effect
-  const backgroundImage = useMotionTemplate`radial-gradient(ellipse at 50% 90%, ${color} 10%, transparent 85%)`;
 
   if (!mounted) return null;
 
@@ -93,14 +77,10 @@ export default function Hero() {
           z-0
         "
         style={{
-          backgroundImage,
           borderRadius: "30% 30% 0 0 / 80% 80% 0 0",
           filter: "blur(80px)",
         }}
       />
-
-      {/* Extra bottom fade overlay */}
-      <div className="absolute bottom-0 left-0 right-0 h-70 bg-gradient-to-b from-transparent to-background pointer-events-none z-1"></div>
 
       {/* Tagline */}
       <p className="font-sans font-semibold tracking-wide uppercase mb-3 sm:mb-4 relative z-10 text-xs sm:text-sm md:text-base ">
@@ -177,7 +157,7 @@ export default function Hero() {
         {/* View Our Work CTA */}
         <MotionLink
           href="/work"
-          whileHover={{ scale: 1.04 }}
+          whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.96 }}
           className="
             relative overflow-hidden flex items-center 
