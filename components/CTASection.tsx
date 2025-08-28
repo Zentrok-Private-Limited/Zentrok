@@ -69,7 +69,7 @@ export default function PremiumCTA() {
               color: buttonText,
             }}
             whileHover={{
-              scale: 1.05,
+              scale: 1.04,
             }}
             whileTap={{ scale: 0.95 }}
           >
