@@ -12,11 +12,20 @@ import {
   FiRefreshCw,
   FiCheckCircle,
 } from "react-icons/fi";
+import { IconType } from "react-icons";
 
 /* =======================
    Process Card Component
 ======================= */
-const ProcessCard = ({ title, subtitle, Icon }: { title: string; subtitle: string; Icon: any }) => {
+const ProcessCard = ({
+  title,
+  subtitle,
+  Icon,
+}: {
+  title: string;
+  subtitle: string;
+  Icon: IconType;
+}) => {
   return (
     <div className="w-full p-6 rounded-xl border border-[var(--honey)] relative overflow-hidden group bg-[var(--surface-1000)]">
       {/* Gradient overlay */}
@@ -47,9 +56,7 @@ export default function AboutPage() {
         <div className="max-w-6xl mx-auto px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
           {/* Text */}
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold">
-              Who We Are
-            </h2>
+            <h2 className="text-3xl md:text-4xl font-bold">Who We Are</h2>
             <p className="mt-6 text-lg leading-relaxed">
               At{" "}
               <span className="font-semibold text-[var(--sun)]">ZENTROK</span>,
@@ -101,9 +108,7 @@ export default function AboutPage() {
       <section className="py-20 bg-[var(--surface-1000)] text-[var(--foreground)]">
         <div className="max-w-6xl mx-auto px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold">
-              Our Vision
-            </h2>
+            <h2 className="text-3xl md:text-4xl font-bold">Our Vision</h2>
             <p className="mt-6 text-lg leading-relaxed">
               We envision a world where every brand’s story is told with
               creativity, clarity, and purpose. At ZENTROK, we aspire to be the
@@ -174,9 +179,7 @@ export default function AboutPage() {
       <section className="py-20 bg-[var(--surface-1000)] text-[var(--foreground)]">
         <div className="max-w-6xl mx-auto px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
           <div>
-            <h2 className="text-3xl md:text-4xl  font-bold">
-              Our Mission
-            </h2>
+            <h2 className="text-3xl md:text-4xl  font-bold">Our Mission</h2>
             <p className="mt-6 text-lg leading-relaxed">
               Our mission is to empower businesses to thrive in the digital era.
               We aim to craft designs and strategies that are not only visually
@@ -199,9 +202,7 @@ export default function AboutPage() {
       {/* ✅ Why Choose Us */}
       <section className="py-20 bg-[var(--background)] text-[var(--foreground)]">
         <div className="max-w-6xl mx-auto px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl  font-bold">
-            Why Choose Us?
-          </h2>
+          <h2 className="text-3xl md:text-4xl  font-bold">Why Choose Us?</h2>
           <p className="mt-6 text-lg leading-relaxed max-w-3xl mx-auto">
             At ZENTROK, we don’t just design — we listen first. Every brand has
             a unique story, and our job is to deeply understand yours before
