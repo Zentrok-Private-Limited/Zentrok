@@ -1,6 +1,5 @@
 // app/about/page.tsx
 import AboutHero from "@/components/AboutHero";
-import MissionValues from "@/components/MissionValues";
 import StatsAndProof from "@/components/StatsAndProof";
 import DigitalGrowthWalk from "@/components/DigitalGrowthWalk";
 import Footer from "@/components/Footer";
