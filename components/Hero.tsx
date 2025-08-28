@@ -31,7 +31,7 @@ export default function Hero() {
 
   const currentTheme = resolvedTheme || theme || "light";
   const rotatingWords =
-    currentTheme === "light" ? rotatingWordsLight : rotatingWordsDark;
+    currentTheme === "Dark" ? rotatingWordsLight : rotatingWordsDark;
 
   // Aurora gradient motion value
   const color = useMotionValue(COLORS_TOP[0]);
