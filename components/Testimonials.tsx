@@ -9,15 +9,23 @@ export default function Testimonials() {
         "They designed a professional and user-friendly website for my clinic, making it easier for patients to connect and book appointments. Very impressed",
       name: "Nitin Sharama",
       role: "Physiotherapy Clinic Owner",
-      image: "/name1.avif",
+      image: "/NitinSharma.jpg",
     },
     {
       quote:
         "Working with Zentrok was wonderful. They helped me build a strong online presence, and I have seen more inquiries and visibility since partnering with them.",
       name: "Mamta",
       role: "Astrologer & Tarot Reader",
-      image: "/name2.jpg",
+      image: "/Mamta.jpg",
     },
+ {
+  quote:
+    "ZENTROK absolutely nailed our product photography. The attention to detail, lighting, and composition was exactly what we needed to elevate our brand visuals. They're a team that just gets it.",
+  name: "Akshat ",
+  role: "Co founder (Mustfit Design)",
+  image: "/Akshat.jpg",
+}
+
   ];
 
   const [current, setCurrent] = useState(0);
