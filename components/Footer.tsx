@@ -26,7 +26,7 @@ const AnimatedFooter: React.FC = () => {
     setStatus("loading");
 
     try {
-      const response = await fetch("http://localhost:8000/api/subscribe/", {
+      const response = await fetch("https://z-backend-neon.vercel.app/api/subscribe/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
