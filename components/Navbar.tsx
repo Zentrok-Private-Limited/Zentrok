@@ -226,7 +226,7 @@ type SliderToggleProps = { selected: "light" | "dark"; setSelected: (mode: "ligh
 const SliderToggle = ({ selected, setSelected }: SliderToggleProps) => (
   <div className="relative flex w-fit items-center rounded-full border border-gray-300 dark:border-gray-600 bg-gray-200 dark:bg-gray-700 overflow-hidden">
     <button
-      className={`${TOGGLE_CLASSES} ${selected === "light" ? "text-white" : "text-slate-800"}`}
+      className={`${TOGGLE_CLASSES} ${selected === "light" ? "text-white" : "text-slate-200"}`}
       onClick={() => setSelected("light")}
     >
       <FiSun /> Light
@@ -241,7 +241,7 @@ const SliderToggle = ({ selected, setSelected }: SliderToggleProps) => (
       <motion.span
         layout
         transition={{ type: "spring", damping: 15, stiffness: 250 }}
-        className="h-full w-1/2 rounded-full bg-gradient-to-r from-gray-600 to-indigo-600"
+        className="h-full w-1/2 rounded-full bg-gradient-to-r from-amber-500 to-orange-600"
       />
     </div>
   </div>

@@ -15,13 +15,15 @@ export default function PremiumCTA() {
 
   const currentTheme = resolvedTheme || theme || "light";
 
-  // Theme-aware colors using global CSS variables
+  // Theme-aware colors
   const bg = "var(--surface-1000)";
-  const overlay = currentTheme === "dark" ? "rgba(0,0,0,0.3)" : "rgba(0,0,0,0.1)";
+  const overlay =
+    currentTheme === "dark" ? "rgba(0,0,0,0.3)" : "rgba(0,0,0,0.1)";
   const headingColor = "var(--foreground)";
   const subTextColor = "var(--text-on-surface)";
   const buttonBg = "var(--emerald)";
-  const buttonText = "#ffffff";
+  const buttonBorder = "var(--foreground)";
+  const buttonText = "var(--foreground)"; // adapts with theme
 
   return (
     <section
@@ -29,7 +31,10 @@ export default function PremiumCTA() {
       style={{ backgroundColor: bg }}
     >
       {/* Overlay */}
-      <div className="absolute inset-0" style={{ backgroundColor: overlay }}></div>
+      <div
+        className="absolute inset-0"
+        style={{ backgroundColor: overlay }}
+      ></div>
 
       {/* Content */}
       <div className="relative z-10 max-w-2xl text-center">
@@ -50,15 +55,22 @@ export default function PremiumCTA() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.6 }}
         >
-          Join thousands of successful entrepreneurs who trust our platform to grow their businesses.
+          Join thousands of successful entrepreneurs who trust our platform to
+          grow their businesses.
         </motion.p>
 
         {/* Premium CTA Button */}
         <Link href="/contact" passHref>
           <motion.a
-            className="inline-flex items-center justify-center font-semibold py-3 px-6 rounded-full shadow-md relative overflow-hidden group"
-            style={{ backgroundColor: buttonBg, color: buttonText }}
-            whileHover={{ scale: 1.05 }}
+            className="inline-flex items-center justify-center font-semibold py-3 px-6 rounded-full shadow-md relative overflow-hidden group transition-all duration-300"
+            style={{
+              backgroundColor: "transparent", // border-only style
+              border: `1px solid ${buttonBorder}`,
+              color: buttonText,
+            }}
+            whileHover={{
+              scale: 1.05,
+            }}
             whileTap={{ scale: 0.95 }}
           >
             <span className="relative z-10 mr-5">Get Started</span>

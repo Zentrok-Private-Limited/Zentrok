@@ -132,9 +132,9 @@ body::before {
 html.dark body::before {
   background: radial-gradient(
     ellipse at 50% 100%,
-    rgba(46, 204, 113, 0.4),
-    rgba(52, 152, 219, 0.35),
-    rgba(231, 76, 60, 0.25),
+rgba(255, 215, 0, 0.4),   /* Golden Yellow */
+rgba(255, 193, 7, 0.35),  /* Amber Yellow */
+rgba(255, 235, 59, 0.25), /* Bright Soft Yellow */
     transparent 80%
   );
 }

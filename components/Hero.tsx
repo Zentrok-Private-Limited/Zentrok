@@ -1,35 +1,44 @@
 "use client";
 
 import Link from "next/link";
-import { motion, AnimatePresence, useMotionTemplate, useMotionValue, animate } from "framer-motion";
+import {
+  motion,
+  AnimatePresence,
+  useMotionTemplate,
+  useMotionValue,
+  animate,
+} from "framer-motion";
 import { Send, Eye } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 
-// Aurora gradient colors
-const COLORS_TOP = ["#13FFAA", "#1E67C6", "#CE84CF", "#DD335C"];
+// Aurora gradient colors (cycling core glow)
+const COLORS_TOP = ["#FFD700", "#FFC107", "#FFEB3B", "#FFB300"];
 
-// Rotating words
-const rotatingWordsDark = [
-  { text: "grow digitally", color: "#14ff65" },
-  { text: "grow globally", color: "#F0B100" },
-  { text: "build network", color: "#64FFDA" },
-];
 const rotatingWordsLight = [
-  { text: "grow digitally", color: "#39FF14" },
-  { text: "grow globally", color: "#ff007f" },
-  { text: "build network", color: "#3fafa4" },
+  { text: "grow digitally", color: "#ED2D02" },
+  { text: "grow globally", color: "#ED6402" },
+  { text: "build network", color: "#BDA808" },
 ];
+
+
+const MotionLink = motion(Link);
 
 export default function Hero() {
   const { theme, resolvedTheme } = useTheme();
   const [index, setIndex] = useState(0);
+  const [mounted, setMounted] = useState(false);
 
   const currentTheme = resolvedTheme || theme || "light";
-  const rotatingWords = currentTheme === "light" ? rotatingWordsLight : rotatingWordsDark;
+  const rotatingWords =
+    currentTheme === "light" ? rotatingWordsLight : rotatingWordsDark;
 
   // Aurora gradient motion value
   const color = useMotionValue(COLORS_TOP[0]);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -45,16 +54,15 @@ export default function Hero() {
       repeat: Infinity,
       repeatType: "mirror",
     });
-  }, []);
+  }, [color]);
 
-  // Aurora gradient with smooth fade bottom
-  const backgroundImage = useMotionTemplate`
-    radial-gradient(100% 80% at 50% 100%, ${color} 10%, transparent 60%)
-  `;
+  // Create background image for the aurora effect
+  const backgroundImage = useMotionTemplate`radial-gradient(ellipse at 50% 90%, ${color} 10%, transparent 85%)`;
+
+  if (!mounted) return null;
 
   return (
     <motion.section
-      style={{ backgroundImage }}
       className="
         relative flex flex-col items-center text-center
         px-4 sm:px-6 
@@ -64,8 +72,28 @@ export default function Hero() {
         overflow-hidden
       "
     >
+      {/* Aurora Effect (Bottom to Top) */}
+      <motion.div
+        className="
+          absolute 
+          bottom-0 
+          left-0 
+          w-full 
+          h-[400px] 
+          opacity-40
+          dark:opacity-50
+          pointer-events-none 
+          z-0
+        "
+        style={{
+          backgroundImage,
+          borderRadius: "30% 30% 0 0 / 80% 80% 0 0",
+          filter: "blur(80px)",
+        }}
+      />
+
       {/* Extra bottom fade overlay */}
-      <div className="absolute bottom-0 left-0 right-0 h-70 bg-gradient-to-b from-transparent to-background pointer-events-none"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-70 bg-gradient-to-b from-transparent to-background pointer-events-none z-1"></div>
 
       {/* Tagline */}
       <p className="font-sans font-semibold tracking-wide uppercase mb-3 sm:mb-4 relative z-10 text-xs sm:text-sm md:text-base ">
@@ -115,51 +143,51 @@ export default function Hero() {
           relative z-10 w-full sm:w-auto justify-center
         "
       >
-        {/* Get Started */}
-        <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
-          <Link
-            href="/contact"
-            className={`
-              relative overflow-hidden flex items-center 
-              px-4 xs:px-5 sm:px-6 py-2 xs:py-2.5 sm:py-3 
-              rounded-full 
-              border border-current 
-              font-semibold shadow-lg hover:shadow-xl 
-              group transition-all duration-300 
-              pr-8 xs:pr-9 sm:pr-10 
-              text-xs xs:text-sm sm:text-base
-              ${currentTheme === "light" ? "text-on-surface" : "text-white"}
-            `}
-          >
-            <span className="relative z-10">Get Started</span>
-            <Send
-              size={18}
-              className="absolute right-3 xs:right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out z-10"
-            />
-          </Link>
-        </motion.div>
+        {/* Get Started CTA */}
+        <MotionLink
+          href="/contact"
+          whileHover={{ scale: 1.04 }}
+          whileTap={{ scale: 0.96 }}
+          className={`
+            relative overflow-hidden flex items-center 
+            px-4 xs:px-5 sm:px-6 py-2 xs:py-2.5 sm:py-3 
+            rounded-full 
+            border border-current 
+            font-semibold shadow-lg hover:shadow-xl 
+            group transition-all duration-300 
+            pr-8 xs:pr-9 sm:pr-10 
+            text-xs xs:text-sm sm:text-base
+            ${currentTheme === "light" ? "text-on-surface" : "text-white"}
+          `}
+        >
+          <span className="relative z-10">Get Started</span>
+          <Send
+            size={18}
+            className="absolute right-3 xs:right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out z-10"
+          />
+        </MotionLink>
 
-        {/* View Our Work */}
-        <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
-          <Link
-            href="/work"
-            className="
-              relative overflow-hidden flex items-center 
-              px-4 xs:px-5 sm:px-6 py-2 xs:py-2.5 sm:py-3 
-              rounded-full border border-current 
-              font-semibold group 
-              transition-all duration-300 
-              pr-8 xs:pr-9 sm:pr-10 
-              text-xs xs:text-sm sm:text-base 
-            "
-          >
-            <span className="relative z-10">View Our Work</span>
-            <Eye
-              size={18}
-              className="absolute right-3 xs:right-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300 ease-in-out z-10"
-            />
-          </Link>
-        </motion.div>
+        {/* View Our Work CTA */}
+        <MotionLink
+          href="/work"
+          whileHover={{ scale: 1.04 }}
+          whileTap={{ scale: 0.96 }}
+          className="
+            relative overflow-hidden flex items-center 
+            px-4 xs:px-5 sm:px-6 py-2 xs:py-2.5 sm:py-3 
+            rounded-full border border-current 
+            font-semibold group 
+            transition-all duration-300 
+            pr-8 xs:pr-9 sm:pr-10 
+            text-xs xs:text-sm sm:text-base 
+          "
+        >
+          <span className="relative z-10">View Our Work</span>
+          <Eye
+            size={18}
+            className="absolute right-3 xs:right-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300 ease-in-out z-10"
+          />
+        </MotionLink>
       </div>
     </motion.section>
   );
