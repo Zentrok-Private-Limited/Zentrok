@@ -100,7 +100,7 @@ export default function ServicesSection() {
                 key={idx}
                 href="#"
                 variants={item}
-                className="w-full p-8 rounded-xl border relative overflow-hidden group bg-[var(--surface-1000)] border-[var(--foreground)] transition-all duration-300 flex flex-col items-center text-center"
+                className="w-full p-8 rounded-xl border border-[var(--honey)] relative overflow-hidden group bg-[var(--surface-1000)] transition-all duration-300 flex flex-col items-center text-center"
                 whileHover={{
                   scale: 1.02,
                   boxShadow:
@@ -110,23 +110,23 @@ export default function ServicesSection() {
                 }}
               >
                 {/* Hover gradient overlay (warm theme) */}
-                <div className="absolute inset-0 bg-gradient-to-r from-orange-500 via-amber-500 to-red-500 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-r from-[var(--sun)] to-[var(--amber)] translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
 
                 {/* Big background icon */}
                 <Icon
                   size={120}
-                  className="absolute z-0 -top-12 right-1/2 translate-x-1/2 text-orange-200 opacity-5 group-hover:text-orange-400 group-hover:rotate-12 transition-all duration-300"
+                  className="absolute z-0 -top-12 right-1/2 translate-x-1/2 text-[var(--honey)] opacity-10 group-hover:opacity-30 group-hover:rotate-12 transition-all duration-300"
                 />
 
                 {/* Small foreground icon */}
-                <div className="relative z-10 mb-4 text-orange-600 group-hover:text-white transition-colors duration-300">
+                <div className="relative z-10 mb-4 text-[var(--amber)] group-hover:text-white transition-colors duration-300">
                   <Icon size={48} />
                 </div>
 
                 <h3 className="relative z-10 text-lg font-semibold mb-2 text-[var(--foreground)] group-hover:text-white transition-colors duration-300">
                   {service.title}
                 </h3>
-                <p className="relative z-10 text-gray-500 group-hover:text-amber-100 transition-colors duration-300">
+                <p className="relative z-10 text-[var(--text-on-surface)] group-hover:text-black transition-colors duration-300">
                   {service.description}
                 </p>
               </motion.a>
