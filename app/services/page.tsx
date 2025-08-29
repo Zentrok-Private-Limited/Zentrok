@@ -109,7 +109,7 @@ export default function Services() {
                 <Monitor size={32} className="text-[var(--honey)] mb-4" />
                 <h4 className="text-lg font-semibold mb-2">Website Redesign</h4>
                 <p className={subTextColor}>
-                  A clean, fashion-forward redesign inspired by Zara’s global identity.
+                  A clean, fashion-forward redesign inspired by Zara&apos;s global identity.
                 </p>
               </motion.div>
               <motion.div
@@ -119,7 +119,7 @@ export default function Services() {
                 <Camera size={32} className="text-[var(--sun)] mb-4" />
                 <h4 className="text-lg font-semibold mb-2">Product Photography</h4>
                 <p className={subTextColor}>
-                  From studio shots to lifestyle imagery, we craft visuals that tell your product’s story.
+                  From studio shots to lifestyle imagery, we craft visuals that tell your product&apos;s story.
                 </p>
               </motion.div>
               <motion.div

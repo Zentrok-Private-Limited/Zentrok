@@ -1,21 +1,47 @@
 "use client";
 
-import { motion } from "framer-motion";
-import React from "react";
+import { motion, useAnimation } from "framer-motion";
+import React, { useEffect } from "react";
 
 export default function DigitalGrowthWalk() {
-  // Theme variables
   const fg = "var(--foreground)";
   const sun = "var(--sun)";
   const amber = "var(--amber)";
   const honey = "var(--honey)";
+
+  // Controls for sync animations
+  const barsControl = useAnimation();
+  const walkerControl = useAnimation();
+
+  useEffect(() => {
+    const loop = async () => {
+      while (true) {
+        // Start both at the same time
+        walkerControl.start({
+          x: 560,
+          transition: { duration: 6, ease: "linear" },
+        });
+
+        barsControl.start(i => ({
+          height: [10, [42, 64, 78, 100][i]],
+          transition: { duration: 6, ease: "easeInOut" },
+        }));
+
+        await new Promise(r => setTimeout(r, 6000));
+
+        // Reset
+        walkerControl.set({ x: -60 });
+        barsControl.set({ height: 10 });
+      }
+    };
+    loop();
+  }, [walkerControl, barsControl]);
 
   return (
     <section
       id="digital-growth"
       className="relative w-full overflow-hidden"
       style={{
-        // ✅ Match body background grid + aurora glow
         backgroundColor: "var(--background)",
         backgroundImage: `
           linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
@@ -34,7 +60,7 @@ export default function DigitalGrowthWalk() {
         backgroundAttachment: "fixed",
       }}
     >
-      {/* Aurora Overlay */}
+      {/* Glow overlay */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -53,49 +79,8 @@ export default function DigitalGrowthWalk() {
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 py-16 md:py-20">
         <div className="grid grid-cols-1 md:grid-cols-12 items-center gap-8">
-          {/* Left - Animated path */}
+          {/* Left - Walking man */}
           <div className="relative col-span-7 h-[260px] md:h-[300px]">
-            {[...Array(14)].map((_, i) => {
-              const delay = (i % 7) * 0.4;
-              const left = `${5 + (i * 7) % 90}%`;
-              const size = 12 + (i % 4) * 3;
-              return (
-                <motion.span
-                  key={i}
-                  className="absolute select-none"
-                  style={{
-                    left,
-                    bottom: -20,
-                    fontWeight: 700,
-                    color: i % 2 === 0 ? sun : amber,
-                    fontSize: size,
-                    opacity: 0.35,
-                  }}
-                  initial={{ y: 40, opacity: 0 }}
-                  animate={{ y: -200, opacity: [0, 1, 0] }}
-                  transition={{
-                    duration: 6,
-                    repeat: Infinity,
-                    delay,
-                    ease: "easeInOut",
-                  }}
-                >
-                  {i % 2 === 0 ? "1" : "0"}
-                </motion.span>
-              );
-            })}
-
-            <div
-              className="absolute left-0 right-0"
-              style={{
-                bottom: 28,
-                height: 2,
-                background:
-                  "linear-gradient(90deg, transparent, rgba(0,0,0,.15), transparent)",
-              }}
-            />
-
-            {/* Walking character */}
             <motion.svg
               width="100%"
               height="100%"
@@ -109,13 +94,13 @@ export default function DigitalGrowthWalk() {
                 fill="none"
               />
               <motion.g
+                animate={walkerControl}
                 initial={{ x: -60 }}
-                animate={{ x: 560 }}
-                transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
               >
                 <ellipse cx="60" cy="232" rx="26" ry="6" fill="rgba(0,0,0,.12)" />
                 <rect x="52" y="160" width="16" height="55" rx="8" fill={amber} />
                 <circle cx="60" cy="142" r="14" fill={sun} />
+
                 {/* Legs + arms */}
                 <motion.rect
                   x="58"
@@ -172,13 +157,16 @@ export default function DigitalGrowthWalk() {
                 Walk toward digital growth
               </h3>
               <p className="text-sm md:text-base opacity-80 mb-6" style={{ color: fg }}>
-                Progress compounding—one step at a time. Your brand scales as the foundation strengthens.
+                Progress compounding—one step at a time. Your brand scales as the
+                foundation strengthens.
               </p>
 
               <div className="flex items-end gap-3 h-28">
                 {[42, 64, 78, 100].map((h, i) => (
                   <motion.div
                     key={i}
+                    custom={i}
+                    animate={barsControl}
                     className="w-8 rounded-t-md"
                     style={{
                       background:
@@ -186,10 +174,7 @@ export default function DigitalGrowthWalk() {
                           ? `linear-gradient(${sun}, ${amber})`
                           : `linear-gradient(${amber}, ${honey})`,
                     }}
-                    initial={{ height: 10, opacity: 0.8 }}
-                    whileInView={{ height: h }}
-                    viewport={{ once: true, amount: 0.5 }}
-                    transition={{ type: "spring", stiffness: 120, delay: i * 0.15 }}
+                    initial={{ height: 10 }}
                   />
                 ))}
               </div>
