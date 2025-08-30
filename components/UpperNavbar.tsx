@@ -12,7 +12,7 @@ const socialIcons = [
 
 const UpperNavbar: React.FC = () => {
   return (
-    <div className="bg-gray-700 text-white py-2 px-4 sm:px-6 lg:px-8">
+    <div className="bg-[var(--surface-1000)] text-white py-2 px-4 sm:px-6 lg:px-8">
       {/* Container is flex-col on mobile and flex-row on medium+ screens */}
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center text-sm space-y-2 md:space-y-0">
         
