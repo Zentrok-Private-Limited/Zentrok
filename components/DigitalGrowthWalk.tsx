@@ -18,16 +18,16 @@ export default function DigitalGrowthWalk() {
       while (true) {
         // Start both at the same time
         walkerControl.start({
-          x: 560,
+          x: 520, // stops near logo
           transition: { duration: 6, ease: "linear" },
         });
 
-        barsControl.start(i => ({
+        barsControl.start((i) => ({
           height: [10, [42, 64, 78, 100][i]],
           transition: { duration: 6, ease: "easeInOut" },
         }));
 
-        await new Promise(r => setTimeout(r, 6000));
+        await new Promise((r) => setTimeout(r, 6000));
 
         // Reset
         walkerControl.set({ x: -60 });
@@ -79,24 +79,24 @@ export default function DigitalGrowthWalk() {
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 py-16 md:py-20">
         <div className="grid grid-cols-1 md:grid-cols-12 items-center gap-8">
-          {/* Left - Walking man */}
+          {/* Left - Walking man with logo */}
           <div className="relative col-span-7 h-[260px] md:h-[300px]">
             <motion.svg
               width="100%"
               height="100%"
               viewBox="0 0 600 300"
+              z-index={1000}
               className="absolute inset-0"
             >
+              {/* Path line */}
               <path
                 d="M20 230 C 160 220, 320 240, 580 230"
                 stroke="rgba(0,0,0,0.1)"
                 strokeWidth="2"
                 fill="none"
               />
-              <motion.g
-                animate={walkerControl}
-                initial={{ x: -60 }}
-              >
+              {/* Walking man */}
+              <motion.g animate={walkerControl} initial={{ x: -60 }}>
                 <ellipse cx="60" cy="232" rx="26" ry="6" fill="rgba(0,0,0,.12)" />
                 <rect x="52" y="160" width="16" height="55" rx="8" fill={amber} />
                 <circle cx="60" cy="142" r="14" fill={sun} />
@@ -184,7 +184,7 @@ export default function DigitalGrowthWalk() {
                   href="/contact"
                   className="btn-primary inline-flex items-center rounded-full px-6 py-3 text-base font-semibold shadow-md transition-all"
                 >
-                  Book a free consult
+                  Join Us Now
                 </a>
               </div>
             </div>

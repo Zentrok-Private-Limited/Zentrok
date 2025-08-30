@@ -175,6 +175,7 @@ export default function Hero() {
             className="absolute right-3 xs:right-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300 ease-in-out z-10"
           />
         </MotionLink>
+        
       </div>
     </motion.section>
   );

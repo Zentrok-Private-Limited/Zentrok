@@ -146,7 +146,7 @@ export default function Services() {
         >
           <div className="max-w-6xl mx-auto">
             <h3 className="text-3xl sm:text-4xl font-bold mb-12 text-center">
-              Website Design
+              Our Work
             </h3>
 
             <div className="space-y-16">
@@ -209,30 +209,6 @@ export default function Services() {
 
         {/* Testimonials */}
         <Testimonials />
-
-        {/* CTA */}
-        <section
-          className={`rounded-xl max-w-4xl mx-auto p-12 text-center shadow-lg ${sectionBg}`}
-        >
-          <h3 className="text-3xl font-extrabold mb-6">
-            Ready to transform your brand?
-          </h3>
-          <p className={`mb-8 text-lg max-w-xl mx-auto ${subTextColor}`}>
-            Let&apos;s work together to create unforgettable campaigns that move your business forward.
-          </p>
-          <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
-            <Link
-              href="/work"
-              className="relative overflow-hidden flex items-center px-6 py-3 rounded-full border border-current font-semibold group transition-all duration-300 pr-10 text-base"
-            >
-              <span className="relative z-10">View Our Work</span>
-              <Eye
-                size={18}
-                className="absolute right-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300 ease-in-out z-10"
-              />
-            </Link>
-          </motion.div>
-        </section>
       </main>
 
       <Footer />

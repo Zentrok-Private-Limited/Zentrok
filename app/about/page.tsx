@@ -1,9 +1,12 @@
 // app/about/page.tsx
+"use client";
+
 import AboutHero from "@/components/AboutHero";
 import StatsAndProof from "@/components/StatsAndProof";
 import DigitalGrowthWalk from "@/components/DigitalGrowthWalk";
 import Footer from "@/components/Footer";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import {
   FiSearch,
   FiTrendingUp,
@@ -116,14 +119,46 @@ export default function AboutPage() {
               timeless digital experiences that inspire, engage, and endure.
             </p>
           </div>
-          <div className="h-72 rounded-xl overflow-hidden bg-[var(--surface-900)]">
-            <Image
-              src="/about/vision.jpg"
-              alt="Our Vision"
-              width={600}
-              height={400}
-              className="w-full h-full object-cover"
-            />
+
+          {/* ✨ Orb now contains the LOGO */}
+          <div className="flex justify-center items-center h-82 relative">
+            <motion.div
+              className="w-48 h-48 rounded-full flex items-center justify-center relative"
+              style={{
+                background: "radial-gradient(circle, var(--sun), var(--amber))",
+                boxShadow: "0 0 60px var(--honey)",
+              }}
+              animate={{ scale: [1, 1.1, 1] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            >
+              {/* ✅ Logo inside orb */}
+              <Image
+                src="/logo-icon.svg" // replace with your actual logo
+                alt="ZENTROK Logo"
+                width={140}
+                height={140}
+                className="object-contain"
+              />
+            </motion.div>
+
+            {/* Rays */}
+            {[...Array(12)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-1 h-16 rounded-full"
+                style={{
+                  background: "linear-gradient(var(--amber), transparent)",
+                  transform: `rotate(${i * 30}deg) translateY(-80px)`,
+                }}
+                animate={{ opacity: [0.4, 1, 0.4] }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  delay: i * 0.2,
+                  ease: "easeInOut",
+                }}
+              />
+            ))}
           </div>
         </div>
       </section>
@@ -175,7 +210,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ✅ Our Mission */}
+      {/* ✅ Our Mission
       <section className="py-20 bg-[var(--surface-1000)] text-[var(--foreground)]">
         <div className="max-w-6xl mx-auto px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
           <div>
@@ -197,14 +232,14 @@ export default function AboutPage() {
             />
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* ✅ Why Choose Us */}
       <section className="py-20 bg-[var(--background)] text-[var(--foreground)]">
         <div className="max-w-6xl mx-auto px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl  font-bold">Why Choose Us?</h2>
           <p className="mt-6 text-lg leading-relaxed max-w-3xl mx-auto">
-            At ZENTROK, we don’t just design — we listen first. Every brand has
+            At ZENTROK, we don&apos;t just design — we listen first. Every brand has
             a unique story, and our job is to deeply understand yours before
             putting pixels on screen. What sets us apart is our fresh thinking,
             clean aesthetic, and timeless solutions built for usability and
@@ -213,10 +248,10 @@ export default function AboutPage() {
 
           <div className="mt-10 grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
-              { title: "Understand Your Needs", img: "/understand.webp" },
-              { title: "Fresh & Creative Ideas", img: "/ideas.avif" },
-              { title: "Future-Proof Designs", img: "/future.jpeg" },
-              { title: "Vision into Reality", img: "/reality.webp" },
+              { title: "Understand Your Needs", img: "/1.png" },
+              { title: "Fresh & Creative Ideas", img: "/2.png" },
+              { title: "Future-Proof Designs", img: "/3.png" },
+              { title: "Vision into Reality", img: "/4.png" },
             ].map((item, i) => (
               <div
                 key={i}
@@ -238,6 +273,7 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* ✅ Walking man now has no logo */}
       <DigitalGrowthWalk />
       <StatsAndProof />
       <Footer />

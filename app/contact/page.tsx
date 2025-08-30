@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Footer from "@/components/Footer";
 import {
   Mail,
   MapPin,
@@ -260,14 +261,16 @@ export default function ContactPage() {
         <h2 className="text-2xl font-semibold mb-4 ">Our Location</h2>
         <div className="rounded-xl overflow-hidden shadow-lg">
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3503.532359489725!2d77.32014131507724!3d28.58380298243642!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce4589d3d2b2b%3A0x7d7e7dc3a8a356c!2sNoida%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1620139268840!5m2!1sen!2sin"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3502.2050728280515!2d77.36404817550047!3d28.623615275669607!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce544da5a9ebf%3A0x4024cbbabd66b412!2sKLJ%20Noida%20One!5e0!3m2!1sen!2sin!4v1756532048940!5m2!1sen!2sin"
             width="100%"
             height="400"
             loading="lazy"
             className="border-0 w-full"
           ></iframe>
         </div>
+        
       </section>
+      <Footer />
     </div>
   );
 }
