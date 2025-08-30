@@ -16,9 +16,9 @@ import { useTheme } from "next-themes";
 
 // Rotating words for light mode
 const rotatingWordsLight = [
-  { text: "grow digitally", color: "#ED2D02" },
-  { text: "grow globally", color: "#ED6402" },
-  { text: "build network", color: "#BDA808" },
+  { text: "grow digitally", color: "#f1e516" },
+  { text: "grow globally", color: "#f1e516" },
+  { text: "build network", color: "#f1e516" },
 ];
 
 // Rotating words for dark mode

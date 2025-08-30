@@ -1,6 +1,7 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Testimonials() {
   const testimonials = [
@@ -18,17 +19,26 @@ export default function Testimonials() {
       role: "Astrologer & Tarot Reader",
       image: "/Mamta.jpg",
     },
- {
-  quote:
-    "ZENTROK absolutely nailed our product photography. The attention to detail, lighting, and composition was exactly what we needed to elevate our brand visuals. They're a team that just gets it.",
-  name: "Akshat ",
-  role: "Co founder (Mustfit Design)",
-  image: "/Akshat.jpg",
-}
-
+    {
+      quote:
+        "ZENTROK absolutely nailed our product photography. The attention to detail, lighting, and composition was exactly what we needed to elevate our brand visuals. They're a team that just gets it.",
+      name: "Akshat ",
+      role: "Co founder (Mustfit Design)",
+      image: "/Akshat.jpg",
+    },
   ];
 
   const [current, setCurrent] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  // Auto-slide effect
+  useEffect(() => {
+    if (isPaused) return; // stop if hovered
+    const interval = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % testimonials.length);
+    }, 4000); // 4 sec per slide
+    return () => clearInterval(interval);
+  }, [isPaused, testimonials.length]);
 
   const nextTestimonial = () => {
     setCurrent((prev) => (prev + 1) % testimonials.length);
@@ -47,29 +57,44 @@ export default function Testimonials() {
         </h2>
 
         {/* Testimonial Card */}
-        <div className="bg-[var(--surface-1000)] border border-[var(--grid-major)] shadow-xl rounded-2xl p-10 relative transition-all duration-500">
-          <p className="text-xl md:text-2xl font-semibold text-[var(--foreground)] italic leading-relaxed mb-8">
-            “{testimonials[current].quote}”
-          </p>
-
-          <div className="flex items-center justify-center gap-4">
-            <div className="w-16 h-16 relative rounded-full overflow-hidden border border-[var(--amber)]">
-              <Image
-                src={testimonials[current].image}
-                alt={testimonials[current].name}
-                fill
-                className="object-cover"
-              />
-            </div>
-            <div className="text-left">
-              <h3 className="text-lg font-bold text-[var(--foreground)]">
-                {testimonials[current].name}
-              </h3>
-              <p className="text-sm font-medium text-[var(--foreground)]/70">
-                {testimonials[current].role}
+        <div
+          className="relative"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={current}
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -50 }}
+              transition={{ duration: 0.6 }}
+              className="bg-[var(--surface-1000)] border border-[var(--grid-major)] shadow-xl rounded-2xl p-10 relative"
+            >
+              <p className="text-xl md:text-2xl font-semibold text-[var(--foreground)] italic leading-relaxed mb-8">
+                “{testimonials[current].quote}”
               </p>
-            </div>
-          </div>
+
+              <div className="flex items-center justify-center gap-4">
+                <div className="w-16 h-16 relative rounded-full overflow-hidden border border-[var(--amber)]">
+                  <Image
+                    src={testimonials[current].image}
+                    alt={testimonials[current].name}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="text-left">
+                  <h3 className="text-lg font-bold text-[var(--foreground)]">
+                    {testimonials[current].name}
+                  </h3>
+                  <p className="text-sm font-medium text-[var(--foreground)]/70">
+                    {testimonials[current].role}
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          </AnimatePresence>
         </div>
 
         {/* Controls */}

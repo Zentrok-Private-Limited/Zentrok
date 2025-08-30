@@ -12,11 +12,12 @@ export default function DigitalGrowthWalk() {
   // Controls for sync animations
   const barsControl = useAnimation();
   const walkerControl = useAnimation();
+  const titleControl = useAnimation();
 
   useEffect(() => {
     const loop = async () => {
       while (true) {
-        // Start both at the same time
+        // Start all animations at the same time
         walkerControl.start({
           x: 520, // stops near logo
           transition: { duration: 6, ease: "linear" },
@@ -27,6 +28,12 @@ export default function DigitalGrowthWalk() {
           transition: { duration: 6, ease: "easeInOut" },
         }));
 
+        // Title animation - subtle pulse effect
+        titleControl.start({
+          scale: [1, 1.02, 1],
+          transition: { duration: 2, ease: "easeInOut" },
+        });
+
         await new Promise((r) => setTimeout(r, 6000));
 
         // Reset
@@ -35,7 +42,7 @@ export default function DigitalGrowthWalk() {
       }
     };
     loop();
-  }, [walkerControl, barsControl]);
+  }, [walkerControl, barsControl, titleControl]);
 
   return (
     <section
@@ -78,6 +85,22 @@ export default function DigitalGrowthWalk() {
       />
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 py-16 md:py-20">
+        {/* Centered Title Section */}
+        <div className="flex justify-center mb-12 md:mb-16">
+          <motion.h2 
+            animate={titleControl}
+            whileHover={{ 
+              scale: 1.05,
+              textShadow: "0 0 15px rgba(255, 220, 100, 0.5)",
+              transition: { duration: 0.3 }
+            }}
+            className="text-3xl md:text-4xl lg:text-5xl font-bold text-center max-w-2xl"
+            style={{ color: fg }}
+          >
+            Walk toward digital growth
+          </motion.h2>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-12 items-center gap-8">
           {/* Left - Walking man with logo */}
           <div className="relative col-span-7 h-[260px] md:h-[300px]">
@@ -85,7 +108,6 @@ export default function DigitalGrowthWalk() {
               width="100%"
               height="100%"
               viewBox="0 0 600 300"
-              z-index={1000}
               className="absolute inset-0"
             >
               {/* Path line */}
@@ -153,9 +175,6 @@ export default function DigitalGrowthWalk() {
           {/* Right - Text + growth bars */}
           <div className="col-span-5">
             <div className="mx-auto max-w-md">
-              <h3 className="text-2xl md:text-3xl font-bold mb-3" style={{ color: fg }}>
-                Walk toward digital growth
-              </h3>
               <p className="text-sm md:text-base opacity-80 mb-6" style={{ color: fg }}>
                 Progress compounding—one step at a time. Your brand scales as the
                 foundation strengthens.
@@ -168,6 +187,10 @@ export default function DigitalGrowthWalk() {
                     custom={i}
                     animate={barsControl}
                     className="w-8 rounded-t-md"
+                    whileHover={{
+                      scaleY: 1.2,
+                      transition: { duration: 0.2 }
+                    }}
                     style={{
                       background:
                         i % 2 === 0
@@ -180,12 +203,21 @@ export default function DigitalGrowthWalk() {
               </div>
 
               <div className="mt-6">
-                <a
+                <motion.a
                   href="/contact"
+                  whileHover={{ 
+                    scale: 1.05,
+                    boxShadow: "0 5px 15px rgba(255, 200, 60, 0.4)"
+                  }}
+                  whileTap={{ scale: 0.98 }}
                   className="btn-primary inline-flex items-center rounded-full px-6 py-3 text-base font-semibold shadow-md transition-all"
+                  style={{
+                    background: `linear-gradient(135deg, ${sun}, ${amber})`,
+                    color: "var(--background)"
+                  }}
                 >
                   Join Us Now
-                </a>
+                </motion.a>
               </div>
             </div>
           </div>

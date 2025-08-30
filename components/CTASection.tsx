@@ -15,33 +15,48 @@ export default function PremiumCTA() {
 
   const currentTheme = resolvedTheme || theme || "light";
 
-  // Theme-aware colors from CSS variables
-  const bg = "var(--surface-1000)";
-  const overlay =
-    currentTheme === "dark" ? "rgba(0,0,0,0.3)" : "rgba(0,0,0,0.1)";
-  const headingColor = "var(--sun)"; // yellow heading
-  const subTextColor = "var(--foreground)"; // normal text
-  const buttonBorder = "var(--honey)";
-  const buttonText = "var(--honey)";
-  const buttonHoverBg = "var(--honey)";
-  const buttonHoverText = "var(--foreground)";
+  // Use CSS variables directly so they auto-switch with theme
+  const styles = {
+    section: {
+      
+        },
+    overlay: {
+      backgroundColor:
+        currentTheme === "dark"
+          ? "rgba(0,0,0,0.3)"
+          : "rgba(0,0,0,0.08)",
+    },
+    heading: {
+      color: "var(--sun)",
+      fontFamily: "var(--font-heading)",
+    },
+    subtext: {
+      color: "var(--foreground)",
+      fontFamily: "var(--font-sans)",
+    },
+    button: {
+      backgroundColor: "transparent",
+      border: "1px solid var(--honey)",
+      color: "var(--honey)",
+    },
+    buttonHover: {
+      backgroundColor: "var(--honey)",
+      color: "var(--foreground)",
+    },
+  };
 
   return (
     <section
       className="relative flex items-center justify-center min-h-[60vh] px-6"
-      style={{ backgroundColor: bg }}
+      style={styles.section}
     >
       {/* Overlay */}
-      <div
-        className="absolute inset-0"
-        style={{ backgroundColor: overlay }}
-      ></div>
+      <div className="absolute inset-0" style={styles.overlay}></div>
 
       {/* Content */}
       <div className="relative z-10 max-w-2xl text-center">
         <motion.h2
-          className="font-sans font-bold text-3xl md:text-4xl mb-4"
-          style={{ color: headingColor }}
+          className="font-bold text-3xl md:text-4xl mb-4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -50,8 +65,8 @@ export default function PremiumCTA() {
         </motion.h2>
 
         <motion.p
-          className="text-sm md:text-lg mb-6 font-sans"
-          style={{ color: subTextColor }}
+          className="text-sm md:text-lg mb-6"
+          style={styles.subtext}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.6 }}
@@ -60,19 +75,15 @@ export default function PremiumCTA() {
           grow their businesses.
         </motion.p>
 
-        {/* Premium CTA Button */}
+        {/* CTA Button */}
         <Link href="/contact" passHref>
           <motion.a
             className="inline-flex items-center justify-center font-semibold py-3 px-6 rounded-full shadow-md relative overflow-hidden group transition-all duration-300"
-            style={{
-              backgroundColor: "transparent",
-              border: `1px solid ${buttonBorder}`,
-              color: buttonText,
-            }}
+            style={styles.button}
             whileHover={{
               scale: 1.04,
-              backgroundColor: buttonHoverBg,
-              color: "#000000",
+              backgroundColor: styles.buttonHover.backgroundColor,
+              color: styles.buttonHover.color,
             }}
             whileTap={{ scale: 0.95 }}
           >

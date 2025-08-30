@@ -31,20 +31,25 @@ const ProcessCard = ({
 }) => {
   return (
     <div className="w-full p-6 rounded-xl border border-[var(--honey)] relative overflow-hidden group bg-[var(--surface-1000)]">
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[var(--sun)] to-[var(--amber)] translate-y-[100%] group-hover:translate-y-[0%] transition-transform duration-300" />
+      {/* Gradient overlay behind content */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[var(--sun)] to-[var(--amber)] 
+                      translate-y-[100%] group-hover:translate-y-[0%] 
+                      transition-transform duration-300 z-0" />
 
       {/* Background big icon */}
-      <Icon className="absolute z-0 -top-10 -right-10 text-8xl text-[var(--honey)] opacity-20 group-hover:opacity-30 transition-transform duration-300 group-hover:rotate-12" />
+      <Icon className="absolute z-0 -top-10 -right-10 text-8xl text-[var(--honey)] opacity-20 
+                       group-hover:opacity-30 transition-transform duration-300 group-hover:rotate-12" />
 
       {/* Foreground content */}
-      <Icon className="mb-4 text-3xl text-[var(--amber)] group-hover:text-white relative z-10 transition-colors duration-300" />
-      <h3 className="font-semibold text-xl text-[var(--foreground)] group-hover:text-white relative z-10 duration-300">
-        {title}
-      </h3>
-      <p className="mt-2 text-[var(--text-on-surface)] group-hover:text-[var(--honey)] relative z-10 duration-300">
-        {subtitle}
-      </p>
+      <div className="relative z-10 transition-colors duration-300 group-hover:text-[var(--surface-900)]">
+        <Icon className="mb-4 text-3xl text-[var(--amber)] transition-colors duration-300 group-hover:text-[var(--surface-900)]" />
+        <h3 className="font-semibold text-xl text-[var(--foreground)] transition-colors duration-300 group-hover:text-[var(--surface-900)]">
+          {title}
+        </h3>
+        <p className="mt-2 text-[var(--text-on-surface)] transition-colors duration-300 group-hover:text-[var(--surface-900)]">
+          {subtitle}
+        </p>
+      </div>
     </div>
   );
 };
@@ -120,7 +125,7 @@ export default function AboutPage() {
             </p>
           </div>
 
-          {/* ✨ Orb now contains the LOGO */}
+          {/* ✨ Orb with Logo */}
           <div className="flex justify-center items-center h-82 relative">
             <motion.div
               className="w-48 h-48 rounded-full flex items-center justify-center relative"
@@ -131,9 +136,8 @@ export default function AboutPage() {
               animate={{ scale: [1, 1.1, 1] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             >
-              {/* ✅ Logo inside orb */}
               <Image
-                src="/logo-icon.svg" // replace with your actual logo
+                src="/logo-icon.svg"
                 alt="ZENTROK Logo"
                 width={140}
                 height={140}
@@ -163,7 +167,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ✅ Our Process with Hover Cards */}
+      {/* ✅ Our Process */}
       <section className="py-20 bg-[var(--background)] text-[var(--foreground)]">
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-center">
@@ -210,30 +214,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ✅ Our Mission
-      <section className="py-20 bg-[var(--surface-1000)] text-[var(--foreground)]">
-        <div className="max-w-6xl mx-auto px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <h2 className="text-3xl md:text-4xl  font-bold">Our Mission</h2>
-            <p className="mt-6 text-lg leading-relaxed">
-              Our mission is to empower businesses to thrive in the digital era.
-              We aim to craft designs and strategies that are not only visually
-              compelling but also meaningful, scalable, and future-proof —
-              turning brand ideas into reality with innovation and intent.
-            </p>
-          </div>
-          <div className="h-72 rounded-xl overflow-hidden bg-[var(--surface-900)]">
-            <Image
-              src="/about/mission.jpg"
-              alt="Our Mission"
-              width={600}
-              height={400}
-              className="w-full h-full object-cover"
-            />
-          </div>
-        </div>
-      </section> */}
-
       {/* ✅ Why Choose Us */}
       <section className="py-20 bg-[var(--background)] text-[var(--foreground)]">
         <div className="max-w-6xl mx-auto px-6 lg:px-8 text-center">
@@ -273,7 +253,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ✅ Walking man now has no logo */}
       <DigitalGrowthWalk />
       <StatsAndProof />
       <Footer />

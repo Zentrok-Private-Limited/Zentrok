@@ -34,7 +34,7 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // ✅ System theme detection for mobile
+  // ✅ Detect system theme for initial load
   useEffect(() => {
     const mq = window.matchMedia("(prefers-color-scheme: dark)");
     const applyTheme = () => setDarkMode(mq.matches);
@@ -48,38 +48,42 @@ export default function Navbar() {
     document.documentElement.classList.toggle("dark", darkMode);
   }, [darkMode]);
 
-  // use CSS vars instead of hardcoded black/white
+  // use CSS vars instead of hardcoded colors
   const navBgClass = isScrolled
     ? "bg-[var(--background)] text-[var(--foreground)] backdrop-blur-md shadow-sm border-b border-gray-200 dark:border-gray-700"
     : "bg-transparent";
 
   return (
     <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${navBgClass}`}>
-      <UpperNavbar/>
+      <UpperNavbar />
       <div className="max-w-screen-xl mx-auto flex justify-between items-center px-6 py-3">
         {/* Logo */}
-<Link href="/" className="flex pb-3 items-center gap-0">
-  <Image 
-    src="/logo-icon.svg" 
-    alt="ZENTROK Logo" 
-    width={45} 
-    height={45} 
-    className="rounded-md" 
-  />
-  
-  {/* Wrapper for ZENTROK + Pvt. Ltd. */}
-  <div className="flex flex-col leading-none relative">
-    <span 
-      className="text-xl font-extrabold tracking-widest text-[var(--foreground)]"
-      style={{ fontFamily: "'Seven Swordsmen BB', sans-serif" }}
-    >
-      ZENTROK
-    </span>
-    <span className="absolute right-0 text-[10px] mt-6 font-medium text-[var(--foreground)]" style={{ fontFamily: "'Seven Swordsmen BB', sans-serif" }}>
-         Pvt.Ltd.
-    </span>
-  </div>
-</Link>
+        <Link href="/" className="flex pb-3 items-center gap-0">
+          <Image
+            src="/logo-icon.svg"
+            alt="ZENTROK Logo"
+            width={45}
+            height={45}
+            className="rounded-md"
+          />
+
+          {/* Wrapper for ZENTROK + Pvt. Ltd. */}
+          <div className="flex flex-col leading-none relative">
+            <span
+              className="text-xl font-extrabold tracking-widest text-[var(--foreground)]"
+              style={{ fontFamily: "'Seven Swordsmen BB', sans-serif" }}
+            >
+              ZENTROK
+            </span>
+            <span
+              className="absolute right-0 text-[10px] mt-6 font-medium text-[var(--foreground)]"
+              style={{ fontFamily: "'Seven Swordsmen BB', sans-serif" }}
+            >
+              Pvt.Ltd.
+            </span>
+          </div>
+        </Link>
+
         {/* Desktop Nav */}
         <div className="hidden md:block">
           <ul
@@ -100,10 +104,13 @@ export default function Navbar() {
             <Cursor position={hoverPos.opacity ? hoverPos : activePos} />
           </ul>
         </div>
-       
-        {/* Right Actions (Desktop only toggle) */}
+
+        {/* Right Actions (Desktop only) */}
         <div className="hidden md:flex items-center gap-3">
-          <SliderToggle selected={darkMode ? "dark" : "light"} setSelected={(mode) => setDarkMode(mode === "dark")} />
+          <SliderToggle
+            selected={darkMode ? "dark" : "light"}
+            setSelected={(mode) => setDarkMode(mode === "dark")}
+          />
           <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
             <Link
               href="/contact"
@@ -118,45 +125,43 @@ export default function Navbar() {
           </motion.div>
         </div>
 
-        {/* Mobile Menu (no theme toggle here) */}
-{/* Mobile Menu (no theme toggle here) */}
-<div className="md:hidden flex items-center -ml-2">
-  <button
-    type="button"
-    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-    className="flex items-center gap-2 px-3 py-1.5 rounded-full shadow font-medium bg-[var(--foreground)] text-[var(--background)]"
-  >
-    <ChevronLeft
-      size={14}
-      className={`transition-transform ${mobileMenuOpen ? "rotate-0" : "-rotate-180"}`}
-    />
-  </button>
+        {/* Mobile Menu */}
+        <div className="md:hidden flex items-center -ml-2">
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="flex items-center gap-2 px-3 py-1.5 rounded-full shadow font-medium bg-[var(--foreground)] text-[var(--background)]"
+          >
+            <ChevronLeft
+              size={14}
+              className={`transition-transform ${mobileMenuOpen ? "rotate-0" : "-rotate-180"}`}
+            />
+          </button>
 
-  {mobileMenuOpen && (
-    <motion.div
-      initial={{ opacity: 0, y: -10 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -10 }}
-      className="absolute right-4 top-full mt-2 shadow-md rounded-xl px-4 py-3 flex flex-col gap-3 w-48 bg-[var(--background)] text-[var(--foreground)]"
-    >
-      {navLinks.map(({ href, label }) => (
-        <Link
-          key={href}
-          href={href}
-          className={`px-3 py-2 rounded-md font-medium transition-colors duration-200 ${
-            pathname === href
-              ? "bg-[var(--foreground)] text-[var(--background)]"
-              : "hover:bg-gray-200 dark:hover:bg-gray-700"
-          }`}
-          onClick={() => setMobileMenuOpen(false)}
-        >
-          {label}
-        </Link>
-      ))}
-    </motion.div>
-  )}
-</div>
-
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className="absolute right-4 top-full mt-2 shadow-md rounded-xl px-4 py-3 flex flex-col gap-3 w-48 bg-[var(--background)] text-[var(--foreground)]"
+            >
+              {navLinks.map(({ href, label }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  className={`px-3 py-2 rounded-md font-medium transition-colors duration-200 ${
+                    pathname === href
+                      ? "bg-[var(--foreground)] text-[var(--background)]"
+                      : "hover:bg-gray-200 dark:hover:bg-gray-700"
+                  }`}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {label}
+                </Link>
+              ))}
+            </motion.div>
+          )}
+        </div>
       </div>
     </nav>
   );
@@ -205,40 +210,48 @@ const NavTab = ({ href, children, setHoverPos, setActivePos, isActive }: NavTabP
   );
 };
 
-// --------------------- Cursor ---------------------
+// --------------------- Cursor (yellow hover pill) ---------------------
 type CursorProps = { position: Position };
 const Cursor = ({ position }: CursorProps) => (
   <motion.li
     animate={{ left: position.left, width: position.width, opacity: position.opacity }}
     transition={{ type: "spring", damping: 20, stiffness: 300 }}
-    className="absolute z-0 h-full rounded-full bg-[var(--foreground)]"
+    className="absolute z-0 h-full rounded-full bg-[var(--sun)] group-hover:bg-[var(--amber)]"
   />
 );
 
 // --------------------- SliderToggle ---------------------
-const TOGGLE_CLASSES = "text-xs font-medium flex items-center gap-1.5 px-3 py-1.5 relative z-10";
+const TOGGLE_CLASSES =
+  "text-xs font-medium flex items-center gap-1.5 px-3 py-1.5 relative z-10";
 
-type SliderToggleProps = { selected: "light" | "dark"; setSelected: (mode: "light" | "dark") => void };
+type SliderToggleProps = {
+  selected: "light" | "dark";
+  setSelected: (mode: "light" | "dark") => void;
+};
 
 const SliderToggle = ({ selected, setSelected }: SliderToggleProps) => (
   <div className="relative flex w-fit items-center rounded-full border border-gray-300 dark:border-gray-600 bg-gray-200 dark:bg-gray-700 overflow-hidden">
     <button
-      className={`${TOGGLE_CLASSES} ${selected === "light" ? "text-white" : "text-slate-200"}`}
+      className={`${TOGGLE_CLASSES} ${selected === "light" ? "text-black" : "text-slate-400"}`}
       onClick={() => setSelected("light")}
     >
       <FiSun /> Light
     </button>
     <button
-      className={`${TOGGLE_CLASSES} ${selected === "dark" ? "text-white" : "text-slate-300"}`}
+      className={`${TOGGLE_CLASSES} ${selected === "dark" ? "text-black" : "text-slate-400"}`}
       onClick={() => setSelected("dark")}
     >
       <FiMoon /> Dark
     </button>
-    <div className={`absolute inset-0 z-0 flex ${selected === "dark" ? "justify-end" : "justify-start"}`}>
+    <div
+      className={`absolute inset-0 z-0 flex ${
+        selected === "dark" ? "justify-end" : "justify-start"
+      }`}
+    >
       <motion.span
         layout
         transition={{ type: "spring", damping: 15, stiffness: 250 }}
-        className="h-full w-1/2 rounded-full bg-gradient-to-r from-amber-500 to-orange-600"
+        className="h-full w-1/2 rounded-full bg-gradient-to-r from-[#f1e516] to-[#f1e516]"
       />
     </div>
   </div>

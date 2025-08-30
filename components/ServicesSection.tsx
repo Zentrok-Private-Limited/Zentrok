@@ -96,9 +96,8 @@ export default function ServicesSection() {
           {services.map((service, idx) => {
             const Icon = service.icon;
             return (
-              <motion.a
+              <motion.div
                 key={idx}
-                href="#"
                 variants={item}
                 className="w-full p-8 rounded-xl border border-[var(--honey)] relative overflow-hidden group bg-[var(--surface-1000)] transition-all duration-300 flex flex-col items-center text-center"
                 whileHover={{
@@ -109,27 +108,26 @@ export default function ServicesSection() {
                       : "0 8px 32px rgba(255,100,0,0.12)",
                 }}
               >
-                {/* Hover gradient overlay (warm theme) */}
-                <div className="absolute inset-0 bg-gradient-to-r from-[var(--sun)] to-[var(--amber)] translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+                {/* Hover gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-r from-[var(--sun)] to-[var(--amber)] translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-0" />
 
-                {/* Big background icon */}
+                {/* Background big icon (centered) */}
                 <Icon
                   size={120}
-                  className="absolute z-0 -top-12 right-1/2 translate-x-1/2 text-[var(--honey)] opacity-10 group-hover:opacity-30 group-hover:rotate-12 transition-all duration-300"
+                  className="absolute inset-0 m-auto text-[var(--honey)] opacity-10 group-hover:opacity-30 group-hover:rotate-12 transition-all duration-300 z-0"
                 />
 
-                {/* Small foreground icon */}
-                <div className="relative z-10 mb-4 text-[var(--amber)] group-hover:text-white transition-colors duration-300">
-                  <Icon size={48} />
+                {/* Foreground content */}
+                <div className="relative z-10 transition-colors duration-300 group-hover:text-[var(--surface-900)] flex flex-col items-center">
+                  <Icon className="mb-4 text-4xl text-[var(--amber)] transition-colors duration-300 group-hover:text-[var(--surface-900)]" />
+                  <h3 className="text-lg font-semibold mb-2 text-[var(--foreground)] transition-colors duration-300 group-hover:text-[var(--surface-900)]">
+                    {service.title}
+                  </h3>
+                  <p className="text-[var(--text-on-surface)] transition-colors duration-300 group-hover:text-[var(--surface-900)]">
+                    {service.description}
+                  </p>
                 </div>
-
-                <h3 className="relative z-10 text-lg font-semibold mb-2 text-[var(--foreground)] group-hover:text-white transition-colors duration-300">
-                  {service.title}
-                </h3>
-                <p className="relative z-10 text-[var(--text-on-surface)] group-hover:text-black transition-colors duration-300">
-                  {service.description}
-                </p>
-              </motion.a>
+              </motion.div>
             );
           })}
         </motion.div>

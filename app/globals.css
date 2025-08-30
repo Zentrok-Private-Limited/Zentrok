@@ -49,9 +49,9 @@ html.dark {
   --foreground: #f9f4e6;   /* warm soft cream */
 
   /* Muted yellow accents */
-  --sun: #e6b800;   /* golden amber */
-  --amber: #d4a017; /* darker amber */
-  --honey: #ffcd4d; /* warm yellow glow */
+  --sun: #f1e516;   /* golden amber */
+  --amber: #f1e516; /* darker amber */
+  --honey: #f1e516; /* warm yellow glow */
 
   /* Softer grid lines */
   --grid-line: rgba(255, 245, 200, 0.04);
