@@ -48,14 +48,17 @@ export default function Navbar() {
     document.documentElement.classList.toggle("dark", darkMode);
   }, [darkMode]);
 
-  // use CSS vars instead of hardcoded colors
   const navBgClass = isScrolled
     ? "bg-[var(--background)] text-[var(--foreground)] backdrop-blur-md shadow-sm border-b border-gray-200 dark:border-gray-700"
     : "bg-transparent";
 
   return (
-    <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${navBgClass}`}>
-      <UpperNavbar />
+    <nav
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${navBgClass}`}
+    >
+      {/* ✅ UpperNavbar only shows when not scrolled */}
+      {!isScrolled && <UpperNavbar />}
+
       <div className="max-w-screen-xl mx-auto flex justify-between items-center px-6 py-3">
         {/* Logo */}
         <Link href="/" className="flex pb-3 items-center gap-0">
@@ -66,8 +69,6 @@ export default function Navbar() {
             height={45}
             className="rounded-md"
           />
-
-          {/* Wrapper for ZENTROK + Pvt. Ltd. */}
           <div className="flex flex-col leading-none relative">
             <span
               className="text-xl font-extrabold tracking-widest text-[var(--foreground)]"
@@ -84,8 +85,8 @@ export default function Navbar() {
           </div>
         </Link>
 
-        {/* Desktop Nav */}
-        <div className="hidden md:block">
+        {/* ✅ Desktop Nav (Centered) */}
+        <div className="hidden md:flex flex-1 ml-32 justify-center">
           <ul
             onMouseLeave={() => setHoverPos({ ...hoverPos, opacity: 0 })}
             className="relative flex mt-2 w-fit rounded-full border border-gray-300 dark:border-gray-600 p-0.5 bg-[var(--background)]"
@@ -210,7 +211,7 @@ const NavTab = ({ href, children, setHoverPos, setActivePos, isActive }: NavTabP
   );
 };
 
-// --------------------- Cursor (yellow hover pill) ---------------------
+// --------------------- Cursor ---------------------
 type CursorProps = { position: Position };
 const Cursor = ({ position }: CursorProps) => (
   <motion.li
