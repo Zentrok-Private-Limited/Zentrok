@@ -3,17 +3,11 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Footer from "@/components/Footer";
-import {
-  Mail,
-  MapPin,
-  Phone,
-  Facebook,
-  Twitter,
-  Instagram,
-  Linkedin,
-  Send,
-} from "lucide-react";
+import { Mail, MapPin, Phone, Send } from "lucide-react";
 import { FiX } from "react-icons/fi";
+
+// Socials from react-icons (brand colors available)
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
 
 /* ------------------- TYPES ------------------- */
 type NotificationType = "success" | "error" | "info";
@@ -93,6 +87,15 @@ const NotificationsContainer: React.FC<NotificationsContainerProps> = ({
     </AnimatePresence>
   </div>
 );
+
+/* ------------------- SOCIAL LINKS ------------------- */
+const socialLinks = [
+  { Icon: FaFacebook, link: "#", color: "#1877F2" }, // Facebook Blue
+  { Icon: FaTwitter, link: "#", color: "#1DA1F2" }, // Twitter Blue
+  { Icon: FaInstagram, link: "#", color: "#E4405F" }, // Instagram Pink
+  { Icon: FaLinkedin, link: "#", color: "#0A66C2" }, // LinkedIn Blue
+];
+
 /* ------------------------------------------------------------ */
 
 export default function ContactPage() {
@@ -140,7 +143,10 @@ export default function ContactPage() {
       }
     } catch (error) {
       console.error("Submission Error:", error);
-      addNotification("Oops! Something went wrong. Check your connection.", "error");
+      addNotification(
+        "Oops! Something went wrong. Check your connection.",
+        "error"
+      );
     } finally {
       setIsLoading(false);
     }
@@ -149,7 +155,10 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen flex flex-col text-[var(--foreground)] bg-[var(--background)]">
       {/* Notifications */}
-      <NotificationsContainer notifications={notifications} removeNotif={removeNotif} />
+      <NotificationsContainer
+        notifications={notifications}
+        removeNotif={removeNotif}
+      />
 
       {/* Main Section */}
       <main className="flex-1 container mx-auto px-6 lg:px-20 grid grid-cols-1 md:grid-cols-2 gap-12 py-12">
@@ -185,17 +194,24 @@ export default function ContactPage() {
               className="p-3 border rounded-lg w-full bg-[var(--surface-900)] border-[var(--honey)] focus:outline-none focus:border-[var(--sun)]"
             ></textarea>
 
-            <motion.div whileHover={{ scale: isLoading ? 1 : 1.04 }} whileTap={{ scale: isLoading ? 1 : 0.96 }}>
+            <motion.div
+              whileHover={{ scale: isLoading ? 1 : 1.04 }}
+              whileTap={{ scale: isLoading ? 1 : 0.96 }}
+            >
               <button
                 type="submit"
                 disabled={isLoading}
                 className="group relative overflow-hidden flex items-center px-6 py-3 rounded-full bg-[var(--sun)] text-[var(--foreground)] font-semibold shadow-lg hover:bg-[var(--amber)] hover:text-white transition-all duration-300 pr-10 disabled:bg-gray-500 disabled:cursor-not-allowed"
               >
-                <span className="relative z-10 mr-4">{isLoading ? "Sending..." : "Send Message"}</span>
+                <span className="relative z-10 mr-4">
+                  {isLoading ? "Sending..." : "Send Message"}
+                </span>
                 <Send
                   size={18}
                   className={`absolute right-3 z-10 transition-all duration-300 ease-in-out ${
-                    isLoading ? "opacity-0" : "opacity-0 group-hover:opacity-100 group-hover:translate-x-0 translate-x-2"
+                    isLoading
+                      ? "opacity-0"
+                      : "opacity-0 group-hover:opacity-100 group-hover:translate-x-0 translate-x-2"
                   }`}
                 />
               </button>
@@ -212,7 +228,10 @@ export default function ContactPage() {
         >
           <div className="absolute -top-12 mt-20 right-0">
             <h1 className="text-3xl sm:text-4xl font-bold ">Contact Us</h1>
-            <p className="mt-2 opacity-80">We&apos;d love to hear from you! Reach out using the form or details below.</p>
+            <p className="mt-2 opacity-80">
+              We&apos;d love to hear from you! Reach out using the form or
+              details below.
+            </p>
           </div>
 
           <div className="pt-16 mt-20">
@@ -242,13 +261,15 @@ export default function ContactPage() {
 
             {/* Social Links */}
             <div className="flex space-x-6 mt-8">
-              {[Facebook, Twitter, Instagram, Linkedin].map((Icon, i) => (
+              {socialLinks.map(({ Icon, link, color }, i) => (
                 <a
                   key={i}
-                  href="#"
-                  className="opacity-80 hover:text-[var(--amber)] transition"
+                  href={link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-transform hover:scale-110"
                 >
-                  <Icon className="w-6 h-6" />
+                  <Icon className="w-6 h-6" style={{ color }} />
                 </a>
               ))}
             </div>
@@ -268,8 +289,8 @@ export default function ContactPage() {
             className="border-0 w-full"
           ></iframe>
         </div>
-        
       </section>
+
       <Footer />
     </div>
   );
