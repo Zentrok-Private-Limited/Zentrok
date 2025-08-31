@@ -7,10 +7,11 @@ export const metadata: Metadata = {
   description: "Creative Digital Marketing Agency",
   icons: {
     icon: [
-      { url: "/favicon.svg", sizes: "any", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" }, // Default favicon
+      { url: "/favicon.svg", type: "image/svg+xml" }, // SVG version
     ],
-    apple: "/favicon.svg",
-    shortcut: "/favicon.svg",
+    apple: "/apple-touch-icon.png", // For iOS devices
+    shortcut: "/favicon.ico",
   },
 };
 
