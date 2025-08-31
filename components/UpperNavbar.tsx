@@ -3,10 +3,10 @@ import React from "react";
 import { FaPhone, FaEnvelope, FaWhatsapp, FaInstagram } from "react-icons/fa";
 import { motion } from "framer-motion";
 
-// Array of social icons and their links
+// Social icons with their brand colors
 const socialIcons = [
-  { Icon: FaWhatsapp, link: "https://wa.me/919211870764" },
-  { Icon: FaInstagram, link: "#" }, // Replace with your Instagram link
+  { Icon: FaWhatsapp, link: "https://wa.me/919211870764", color: "#25D366" }, // WhatsApp green
+  { Icon: FaInstagram, link: "#", color: "#E4405F" }, // Instagram pink
 ];
 
 const UpperNavbar: React.FC = () => {
@@ -20,31 +20,31 @@ const UpperNavbar: React.FC = () => {
             href="tel:+919211870764"
             className="flex items-center hover:text-[var(--sun)] transition-colors"
           >
-            <FaPhone className="mr-2" />
+            <FaPhone className="mr-2 text-blue-500" /> {/* Phone Blue */}
             <span>+91 92118 70764</span>
           </a>
           <a
             href="mailto:support@zentrok.com"
             className="flex items-center hover:text-[var(--sun)] transition-colors"
           >
-            <FaEnvelope className="mr-2" />
-            <span>support@zentrok.com</span>
+            <FaEnvelope className="mr-2 text-red-500" /> {/* Gmail Red */}
+            <span>info@zentrok.com</span>
           </a>
         </div>
 
         {/* Social Media Icons */}
         <div className="flex space-x-4">
-          {socialIcons.map(({ Icon, link }, idx) => (
+          {socialIcons.map(({ Icon, link, color }, idx) => (
             <motion.a
               key={idx}
-              whileHover={{ scale: 1.1 }}
+              whileHover={{ scale: 1.2 }}
               whileTap={{ scale: 0.95 }}
               href={link}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-[var(--sun)] transition-colors"
+              className="transition-transform"
             >
-              <Icon size={18} />
+              <Icon size={20} style={{ color }} />
             </motion.a>
           ))}
         </div>

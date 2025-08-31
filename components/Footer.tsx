@@ -51,14 +51,15 @@ const AnimatedFooter: React.FC = () => {
   const inputBg = `var(--surface-1000)`;
   const footerBg = `var(--surface-900)`;
   const buttonBg = `var(--sun)`;
-  const buttonText = `#1e1a0d`; // consistent with your light theme spec
+  const buttonText = `#1e1a0d`;
   const borderColor = `var(--foreground)`;
 
+  // Socials with brand colors
   const socialIcons = [
-    { Icon: FaFacebookF, link: "#" },
-    { Icon: FaTwitter, link: "#" },
-    { Icon: FaInstagram, link: "#" },
-    { Icon: FaLinkedinIn, link: "#" },
+    { Icon: FaFacebookF, link: "#", color: "#1877F2" }, // Facebook blue
+    { Icon: FaTwitter, link: "#", color: "#1DA1F2" }, // Twitter sky blue
+    { Icon: FaInstagram, link: "#", color: "#E4405F" }, // Instagram pink/red
+    { Icon: FaLinkedinIn, link: "#", color: "#0077B5" }, // LinkedIn blue
   ];
 
   const getButtonText = () => {
@@ -134,16 +135,16 @@ const AnimatedFooter: React.FC = () => {
 
         {/* Socials */}
         <div className="flex space-x-4">
-          {socialIcons.map(({ Icon, link }, idx) => (
+          {socialIcons.map(({ Icon, link, color }, idx) => (
             <motion.a
               key={idx}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               href={link}
               className="p-3 rounded-full border transition-colors duration-300"
-              style={{ borderColor, color: foreground }}
+              style={{ borderColor }}
             >
-              <Icon size={18} />
+              <Icon size={18} style={{ color }} />
             </motion.a>
           ))}
         </div>

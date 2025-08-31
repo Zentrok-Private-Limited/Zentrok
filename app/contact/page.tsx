@@ -212,7 +212,7 @@ export default function ContactPage() {
         >
           <div className="absolute -top-12 mt-20 right-0">
             <h1 className="text-3xl sm:text-4xl font-bold ">Contact Us</h1>
-            <p className="mt-2 opacity-80">We’d love to hear from you! Reach out using the form or details below.</p>
+            <p className="mt-2 opacity-80">We&apos;d love to hear from you! Reach out using the form or details below.</p>
           </div>
 
           <div className="pt-16 mt-20">
@@ -220,7 +220,7 @@ export default function ContactPage() {
               <Mail className="text-[var(--sun)] w-6 h-6" />
               <div>
                 <h3 className="font-semibold">Email</h3>
-                <p className="opacity-80">support@zentrok.com</p>
+                <p className="opacity-80">info@zentrok.com</p>
               </div>
             </div>
 
@@ -228,7 +228,7 @@ export default function ContactPage() {
               <Phone className="text-[var(--sun)] w-6 h-6" />
               <div>
                 <h3 className="font-semibold">Phone</h3>
-                <p className="opacity-80">+91 98765 43210</p>
+                <p className="opacity-80">+91 92118 70764</p>
               </div>
             </div>
 
