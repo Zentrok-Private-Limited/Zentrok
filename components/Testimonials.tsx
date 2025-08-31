@@ -23,7 +23,7 @@ export default function Testimonials() {
       quote:
         "ZENTROK absolutely nailed our product photography. The attention to detail, lighting, and composition was exactly what we needed to elevate our brand visuals. They're a team that just gets it.",
       name: "Akshat ",
-      role: "Co founder (Mustfit Design)",
+      role: "Co founder (MustFind Design)",
       image: "/Akshat.jpg",
     },
   ];
