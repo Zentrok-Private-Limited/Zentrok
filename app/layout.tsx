@@ -5,21 +5,29 @@ import Navbar from "@/components/Navbar";
 export const metadata: Metadata = {
   title: "Zentrok",
   description: "Creative Digital Marketing Agency",
-   icons: {
-    icon: "/logo-icon.svg", // path from public folder
+  icons: {
+    icon: [
+      { url: "/favicon.svg", sizes: "any" }, // Default favicon
+      { url: "/favicon.svg", type: "image/svg+xml" }, // SVG version
+    ],
+    apple: "/favicon.svg", // For iOS devices
+    shortcut: "/favicon.svg",
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <body>
         <Navbar />
         <main className="pt-20">{children}</main>
         <div className="aurora">
-  <span></span>
-</div>
-
+          <span></span>
+        </div>
       </body>
     </html>
   );

@@ -137,7 +137,7 @@ export default function AboutPage() {
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             >
               <Image
-                src="/logo-icon.svg"
+                src="/favicon.svg"
                 alt="ZENTROK Logo"
                 width={140}
                 height={140}

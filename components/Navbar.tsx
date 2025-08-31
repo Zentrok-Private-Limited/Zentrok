@@ -63,7 +63,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex pb-3 items-center gap-0">
           <Image
-            src="/logo-icon.svg"
+            src="/favicon.svg"
             alt="ZENTROK Logo"
             width={45}
             height={45}
