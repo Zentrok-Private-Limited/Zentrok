@@ -118,7 +118,7 @@ export default function AboutPage() {
           <div>
             <h2 className="text-3xl md:text-4xl font-bold">Our Vision</h2>
             <p className="mt-6 text-lg leading-relaxed">
-              We envision a world where every brand’s story is told with
+              We envision a world where every brand&apos;s story is told with
               creativity, clarity, and purpose. At ZENTROK, we aspire to be the
               bridge between innovation and impact — helping businesses craft
               timeless digital experiences that inspire, engage, and endure.
