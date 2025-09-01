@@ -90,9 +90,9 @@ const NotificationsContainer: React.FC<NotificationsContainerProps> = ({
 
 /* ------------------- SOCIAL LINKS ------------------- */
 const socialLinks = [
-  { Icon: FaFacebook, link: "#", color: "#1877F2" }, // Facebook Blue
-  { Icon: FaTwitter, link: "#", color: "#1DA1F2" }, // Twitter Blue
-  { Icon: FaInstagram, link: "#", color: "#E4405F" }, // Instagram Pink
+  { Icon: FaFacebook, link: "https://www.facebook.com/profile.php?id=61579906194112", color: "#1877F2" }, // Facebook Blue
+  { Icon: FaTwitter, link: "https://x.com/Zentrok_05", color: "#1DA1F2" }, // Twitter Blue
+  { Icon: FaInstagram, link: "https://www.instagram.com/zentrok_/", color: "#E4405F" }, // Instagram Pink
   { Icon: FaLinkedin, link: "#", color: "#0A66C2" }, // LinkedIn Blue
 ];
 

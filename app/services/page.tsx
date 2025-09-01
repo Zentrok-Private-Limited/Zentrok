@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Eye, Sparkles, Monitor, Camera, ArrowUpRight } from "lucide-react";
+import { Sparkles, Monitor, Camera, ArrowUpRight } from "lucide-react";
 import { useTheme } from "next-themes";
 import Footer from "@/components/Footer";
 import ServicesSection from "@/components/ServicesSection";
@@ -16,30 +16,47 @@ export default function Services() {
   useEffect(() => setMounted(true), []);
   if (!mounted) return null;
 
-  const textColor = theme === "dark" ? "text-white" : "text-[var(--foreground)]";
+  const textColor =
+    theme === "dark" ? "text-white" : "text-[var(--foreground)]";
   const subTextColor =
     theme === "dark" ? "text-white/80" : "text-[var(--text-on-surface)]/80";
-
   const sectionBg =
     theme === "dark" ? "bg-[var(--surface-900)]" : "bg-[var(--surface-1000)]";
 
+  // 🎨 Heading color from theme
+  const headingColor =
+    theme === "dark" ? "text-[var(--sun)]" : "text-[var(--amber)]";
+
+  // ✨ Animation variants for headings
+  const headingVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  };
+
   return (
     <>
-      <main className={`min-h-screen pt-20 px-6 sm:px-12 lg:px-24 ${textColor}`}>
+      <main
+        className={`min-h-screen pt-20 px-6 sm:px-12 lg:px-24 ${textColor}`}
+      >
         {/* Hero */}
         <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          initial="hidden"
+          animate="visible"
+          variants={headingVariants}
           className="max-w-4xl mx-auto text-center mb-0 bg-transparent"
         >
-          <h2 className="text-4xl sm:text-5xl font-extrabold mb-2 ">
+          <motion.h2
+            variants={headingVariants}
+            whileHover={{ scale: 1.05 }}
+            className={`text-4xl sm:text-6xl font-extrabold mb-2 ${headingColor}`}
+          >
             Our Services
-          </h2>
+          </motion.h2>
           <p
             className={`max-w-xl mx-auto mb-0 text-lg sm:text-xl ${subTextColor}`}
           >
-            We deliver strategy, creativity, and data-driven marketing that propel your brand forward.
+            We deliver strategy, creativity, and data-driven marketing that
+            propel your brand forward.
           </p>
         </motion.section>
 
@@ -48,38 +65,61 @@ export default function Services() {
 
         {/* ✅ Ideas & Inspiration Section */}
         <motion.section
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true }}
+          variants={headingVariants}
           className="py-20"
         >
           <div className="max-w-6xl mx-auto text-center">
-            <h3 className="text-3xl sm:text-4xl  font-bold mb-6">
+            <motion.h3
+              variants={headingVariants}
+              whileHover={{ scale: 1.05 }}
+              className={`text-3xl sm:text-5xl font-bold mb-6 ${headingColor}`}
+            >
               Ideas & Inspiration
-            </h3>
+            </motion.h3>
             <p className={`max-w-2xl mx-auto mb-12 ${subTextColor}`}>
-              Transforming your brand vision into reality with structured design, creativity, and strategy.
+              Transforming your brand vision into reality with structured
+              design, creativity, and strategy.
             </p>
             <div className="grid gap-8 md:grid-cols-2">
               <motion.div
                 whileHover={{ scale: 1.03 }}
                 className={`p-8 rounded-2xl shadow-lg ${sectionBg}`}
               >
-                <Sparkles size={36} className="text-[var(--sun)] mx-auto mb-4" />
-                <h4 className="text-xl font-semibold mb-2">Creative Solutions</h4>
+                <Sparkles
+                  size={36}
+                  className="text-[var(--sun)] mx-auto mb-4"
+                />
+                <motion.h4
+                  whileHover={{ scale: 1.08 }}
+                  className={`text-xl font-semibold mb-2 ${headingColor}`}
+                >
+                  Creative Solutions
+                </motion.h4>
                 <p className={subTextColor}>
-                  Dynamic scrolling keywords, solution-based categories, and clean data structuring.
+                  Dynamic scrolling keywords, solution-based categories, and
+                  clean data structuring.
                 </p>
               </motion.div>
               <motion.div
                 whileHover={{ scale: 1.03 }}
                 className={`p-8 rounded-2xl shadow-lg ${sectionBg}`}
               >
-                <Camera size={36} className="text-[var(--amber)] mx-auto mb-4" />
-                <h4 className="text-xl font-semibold mb-2">Luxury & Minimalism</h4>
+                <Camera
+                  size={36}
+                  className="text-[var(--amber)] mx-auto mb-4"
+                />
+                <motion.h4
+                  whileHover={{ scale: 1.08 }}
+                  className={`text-xl font-semibold mb-2 ${headingColor}`}
+                >
+                  Luxury & Minimalism
+                </motion.h4>
                 <p className={subTextColor}>
-                  Minimalist restraint with luxury appeal. Clean, informative, and research-driven content.
+                  Minimalist restraint with luxury appeal. Clean, informative,
+                  and research-driven content.
                 </p>
               </motion.div>
             </div>
@@ -88,18 +128,23 @@ export default function Services() {
 
         {/* ✅ Our Work Section */}
         <motion.section
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true }}
+          variants={headingVariants}
           className="py-20"
         >
           <div className="max-w-6xl mx-auto text-center">
-            <h3 className="text-3xl sm:text-4xl font-bold mb-6">
-              Our Work
-            </h3>
+            <motion.h3
+              variants={headingVariants}
+              whileHover={{ scale: 1.05 }}
+              className={`text-3xl sm:text-5xl font-bold mb-6 ${headingColor}`}
+            >
+              What We Do
+            </motion.h3>
             <p className={`max-w-2xl mx-auto mb-12 ${subTextColor}`}>
-              A showcase of our website design, development, and product photography.
+              A showcase of our website design, development, and product
+              photography.
             </p>
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               <motion.div
@@ -107,9 +152,15 @@ export default function Services() {
                 className={`p-6 rounded-2xl shadow-lg ${sectionBg}`}
               >
                 <Monitor size={32} className="text-[var(--honey)] mb-4" />
-                <h4 className="text-lg font-semibold mb-2">Website Redesign</h4>
+                <motion.h4
+                  whileHover={{ scale: 1.08 }}
+                  className={`text-lg font-semibold mb-2 ${headingColor}`}
+                >
+                  Website Design
+                </motion.h4>
                 <p className={subTextColor}>
-                  A clean, fashion-forward redesign inspired by Zara&apos;s global identity.
+                  A clean, fashion-forward redesign inspired by Zara&apos;s
+                  global identity.
                 </p>
               </motion.div>
               <motion.div
@@ -117,9 +168,15 @@ export default function Services() {
                 className={`p-6 rounded-2xl shadow-lg ${sectionBg}`}
               >
                 <Camera size={32} className="text-[var(--sun)] mb-4" />
-                <h4 className="text-lg font-semibold mb-2">Product Photography</h4>
+                <motion.h4
+                  whileHover={{ scale: 1.08 }}
+                  className={`text-lg font-semibold mb-2 ${headingColor}`}
+                >
+                  Product Photography
+                </motion.h4>
                 <p className={subTextColor}>
-                  From studio shots to lifestyle imagery, we craft visuals that tell your product&apos;s story.
+                  From studio shots to lifestyle imagery, we craft visuals that
+                  tell your product&apos;s story.
                 </p>
               </motion.div>
               <motion.div
@@ -127,27 +184,37 @@ export default function Services() {
                 className={`p-6 rounded-2xl shadow-lg ${sectionBg}`}
               >
                 <Sparkles size={32} className="text-[var(--amber)] mb-4" />
-                <h4 className="text-lg font-semibold mb-2">Brand Identity</h4>
+                <motion.h4
+                  whileHover={{ scale: 1.08 }}
+                  className={`text-lg font-semibold mb-2 ${headingColor}`}
+                >
+                  Brand Identity
+                </motion.h4>
                 <p className={subTextColor}>
-                  Logos, color systems, and visual languages that make a lasting impression.
+                  Logos, color systems, and visual languages that make a lasting
+                  impression.
                 </p>
               </motion.div>
             </div>
           </div>
         </motion.section>
 
-        {/* ✅ Website Design Section (Brittany Chiang style projects) */}
+        {/* ✅ Website Design Section */}
         <motion.section
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true }}
+          variants={headingVariants}
           className="py-20"
         >
           <div className="max-w-6xl mx-auto">
-            <h3 className="text-3xl sm:text-4xl font-bold mb-12 text-center">
+            <motion.h3
+              variants={headingVariants}
+              whileHover={{ scale: 1.05 }}
+              className={`text-5xl sm:text-5xl font-bold mb-12 text-center ${headingColor}`}
+            >
               Our Work
-            </h3>
+            </motion.h3>
 
             <div className="space-y-16">
               {/* Project 1 */}
@@ -163,9 +230,20 @@ export default function Services() {
                   />
                 </div>
                 <div>
-                  <h4 className="text-2xl font-semibold mb-3">Physiotherapy clinic Website</h4>
+                  <motion.h4
+                    whileHover={{ scale: 1.08 }}
+                    className={`text-2xl font-semibold mb-3 ${headingColor}`}
+                  >
+                    Physiotherapy clinic Website
+                  </motion.h4>
                   <p className={`${subTextColor} mb-4`}>
-                  Advika Physiotherapy Clinic presents a clean, compassionate, and user-focused digital experience built to guide visitors seamlessly through the clinic&apos;s services and values. The homepage opens with a welcoming tagline, “Transforming Health, Restoring Lives,” paired with a clear “Book Appointment” call-to-action—reinforcing their patient-first approach.
+                    Advika Physiotherapy Clinic presents a clean, compassionate,
+                    and user-focused digital experience built to guide visitors
+                    seamlessly through the clinic&apos;s services and values.
+                    The homepage opens with a welcoming tagline, “Transforming
+                    Health, Restoring Lives,” paired with a clear “Book
+                    Appointment” call-to-action—reinforcing their patient-first
+                    approach.
                   </p>
                   <Link
                     href="https://www.advikaphysiotherapyclinic.com/"
@@ -190,9 +268,18 @@ export default function Services() {
                   />
                 </div>
                 <div>
-                  <h4 className="text-2xl font-semibold mb-3">AstroTaro Website</h4>
+                  <motion.h4
+                    whileHover={{ scale: 1.08 }}
+                    className={`text-2xl font-semibold mb-3 ${headingColor}`}
+                  >
+                    AstroTaro Website
+                  </motion.h4>
                   <p className={`${subTextColor} mb-4`}>
-                    Astro Taro blends the wisdom of astrology with the intuition of tarot to offer personalized insights, spiritual guidance, and clarity for life&apos;s journey. Explore accurate readings, cosmic forecasts, and empowering tools to align with your true path.
+                    Astro Taro blends the wisdom of astrology with the intuition
+                    of tarot to offer personalized insights, spiritual guidance,
+                    and clarity for life&apos;s journey. Explore accurate
+                    readings, cosmic forecasts, and empowering tools to align
+                    with your true path.
                   </p>
                   <Link
                     href="https://divine-ssarthi.vercel.app/"
