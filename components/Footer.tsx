@@ -56,9 +56,9 @@ const AnimatedFooter: React.FC = () => {
 
   // Socials with brand colors
   const socialIcons = [
-    { Icon: FaFacebookF, link: "#", color: "#1877F2" }, // Facebook blue
-    { Icon: FaTwitter, link: "#", color: "#1DA1F2" }, // Twitter sky blue
-    { Icon: FaInstagram, link: "#", color: "#E4405F" }, // Instagram pink/red
+    { Icon: FaFacebookF, link: "https://www.facebook.com/profile.php?id=61579906194112", color: "#1877F2" }, // Facebook blue
+    { Icon: FaTwitter, link: "https://x.com/Zentrok_05", color: "#1DA1F2" }, // Twitter sky blue
+    { Icon: FaInstagram, link: "https://www.instagram.com/zentrok_/", color: "#E4405F" }, // Instagram pink/red
     { Icon: FaLinkedinIn, link: "#", color: "#0077B5" }, // LinkedIn blue
   ];
 

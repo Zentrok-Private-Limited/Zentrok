@@ -1,12 +1,23 @@
 // src/components/UpperNavbar.tsx
 import React from "react";
-import { FaPhone, FaEnvelope, FaWhatsapp, FaInstagram } from "react-icons/fa";
+import {
+  FaPhone,
+  FaEnvelope,
+  FaWhatsapp,
+  FaInstagram,
+  FaLinkedin,
+  FaFacebook,
+  FaTwitter,
+} from "react-icons/fa";
 import { motion } from "framer-motion";
 
 // Social icons with their brand colors
 const socialIcons = [
   { Icon: FaWhatsapp, link: "https://wa.me/919211870764", color: "#25D366" }, // WhatsApp green
-  { Icon: FaInstagram, link: "#", color: "#E4405F" }, // Instagram pink
+  { Icon: FaInstagram, link: "https://www.instagram.com/zentrok_/", color: "#E4405F" }, // Instagram pink
+  { Icon: FaLinkedin, link: "https://linkedin.com/", color: "#0077B5" }, // LinkedIn blue
+  { Icon: FaFacebook, link: "https://www.facebook.com/profile.php?id=61579906194112", color: "#1877F2" }, // Facebook blue
+  { Icon: FaTwitter, link: "https://x.com/Zentrok_05", color: "#1DA1F2" }, // Twitter light blue
 ];
 
 const UpperNavbar: React.FC = () => {
@@ -20,14 +31,14 @@ const UpperNavbar: React.FC = () => {
             href="tel:+919211870764"
             className="flex items-center hover:text-[var(--sun)] transition-colors"
           >
-            <FaPhone className="mr-2 text-blue-500" /> {/* Phone Blue */}
+            <FaPhone className="mr-2 text-blue-500" />
             <span>+91 92118 70764</span>
           </a>
           <a
             href="mailto:support@zentrok.com"
             className="flex items-center hover:text-[var(--sun)] transition-colors"
           >
-            <FaEnvelope className="mr-2 text-red-500" /> {/* Gmail Red */}
+            <FaEnvelope className="mr-2 text-red-500" />
             <span>info@zentrok.com</span>
           </a>
         </div>
