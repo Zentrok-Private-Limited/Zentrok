@@ -192,10 +192,10 @@ export default function Services() {
                 <div>
                   <h4 className="text-2xl font-semibold mb-3">AstroTaro Website</h4>
                   <p className={`${subTextColor} mb-4`}>
-                    A personal portfolio site designed with elegant typography, smooth animations, and a brand-first approach.
+                    Astro Taro blends the wisdom of astrology with the intuition of tarot to offer personalized insights, spiritual guidance, and clarity for life&apos;s journey. Explore accurate readings, cosmic forecasts, and empowering tools to align with your true path.
                   </p>
                   <Link
-                    href="https://example.com"
+                    href="https://divine-ssarthi.vercel.app/"
                     target="_blank"
                     className="inline-flex items-center text-[var(--sun)] hover:text-[var(--amber)] font-semibold"
                   >
