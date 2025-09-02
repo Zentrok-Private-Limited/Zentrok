@@ -24,6 +24,7 @@ export default function Navbar() {
     { href: "/home", label: "Home" },
     { href: "/about", label: "About" },
     { href: "/services", label: "Services" },
+    { href: "/our-work", label: "Our Work" },
     { href: "/contact", label: "Contact" },
   ];
 
@@ -34,7 +35,6 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // ✅ Detect system theme for initial load
   useEffect(() => {
     const mq = window.matchMedia("(prefers-color-scheme: dark)");
     const applyTheme = () => setDarkMode(mq.matches);
