@@ -507,7 +507,7 @@ export default function OurWorkPage() {
         <div className="max-w-7xl mx-auto px-6 py-14 flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
             <h4 className="text-2xl md:text-3xl font-black">Ready to build your next case study?</h4>
-            <p className="text-[var(--foreground,#1e1a0d)]/70 mt-1">Brief us and we'll get the flywheel spinning.</p>
+            <p className="text-[var(--foreground,#1e1a0d)]/70 mt-1">Brief us and we&apos;ll get the flywheel spinning.</p>
           </div>
           <a
             href="/contact"
