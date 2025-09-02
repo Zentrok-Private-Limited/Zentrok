@@ -323,10 +323,10 @@ export default function OurWorkPage() {
                   />
                   {/* Top-left chips */}
                   <div className="absolute left-3 top-3 flex flex-wrap gap-2">
-                    <span className="rounded-full bg-white/80 backdrop-blur px-2.5 py-1 text-xs text-[var(--foreground,#1e1a0d)]/80 border border-[var(--grid-line,rgba(0,0,0,0.03))]">
+                    <span className="rounded-full bg-[var(--sun)] backdrop-blur px-2.5 py-1 text-xs text-[#1e1a0d] border border-[var(--grid-line,rgba(0,0,0,0.03))]">
                       {p.sector}
                     </span>
-                    <span className="rounded-full bg-white/80 backdrop-blur px-2.5 py-1 text-xs text-[var(--foreground,#1e1a0d)]/80 border border-[var(--grid-line,rgba(0,0,0,0.03))]">
+                    <span className="rounded-full backdrop-blur bg-[var(--sun)] px-2.5 py-1 text-xs text-[#1e1a0d] border border-[var(--grid-line,rgba(0,0,0,0.03))]">
                       {p.year}
                     </span>
                   </div>
@@ -352,7 +352,7 @@ export default function OurWorkPage() {
                     {p.kpi.slice(0, 3).map((k) => (
                       <div
                         key={k.label}
-                        className="rounded-xl border border-[var(--grid-line,rgba(0,0,0,0.03))] bg-white/50 px-3 py-2 text-center"
+                        className="rounded-xl border border-[var(--grid-line,rgba(0,0,0,0.03))] px-3 py-2 text-center"
                       >
                         <div className="text-[11px] uppercase tracking-wide text-[var(--foreground,#1e1a0d)]/50">{k.label}</div>
                         <div className="text-sm font-semibold">{k.value}</div>
@@ -363,7 +363,7 @@ export default function OurWorkPage() {
                   {/* Tags */}
                   <div className="mt-4 flex flex-wrap gap-2">
                     {p.tags.slice(0, 4).map((t) => (
-                      <span key={t} className="rounded-full border border-[var(--grid-line,rgba(0,0,0,0.03))] bg-white/50 px-2.5 py-1 text-[11px] text-[var(--foreground,#1e1a0d)]/70">
+                      <span key={t} className="rounded-full border border-[var(--grid-line,rgba(0,0,0,0.03)) px-2.5 py-1 text-[11px] text-[var(--foreground,#1e1a0d)]/70">
                         #{t}
                       </span>
                     ))}
@@ -513,7 +513,7 @@ export default function OurWorkPage() {
             href="/contact"
             className="inline-flex items-center gap-2 rounded-2xl border border-[var(--sun,#ffcc33)]/50 bg-[var(--sun,#ffcc33)]/10 px-5 py-3 font-semibold text-[var(--sun,#ffcc33)] hover:bg-[var(--sun,#ffcc33)]/20 transition"
           >
-            Let's Talk <ArrowUpRight className="h-4 w-4" />
+            Let&apos;s Talk <ArrowUpRight className="h-4 w-4" />
           </a>
         </div>
       </section>
