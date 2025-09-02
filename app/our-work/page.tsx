@@ -35,41 +35,41 @@ type Project = {
 const PROJECTS: Project[] = [
   {
     id: "p1",
-    title: "Reimagining Snack Cravings",
-    brand: "Crunchify",
+    title: "Healing Health & Lives",
+    brand: "Advika Physiotherapy Clinic",
     sector: "Website Design",
     services: ["Branding", "Social", "Performance"],
     year: 2025,
     cover:
-      "https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1600&auto=format&fit=crop",
+      "/project1.png",
     kpi: [
       { label: "Engagement ↑", value: "+148%" },
       { label: "CTR", value: "3.9%" },
       { label: "ROAS", value: "4.6x" },
     ],
     summary:
-      "Full-funnel strategy across creator collabs, snack-time CTAs, and retail amplification. Built distinct visual IP with weekly UGC.",
+      "where compassion meets clinical excellence to restore mobility, accelerate recovery, and help you live pain-free. Trust our expert care to guide you every step toward renewed strength and lasting wellness.",
     tags: ["creator", "ugc", "retail-push", "full-funnel"],
-    link: "#https://www.advikaphysiotherapyclinic.com/",
+    link: "https://www.advikaphysiotherapyclinic.com/",
   },
   {
     id: "p2",
-    title: "Launching a Neo-Bank for Gen Z",
-    brand: "NovaPay",
-    sector: "Content Creation",
+    title: "Astro, Taro & Numerology",
+    brand: "Divine SSarthi",
+    sector: "Website Design",
     services: ["Branding", "Performance", "Web"],
     year: 2024,
     cover:
-      "https://images.unsplash.com/photo-1553729459-efe14ef6055d?q=80&w=1600&auto=format&fit=crop",
+      "/project3.png",
     kpi: [
       { label: "Sign-ups", value: "120k" },
       { label: "CPL ↓", value: "-37%" },
       { label: "CAC", value: "₹128" },
     ],
     summary:
-      "Deployed value-prop testing, high-velocity landing pages, and lifecycle loops to compound conversion.",
+      "your gateway to transformative insight: from astrology and tarot to vastu and gemstones, tailor made guidance delivered online or right to your doorstep. Empower your journey with clarity, connection, and cosmic confidence.",
     tags: ["landing-page", "ab-test", "lifecycle"],
-    link: "#",
+    link: "https://divine-ssarthi.vercel.app/",
   },
   {
     id: "p3",
@@ -513,7 +513,7 @@ export default function OurWorkPage() {
             href="/contact"
             className="inline-flex items-center gap-2 rounded-2xl border border-[var(--sun,#ffcc33)]/50 bg-[var(--sun,#ffcc33)]/10 px-5 py-3 font-semibold text-[var(--sun,#ffcc33)] hover:bg-[var(--sun,#ffcc33)]/20 transition"
           >
-            Let&apos;s Talk <ArrowUpRight className="h-4 w-4" />
+            Let's Talk <ArrowUpRight className="h-4 w-4" />
           </a>
         </div>
       </section>
