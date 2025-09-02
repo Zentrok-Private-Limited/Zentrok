@@ -398,109 +398,125 @@ export default function OurWorkPage() {
       </section>
 
       {/* Modal */}
-      <AnimatePresence>
-        {active && (
-          <motion.div
-            key="overlay"
-            className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setActive(null)}
-          >
-            <motion.div
-              key="dialog"
-              initial={{ y: 24, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: 24, opacity: 0 }}
-              transition={{ type: "spring", stiffness: 140, damping: 18 }}
-              className="mx-auto mt-10 w-[94vw] max-w-4xl rounded-2xl border border-[var(--grid-line,rgba(0,0,0,0.03))] bg-[var(--surface-1000,#ffffff)] p-4 md:p-6"
-              onClick={(e) => e.stopPropagation()}
+{/* Modal */}
+<AnimatePresence>
+  {active && (
+    <motion.div
+      key="overlay"
+      className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm overflow-y-auto"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      onClick={() => setActive(null)}
+    >
+      <div className="min-h-screen flex items-start justify-center p-4 md:p-10">
+        <motion.div
+          key="dialog"
+          initial={{ y: 24, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: 24, opacity: 0 }}
+          transition={{ type: "spring", stiffness: 140, damping: 18 }}
+          className="w-full max-w-4xl rounded-2xl border border-[var(--grid-line,rgba(0,0,0,0.03))] 
+                     bg-[var(--surface-1000,#ffffff)] p-4 md:p-6"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <h3 className="text-2xl font-black">
+                {active.brand} — <span className="text-[var(--foreground,#1e1a0d)]/80">{active.title}</span>
+              </h3>
+              <p className="mt-1 text-sm text-[var(--foreground,#1e1a0d)]/60">{active.summary}</p>
+            </div>
+            <button
+              onClick={() => setActive(null)}
+              className="rounded-xl border border-[var(--grid-line,rgba(0,0,0,0.03))] 
+                         bg-[var(--surface-900,#fff8e6)] p-2 hover:bg-[var(--surface-900,#fff8e6)]/80 transition"
             >
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <h3 className="text-2xl font-black">
-                    {active.brand} — <span className="text-[var(--foreground,#1e1a0d)]/80">{active.title}</span>
-                  </h3>
-                  <p className="mt-1 text-sm text-[var(--foreground,#1e1a0d)]/60">{active.summary}</p>
-                </div>
-                <button
-                  onClick={() => setActive(null)}
-                  className="rounded-xl border border-[var(--grid-line,rgba(0,0,0,0.03))] bg-[var(--surface-900,#fff8e6)] p-2 hover:bg-[var(--surface-900,#fff8e6)]/80 transition"
-                >
-                  <X className="h-5 w-5" />
-                </button>
-              </div>
+              <X className="h-5 w-5" />
+            </button>
+          </div>
 
-              {/* Media */}
-              <div className="mt-4 overflow-hidden rounded-xl border border-[var(--grid-line,rgba(0,0,0,0.03))] bg-white">
-                {active.videoUrl ? (
-                  <video controls className="w-full h-auto" poster={active.cover}>
-                    <source src={active.videoUrl} type="video/mp4" />
-                  </video>
-                ) : (
-                  <img src={active.cover} alt="cover" className="w-full h-auto" />
-                )}
-              </div>
+          {/* Media */}
+          <div className="mt-4 overflow-hidden rounded-xl border border-[var(--grid-line,rgba(0,0,0,0.03))] bg-white">
+            {active.videoUrl ? (
+              <video controls className="w-full h-auto" poster={active.cover}>
+                <source src={active.videoUrl} type="video/mp4" />
+              </video>
+            ) : (
+              <img src={active.cover} alt="cover" className="w-full h-auto" />
+            )}
+          </div>
 
-              {/* Details row */}
-              <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="rounded-xl border border-[var(--grid-line,rgba(0,0,0,0.03))] bg-[var(--surface-900,#fff8e6)] p-4">
-                  <div className="text-xs text-[var(--foreground,#1e1a0d)]/50 uppercase tracking-wider">Sector</div>
-                  <div className="mt-1 font-semibold">{active.sector}</div>
-                </div>
-                <div className="rounded-xl border border-[var(--grid-line,rgba(0,0,0,0.03))] bg-[var(--surface-900,#fff8e6)] p-4">
-                  <div className="text-xs text-[var(--foreground,#1e1a0d)]/50 uppercase tracking-wider">Services</div>
-                  <div className="mt-1 text-sm text-[var(--foreground,#1e1a0d)]/80">{active.services.join(" • ")}</div>
-                </div>
-                <div className="rounded-xl border border-[var(--grid-line,rgba(0,0,0,0.03))] bg-[var(--surface-900,#fff8e6)] p-4">
-                  <div className="text-xs text-[var(--foreground,#1e1a0d)]/50 uppercase tracking-wider">Year</div>
-                  <div className="mt-1 font-semibold">{active.year}</div>
-                </div>
-              </div>
+          {/* Details row */}
+          <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="rounded-xl border border-[var(--grid-line,rgba(0,0,0,0.03))] 
+                            bg-[var(--surface-900,#fff8e6)] p-4">
+              <div className="text-xs text-[var(--foreground,#1e1a0d)]/50 uppercase tracking-wider">Sector</div>
+              <div className="mt-1 font-semibold">{active.sector}</div>
+            </div>
+            <div className="rounded-xl border border-[var(--grid-line,rgba(0,0,0,0.03))] 
+                            bg-[var(--surface-900,#fff8e6)] p-4">
+              <div className="text-xs text-[var(--foreground,#1e1a0d)]/50 uppercase tracking-wider">Services</div>
+              <div className="mt-1 text-sm text-[var(--foreground,#1e1a0d)]/80">{active.services.join(" • ")}</div>
+            </div>
+            <div className="rounded-xl border border-[var(--grid-line,rgba(0,0,0,0.03))] 
+                            bg-[var(--surface-900,#fff8e6)] p-4">
+              <div className="text-xs text-[var(--foreground,#1e1a0d)]/50 uppercase tracking-wider">Year</div>
+              <div className="mt-1 font-semibold">{active.year}</div>
+            </div>
+          </div>
 
-              {/* KPIs */}
-              <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3">
-                {active.kpi.map((k) => (
-                  <div key={k.label} className="rounded-xl border border-[var(--grid-line,rgba(0,0,0,0.03))] bg-white/50 p-3 text-center">
-                    <div className="text-[11px] uppercase tracking-wide text-[var(--foreground,#1e1a0d)]/50">{k.label}</div>
-                    <div className="text-base font-bold">{k.value}</div>
-                  </div>
-                ))}
+          {/* KPIs */}
+          <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3">
+            {active.kpi.map((k) => (
+              <div key={k.label} className="rounded-xl border border-[var(--grid-line,rgba(0,0,0,0.03))] 
+                                           bg-[var(--background)] p-3 text-center">
+                <div className="text-[11px] uppercase tracking-wide text-[var(--foreground,#1e1a0d)]/50">{k.label}</div>
+                <div className="text-base font-bold">{k.value}</div>
               </div>
+            ))}
+          </div>
 
-              {/* Tags */}
-              <div className="mt-4 flex flex-wrap gap-2">
-                {active.tags.map((t) => (
-                  <span key={t} className="rounded-full border border-[var(--grid-line,rgba(0,0,0,0.03))] bg-white/50 px-2.5 py-1 text-[11px] text-[var(--foreground,#1e1a0d)]/70">
-                    #{t}
-                  </span>
-                ))}
-              </div>
+          {/* Tags */}
+          <div className="mt-4 flex flex-wrap gap-2">
+            {active.tags.map((t) => (
+              <span key={t} className="rounded-full border border-[var(--grid-line,rgba(0,0,0,0.03))] 
+                                       bg-[var(--background)]  px-2.5 py-1 text-[11px] text-[var(--foreground,#1e1a0d)]/70">
+                #{t}
+              </span>
+            ))}
+          </div>
 
-              {/* CTAs */}
-              <div className="mt-6 flex flex-wrap gap-3">
-                {active.link && (
-                  <a
-                    href={active.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-xl border border-[var(--grid-line,rgba(0,0,0,0.03))] bg-[var(--surface-900,#fff8e6)] px-4 py-2 text-sm hover:bg-[var(--surface-900,#fff8e6)]/80 transition"
-                  >
-                    <LinkIcon className="h-4 w-4" /> Visit brand site
-                  </a>
-                )}
-                <button
-                  onClick={() => setActive(null)}
-                  className="inline-flex items-center gap-2 rounded-xl border border-[var(--grid-line,rgba(0,0,0,0.03))] bg-[var(--sun,#ffcc33)]/10 px-4 py-2 text-sm text-[var(--sun,#ffcc33)] hover:bg-[var(--sun,#ffcc33)]/20 transition"
-                >
-                  Close
-                </button>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          {/* CTAs */}
+          <div className="mt-6 flex flex-wrap gap-3">
+            {active.link && (
+              <a
+                href={active.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-xl border 
+                           border-[var(--grid-line,rgba(0,0,0,0.03))] bg-[var(--surface-900,#fff8e6)] 
+                           px-4 py-2 text-sm hover:bg-[var(--surface-900,#fff8e6)]/80 transition"
+              >
+                <LinkIcon className="h-4 w-4" /> Visit brand site
+              </a>
+            )}
+            <button
+              onClick={() => setActive(null)}
+              className="inline-flex items-center gap-2 rounded-xl border 
+                         border-[var(--grid-line,rgba(0,0,0,0.03))] bg-[var(--sun,#ffcc33)]/10 
+                         px-4 py-2 text-sm text-[var(--sun,#ffcc33)] 
+                         hover:bg-[var(--sun,#ffcc33)]/20 transition"
+            >
+              Close
+            </button>
+          </div>
+        </motion.div>
+      </div>
+    </motion.div>
+  )}
+</AnimatePresence>
+
 
       {/* Footer CTA */}
       <section className="border-t border-[var(--grid-line,rgba(0,0,0,0.03))]">
