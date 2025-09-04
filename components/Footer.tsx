@@ -78,7 +78,7 @@ const MarketingFooter: React.FC = () => {
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-16 text-center flex flex-col items-center space-y-8">
         {/* Tagline */}
         <h2 className="text-2xl md:text-3xl font-bold max-w-3xl whitespace-nowrap overflow-hidden text-ellipsis">
-          Your <span style={{ color: "var(--sun)" }}>Digital Marketing Journey</span> Starts Here
+          🚀 Your <span style={{ color: "var(--sun)" }}>Digital Marketing Journey</span> Starts Here
         </h2>
 
         <p className="max-w-md opacity-80 text-sm md:text-base">

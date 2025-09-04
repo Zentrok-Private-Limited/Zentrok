@@ -88,7 +88,7 @@ const PROJECTS: Project[] = [
       "SEO + Shorts engine: trend hooks, rapid edits, and cross-posting to drive incremental discovery.",
     tags: ["shorts", "seo", "trend-hacking"],
     link: "#",
-    videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
+    videoUrl: "/video2.mp4",
   },
   {
     id: "p4",
