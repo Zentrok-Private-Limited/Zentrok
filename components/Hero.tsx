@@ -157,7 +157,7 @@ export default function Hero() {
         {/* View Our Work CTA */}
         <MotionLink
           href="/work"
-          whileHover={{ scale: 1.05 }}
+          whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.96 }}
           className="
             relative overflow-hidden flex items-center 
