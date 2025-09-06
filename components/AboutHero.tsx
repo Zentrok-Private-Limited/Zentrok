@@ -8,7 +8,7 @@ export default function AboutHero() {
   return (
     <section className="relative overflow-hidden min-h-screen text-[var(--foreground)] bg-transparent">
       <div
-        className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-[calc(4rem+var(--navbar-height,60px))] pb-8 sm:pb-12 lg:pb-16 relative z-10"
+        className="max-w-6xl mx-auto px-3 sm:px-6 lg:px-8 pt-[calc(4rem+var(--navbar-height,60px))] pb-8 sm:pb-12 lg:pb-16 relative z-10"
         style={{ "--navbar-height": "20px" } as React.CSSProperties}
       >
         <motion.div
