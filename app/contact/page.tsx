@@ -250,7 +250,7 @@ export default function ContactPage() {
               <Phone className="text-[var(--sun)] w-6 h-6" />
               <div>
                 <h3 className="font-semibold">Phone</h3>
-                <p className="opacity-80">+91 88263-60287</p>
+                <p className="opacity-80">+91 93116 77687</p>
               </div>
             </div>
 

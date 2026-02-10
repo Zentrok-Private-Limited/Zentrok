@@ -34,7 +34,7 @@ const UpperNavbar: React.FC = () => {
             className="flex items-center hover:text-[var(--sun)] transition-colors"
           >
             <FaPhone className="mr-2 text-blue-500" />
-            <span>+91 92118 70764</span>
+            <span>+91 93116 77687</span>
           </a>
           <a
             href="mailto:support@zentrok.com"
