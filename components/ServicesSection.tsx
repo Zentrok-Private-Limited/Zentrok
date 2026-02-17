@@ -3,13 +3,15 @@
 import React, { useEffect, useState } from "react";
 import {
   BarChart3,
+  LaptopMinimal,
   Share2,
   Target,
   PenTool,
   Search,
-  Globe,
+  Users,
   Megaphone,
   TrendingUp,
+  HandCoins,
   LucideIcon,
 } from "lucide-react";
 import { motion, Variants } from "framer-motion";
@@ -44,24 +46,24 @@ const services: Service[] = [
     icon: PenTool,
   },
   {
-    title: "Brand Strategy",
-    description: "Build a memorable identity that customers trust.",
-    icon: Globe,
-  },
-  {
     title: "Influencer Marketing",
     description: "Leverage voices that amplify your brand impact.",
     icon: Megaphone,
   },
   {
-    title: "Analytics & Insights",
-    description: "Data-driven reports to track and boost performance.",
-    icon: BarChart3,
+    title: "Astrology",
+    description: "Personalized astrology readings and spiritual guidance through Astro, Taro, and Numerology.",
+    icon: HandCoins,
   },
   {
-    title: "Growth Hacking",
-    description: "Smart strategies to accelerate brand success fast.",
-    icon: TrendingUp,
+    title: "Staffing",
+    description: "Reliable staffing solutions to connect businesses with skilled professionals.",
+    icon: Users,
+  },
+  {
+    title: "Remote Technical Support",
+    description: "Fast and efficient remote technical support to resolve IT issues.",
+    icon: LaptopMinimal,
   },
 ];
 
