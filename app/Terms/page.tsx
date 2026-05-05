@@ -24,7 +24,7 @@ export default function TermsConditions() {
         <div className="space-y-8">
           
           <Section title="1. Introduction">
-            These Terms & Conditions ("Agreement") govern your use of services provided by <strong>Zentrok Pvt. Ltd.</strong>.
+            These Terms & Conditions Agreement govern your use of services provided by <strong>Zentrok Pvt. Ltd.</strong>.
             <br /><br />
             By accessing our website or using our services, you agree to comply with and be bound by these Terms.
           </Section>
