@@ -98,7 +98,12 @@ export default function Disclaimer() {
 }
 
 /* Section Component */
-function Section({ title, children }: any) {
+type SectionProps = {
+  title: string;
+  children: React.ReactNode;
+};
+
+function Section({ title, children }: SectionProps) {
   return (
     <div className="group relative p-6 md:p-8 rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-xl hover:bg-white/[0.07] transition-all duration-300 shadow-lg hover:shadow-yellow-500/10">
       
