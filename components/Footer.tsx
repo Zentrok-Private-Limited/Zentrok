@@ -24,6 +24,14 @@ const MarketingFooter: React.FC = () => {
     { label: "Contact", href: "/contact" },
   ];
 
+   const legalLinks = [
+    { label: "", href: "/" },
+    { label: "Privacy Policy", href: "/PrivacyPolicy" },
+    { label: "Terms & Conditions", href: "/Terms" },
+    { label: "Refund Policy", href: "/RefundPolicy" },
+    { label: "Disclaimer", href: "/Disclaimer" },
+  ];
+
   const socials = [
     { Icon: FaFacebookF, href: "https://www.facebook.com/profile.php?id=61579906194112", color: "#1877F2" },
     { Icon: FaXTwitter, href: "https://x.com/Zentrok_05", color: "#ffffff" },
@@ -106,6 +114,21 @@ const MarketingFooter: React.FC = () => {
         {/* Navigation */}
         <div className="flex flex-wrap justify-center gap-6 text-sm uppercase tracking-wide">
           {navLinks.map((link, i) => (
+            <a
+              key={i}
+              href={link.href}
+              className="transition-colors"
+              style={{ color: "var(--foreground)" }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--sun)")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--foreground)")}
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+
+        <div className="flex flex-wrap justify-center gap-6 text-sm uppercase tracking-wide">
+          {legalLinks.map((link, i) => (
             <a
               key={i}
               href={link.href}
